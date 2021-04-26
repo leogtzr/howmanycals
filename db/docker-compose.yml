@@ -1,0 +1,16 @@
+version: "3"
+services:
+  howmanycals:
+    container_name: howmanycals
+    image: postgres:latest # use latest official postgres version
+    environment:
+      - POSTGRES_PASSWORD=${HOWMANYCALS_DB_PASSWORD}
+      - POSTGRES_USER=${HOWMANYCALS_DB_USER}
+      - POSTGRES_DB=${HOWMANYCALS_DB}
+      - PGPASSWORD=${HOWMANYCALS_DB_PASSWORD}
+
+    volumes:
+      - database-data:/var/lib/postgresql/data/ # persist data even if container shuts down
+
+volumes:
+  database-data: # named volumes can be managed easier using docker-compose
