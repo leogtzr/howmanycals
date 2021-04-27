@@ -10,8 +10,7 @@ services:
       - PGPASSWORD=${HOWMANYCALS_DB_PASSWORD}
 
     volumes:
-      - database-data:/var/lib/postgresql/data/ # persist data even if container shuts down
-      - ./postgres-data:/var/lib/postgresql/data
+      - ./database-data:/var/lib/postgresql/data/ # persist data even if container shuts down
       - ./sql/db.sql:/docker-entrypoint-initdb.d/db.sql
 
 volumes:
