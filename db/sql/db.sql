@@ -1,11 +1,20 @@
+CREATE EXTENSION pgcrypto;
+
+CREATE SEQUENCE IF NOT EXISTS product_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
 -- Creation of product table
 CREATE TABLE IF NOT EXISTS product (
-  product_id INT NOT NULL,
+  id INT NOT NULL DEFAULT nextval('product_id_seq'::regclass),
   name varchar(250) NOT NULL,
-  PRIMARY KEY (product_id)
+  PRIMARY KEY (id)
 );
 
-insert into product (product_id, name) values(1, 'beer');
+insert into product (id, name) values(1, 'beer');
 
 -- Creation of order_status table
 -- CREATE TABLE IF NOT EXISTS order_status (
