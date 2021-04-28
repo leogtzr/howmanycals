@@ -14,7 +14,7 @@ remove_db() {
     docker-compose --file "${docker_compose_file}" kill
 
     sudo rm --recursive --force "${work_dir}/database-data"
-    # docker system prune --all --force
+    docker system prune --all --force
 }
 
 ask() {

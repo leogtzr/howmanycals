@@ -4,13 +4,17 @@ import java.util.List;
 
 public class Meal {
     
+    private Integer id;
     private String name;
     private List<NutritionalIngredient> ingredients;
     private String notes;
 
-    public Meal(final String name, final List<NutritionalIngredient> ingredients) {
-        this.name = name;
-        this.ingredients = ingredients;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(final Integer id) {
+        this.id = id;
     }
 
     public String getName() {

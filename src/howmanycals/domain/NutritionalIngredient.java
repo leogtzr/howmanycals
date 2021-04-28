@@ -2,6 +2,7 @@ package howmanycals.domain;
 
 public class NutritionalIngredient {
     
+    private Integer id;
     private String name;
     private int grams;
     private double calories = -1d;
@@ -11,6 +12,7 @@ public class NutritionalIngredient {
     private double protein = -1d;
     private double cholesterol = -1d;
     private double sodium = -1d;
+    private String category;
 
     public String getName() {
         return name;
@@ -82,6 +84,14 @@ public class NutritionalIngredient {
 
     public void setSugar(final double sugar) {
         this.sugar = sugar;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(final String category) {
+        this.category = category;
     }
     
 }
