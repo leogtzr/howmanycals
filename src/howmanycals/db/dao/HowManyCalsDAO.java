@@ -57,11 +57,11 @@ public class HowManyCalsDAO {
     
     public List<String> categories() throws SQLException {
         final List<String> categories = new ArrayList<>();
-        final String query = "SELECT DISTINCT(category) FROM nutrition_ingredient";
+        final String query = "SELECT DISTINCT(name) FROM category";
 
         try (final ResultSet rs = connection.createStatement().executeQuery(query)) {
             while (rs.next()) {
-                final String category = rs.getString("category");
+                final String category = rs.getString("name");
                 categories.add(category);
             }
         }
