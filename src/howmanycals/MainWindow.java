@@ -4,9 +4,12 @@ import howmanycals.db.dao.HowManyCalsDAO;
 import javax.swing.JFrame;
 
 public class MainWindow extends JFrame {
+    
+    private HowManyCalsDAO dao;
 
     private void initDatabase() {
-        new HowManyCalsDAO().init();
+        this.dao = new HowManyCalsDAO();
+        this.dao.init();
     }
 
     public MainWindow() {

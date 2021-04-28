@@ -93,5 +93,13 @@ public class NutritionalIngredient {
     public void setCategory(final String category) {
         this.category = category;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(final Integer id) {
+        this.id = id;
+    }
     
 }
