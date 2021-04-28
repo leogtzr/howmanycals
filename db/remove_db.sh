@@ -14,7 +14,7 @@ remove_db() {
     docker-compose --file "${docker_compose_file}" kill
 
     sudo rm --recursive --force "${work_dir}/database-data"
-    docker system prune --all --force
+    # docker system prune --all --force
 }
 
 ask() {
@@ -36,11 +36,13 @@ if [[ ! -f "${docker_compose_file}" ]]; then
     exit ${error_docker_file_not_found}
 fi
 
-if ask "Are you sure you want to remove the database?"; then
-    if ask "Are you serious?"; then
-        echo "OK, fine ... "
-        remove_db #()
-    fi
-fi
+remove_db #()
+
+# if ask "Are you sure you want to remove the database?"; then
+#     if ask "Are you serious?"; then
+#         echo "OK, fine ... "
+#         remove_db #()
+#     fi
+# fi
 
 exit 0
