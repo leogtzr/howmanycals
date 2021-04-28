@@ -5,6 +5,8 @@ CREATE TABLE IF NOT EXISTS product (
   PRIMARY KEY (product_id)
 );
 
+insert into product (product_id, name) values(1, 'beer');
+
 -- Creation of order_status table
 -- CREATE TABLE IF NOT EXISTS order_status (
 --   order_status_id varchar(200) NOT NULL,

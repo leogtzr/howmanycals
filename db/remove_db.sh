@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# note: this script is only for my personal usage.
+# do not use it in production...
+
 work_dir=$(dirname "$(readlink --canonicalize-existing "${0}" 2> /dev/null)")
 readonly docker_compose_file="${work_dir}/docker-compose.yml"
 readonly error_docker_file_not_found=80
@@ -9,6 +12,8 @@ remove_db() {
     docker-compose --file "${docker_compose_file}" down
     docker-compose --file "${docker_compose_file}" stop
     docker-compose --file "${docker_compose_file}" kill
+
+    sudo rm --recursive --force "${work_dir}/database-data"
 }
 
 ask() {
