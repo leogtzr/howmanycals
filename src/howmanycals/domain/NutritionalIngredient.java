@@ -12,7 +12,98 @@ public class NutritionalIngredient {
     private double protein = -1d;
     private double cholesterol = -1d;
     private double sodium = -1d;
-    private String category;
+    private String category = "";
+    
+    public NutritionalIngredient() {}
+    
+    private NutritionalIngredient(final FormBuilder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+        this.grams = builder.grams;
+        this.calories = builder.calories;
+        this.fat = builder.fat;
+        this.sugar = builder.sugar;
+        this.carbohydrates = builder.carbohydrates;
+        this.protein = builder.protein;
+        this.cholesterol = builder.cholesterol;
+        this.sodium = builder.sodium;
+        this.category = builder.category;
+    }
+    
+    public static class FormBuilder {
+        private Integer id;
+        private final String name;
+        private Integer grams;
+        private double calories = -1d;
+        private double fat = -1d;
+        private double sugar = -1d;
+        private double carbohydrates = -1d;
+        private double protein = -1d;
+        private double cholesterol = -1d;
+        private double sodium = -1d;
+        private String category = "";
+
+        public FormBuilder(final String name, final String grams) {
+            if (name == null || name.isBlank()) {
+                throw new NumberFormatException("Please enter a name");
+            }
+            this.name = name;
+            this.grams = Integer.parseInt(grams);
+        }
+        
+        public FormBuilder id(final String id) {
+            this.id = Integer.parseInt(id);
+            return this;
+        }
+        
+        public FormBuilder calories(final String calories) {
+            this.calories = Double.parseDouble(calories);
+            return this;
+        }
+        
+        public FormBuilder fat(final String fat) {
+            this.fat = Double.parseDouble(fat);
+            return this;
+        }
+        
+        public FormBuilder sugar(final String sugar) {
+            this.sugar = Double.parseDouble(sugar);
+            return this;
+        }
+        
+        public FormBuilder carbohydrates(final String carbohydrates) {
+            this.carbohydrates = Double.parseDouble(carbohydrates);
+            return this;
+        }
+        
+        public FormBuilder protein(final String protein) {
+            this.protein = Double.parseDouble(protein);
+            return this;
+        }
+        
+        public FormBuilder cholesterol(final String cholesterol) {
+            this.cholesterol = Double.parseDouble(cholesterol);
+            return this;
+        }
+        
+        public FormBuilder sodium(final String sodium) {
+            this.sodium = Double.parseDouble(sodium);
+            return this;
+        }
+        
+        public FormBuilder category(final String category) {
+            if (category == null || category.isBlank()) {
+                throw new NumberFormatException("Please enter a valid category");
+            }
+            this.category = category;
+            return this;
+        }
+        
+        public NutritionalIngredient build() {
+            return new NutritionalIngredient(this);
+        }
+        
+    }
 
     public String getName() {
         return name;

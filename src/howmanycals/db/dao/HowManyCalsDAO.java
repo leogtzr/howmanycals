@@ -86,4 +86,8 @@ public class HowManyCalsDAO {
         return ingredient;
     }
     
+    public Optional<NutritionalIngredient> createNutritionIngredient(final NutritionalIngredient ingredient) throws SQLException {
+        throw new SQLException("alv...");
+    }
+    
 }
