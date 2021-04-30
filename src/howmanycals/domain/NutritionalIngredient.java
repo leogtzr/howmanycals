@@ -62,32 +62,56 @@ public class NutritionalIngredient {
         }
         
         public FormBuilder fat(final String fat) {
-            this.fat = Double.parseDouble(fat);
+            if (fat == null || fat.isBlank()) {
+                this.fat = -1d;
+            } else {
+                this.fat = Double.parseDouble(fat);
+            }
             return this;
         }
         
         public FormBuilder sugar(final String sugar) {
-            this.sugar = Double.parseDouble(sugar);
+            if (sugar == null || sugar.isBlank()) {
+                this.sugar = -1d;
+            } else {
+                this.sugar = Double.parseDouble(sugar);
+            }
             return this;
         }
         
         public FormBuilder carbohydrates(final String carbohydrates) {
-            this.carbohydrates = Double.parseDouble(carbohydrates);
+            if (carbohydrates == null || carbohydrates.isBlank()) {
+                this.carbohydrates = -1d;
+            } else {
+                this.carbohydrates = Double.parseDouble(carbohydrates);
+            }
             return this;
         }
         
         public FormBuilder protein(final String protein) {
-            this.protein = Double.parseDouble(protein);
+            if (protein == null || protein.isBlank()) {
+                this.protein = -1d;
+            } else {
+                this.protein = Double.parseDouble(protein);
+            }
             return this;
         }
         
         public FormBuilder cholesterol(final String cholesterol) {
-            this.cholesterol = Double.parseDouble(cholesterol);
+            if (cholesterol == null || cholesterol.isBlank()) {
+                this.cholesterol = -1d;
+            } else {
+                this.cholesterol = Double.parseDouble(cholesterol);
+            }
             return this;
         }
         
         public FormBuilder sodium(final String sodium) {
-            this.sodium = Double.parseDouble(sodium);
+            if (sodium == null || sodium.isBlank()) {
+                this.sodium = -1d;
+            } else {
+                this.sodium = Double.parseDouble(sodium);
+            }
             return this;
         }
         

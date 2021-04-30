@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
+
 public class HowManyCalsDAO {
     
     private Connection connection;
@@ -76,6 +78,7 @@ public class HowManyCalsDAO {
     private NutritionalIngredient extractIngredient(final ResultSet rs) throws SQLException {
         final NutritionalIngredient ingredient = new NutritionalIngredient();
         
+        ingredient.setName(rs.getString("name"));
         ingredient.setId(rs.getInt("id"));
         ingredient.setGrams(rs.getInt("grams"));
         ingredient.setCalories(rs.getFloat("calories"));
@@ -91,7 +94,36 @@ public class HowManyCalsDAO {
     }
     
     public Optional<NutritionalIngredient> createNutritionIngredient(final NutritionalIngredient ingredient) throws SQLException {
-        throw new SQLException("alv...");
+        final String query = "INSERT INTO nutrition_ingredient" +
+                "(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, category) " + 
+                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        try (final PreparedStatement stmt = this.connection.prepareStatement(query, RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, ingredient.getName());
+            stmt.setInt(2, ingredient.getGrams());
+            stmt.setDouble(3, ingredient.getCalories());
+            stmt.setDouble(4, ingredient.getFat());
+            stmt.setDouble(5, ingredient.getSugar());
+            stmt.setDouble(6, ingredient.getCarbohydrates());
+            stmt.setDouble(7, ingredient.getProtein());
+            stmt.setDouble(8, ingredient.getCholesterol());
+            stmt.setDouble(9, ingredient.getSodium());
+            stmt.setString(10, ingredient.getCategory());
+            
+            final int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Data insert failed, no rows affected.");
+            }
+
+            try (final ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    return Optional.of(extractIngredient(rs));
+                } else {
+                    throw new SQLException("Data insert failed, no ID obtained.");
+                }
+            }
+        }        
     }
     
 }
