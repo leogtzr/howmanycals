@@ -1,5 +1,7 @@
 package howmanycals.domain;
 
+import static java.lang.Double.parseDouble;
+
 public class NutritionalIngredient {
     
     private Integer id;
@@ -57,61 +59,37 @@ public class NutritionalIngredient {
         }
         
         public FormBuilder calories(final String calories) {
-            this.calories = Double.parseDouble(calories);
+            this.calories = parseDouble(calories);
             return this;
         }
         
         public FormBuilder fat(final String fat) {
-            if (fat == null || fat.isBlank()) {
-                this.fat = -1d;
-            } else {
-                this.fat = Double.parseDouble(fat);
-            }
+            this.fat = (fat == null || fat.isBlank()) ? -1d : parseDouble(fat);
             return this;
         }
         
         public FormBuilder sugar(final String sugar) {
-            if (sugar == null || sugar.isBlank()) {
-                this.sugar = -1d;
-            } else {
-                this.sugar = Double.parseDouble(sugar);
-            }
+            this.sugar = (sugar == null || sugar.isBlank()) ? -1d : parseDouble(sugar);
             return this;
         }
         
         public FormBuilder carbohydrates(final String carbohydrates) {
-            if (carbohydrates == null || carbohydrates.isBlank()) {
-                this.carbohydrates = -1d;
-            } else {
-                this.carbohydrates = Double.parseDouble(carbohydrates);
-            }
+            this.carbohydrates = (carbohydrates == null || carbohydrates.isBlank()) ? -1d : parseDouble(carbohydrates);
             return this;
         }
         
         public FormBuilder protein(final String protein) {
-            if (protein == null || protein.isBlank()) {
-                this.protein = -1d;
-            } else {
-                this.protein = Double.parseDouble(protein);
-            }
+            this.protein = (protein == null || protein.isBlank()) ? -1d : parseDouble(protein);
             return this;
         }
         
         public FormBuilder cholesterol(final String cholesterol) {
-            if (cholesterol == null || cholesterol.isBlank()) {
-                this.cholesterol = -1d;
-            } else {
-                this.cholesterol = Double.parseDouble(cholesterol);
-            }
+            this.cholesterol = (cholesterol == null || cholesterol.isBlank()) ? -1d : parseDouble(cholesterol);
             return this;
         }
         
         public FormBuilder sodium(final String sodium) {
-            if (sodium == null || sodium.isBlank()) {
-                this.sodium = -1d;
-            } else {
-                this.sodium = Double.parseDouble(sodium);
-            }
+            this.sodium = (sodium == null || sodium.isBlank()) ? -1d : parseDouble(sodium);
             return this;
         }
         
