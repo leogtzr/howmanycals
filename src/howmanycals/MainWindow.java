@@ -273,9 +273,9 @@ public class MainWindow extends JFrame {
         final String cholesterol = this.newIngredientCholesterolField.getText();
         final String sodium = this.newIngredientSodiumField.getText();
         
-        final NutritionalIngredient.FormBuilder builder = new NutritionalIngredient.FormBuilder(name, grams);
-        
-        try {            
+        try {
+            final NutritionalIngredient.FormBuilder builder = new NutritionalIngredient.FormBuilder(name, grams);
+            
             final NutritionalIngredient newIngredient =
                 builder
                     .calories(calories)
@@ -290,7 +290,8 @@ public class MainWindow extends JFrame {
             
             this.dao.createNutritionIngredient(newIngredient);
         } catch (NumberFormatException | SQLException ex) {
-            ex.printStackTrace();
+            System.out.println("Hmmmmmmmm");
+            // ex.printStackTrace();
             this.showError("Error creating ingredient", ex);
         }
     }//GEN-LAST:event_addNewIngredientButtonActionPerformed
