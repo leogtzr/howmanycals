@@ -1,6 +1,7 @@
 package howmanycals.db.dao;
 
 import howmanycals.db.DBConnection;
+import howmanycals.domain.Category;
 import howmanycals.domain.NutritionalIngredient;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -55,18 +56,21 @@ public class HowManyCalsDAO {
         return Optional.empty();
     }
     
-    public List<String> categories() throws SQLException {
-        final List<String> categories = new ArrayList<>();
-        final String query = "SELECT DISTINCT(name) FROM category";
+    public List<Category> categories() throws SQLException {
+        final List<Category> categories = new ArrayList<>();
+        final String query = "SELECT DISTINCT(name), id FROM category ORDER BY name";
 
         try (final ResultSet rs = connection.createStatement().executeQuery(query)) {
             while (rs.next()) {
-                final String category = rs.getString("name");
-                categories.add(category);
+                categories.add(extractCategory(rs));
             }
         }
         
         return categories;
+    }
+    
+    private Category extractCategory(final ResultSet rs) throws SQLException {
+        return new Category(rs.getInt("id"), rs.getString("name"));
     }
     
     private NutritionalIngredient extractIngredient(final ResultSet rs) throws SQLException {

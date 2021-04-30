@@ -52,9 +52,9 @@ CREATE TABLE IF NOT EXISTS category (
 
 ---- Some ingredients:
 insert into nutrition_ingredient (name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, category) 
-  values('Ejote', 75.0, -1, -1, -1, -1, -1, -1, -1, 'verdura');
+  values('Ejote', 75.0, -1, -1, -1, -1, -1, -1, -1, 'Verdura');
 
 -- Some categories
-insert into category (name) values('fruta');
-insert into category (name) values('carne');
-insert into category (name) values('verdura');
+insert into category (name) values('Fruta');
+insert into category (name) values('Carne');
+insert into category (name) values('Verdura');

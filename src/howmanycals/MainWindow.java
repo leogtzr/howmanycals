@@ -1,10 +1,13 @@
 package howmanycals;
 
 import howmanycals.db.dao.HowManyCalsDAO;
+import howmanycals.domain.Category;
 import howmanycals.domain.NutritionalIngredient;
 import javax.swing.JFrame;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+
+import java.util.List;
 
 public class MainWindow extends JFrame {
     
@@ -84,6 +87,12 @@ public class MainWindow extends JFrame {
         newIngredientSodiumLabel.setText("Sodium:");
 
         newIngredientCategoryLabel.setText("Category:");
+
+        newIngredientCategoryList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newIngredientCategoryListActionPerformed(evt);
+            }
+        });
 
         addNewIngredientButton.setMnemonic('A');
         addNewIngredientButton.setText("Add");
@@ -312,10 +321,16 @@ public class MainWindow extends JFrame {
         this.newIngredientSodiumField.setText("");
     }//GEN-LAST:event_clearNewIngredientButtonActionPerformed
 
+    private void newIngredientCategoryListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newIngredientCategoryListActionPerformed
+        final var str = this.newIngredientCategoryList.getSelectedItem().toString();
+        System.out.println("Changed to: " + str);
+    }//GEN-LAST:event_newIngredientCategoryListActionPerformed
+
     private void fillUpCategories() {
         try {
-            final var categories = this.dao.categories();
-            categories.forEach(this.newIngredientCategoryList::addItem);
+            final List<Category> categories = this.dao.categories();
+            // categories.forEach(this.newIngredientCategoryList::addItem);
+            categories.forEach(category -> this.newIngredientCategoryList.addItem(category.getName()));
         } catch (final SQLException ex) {
             ex.printStackTrace();
         }
