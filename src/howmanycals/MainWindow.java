@@ -58,11 +58,19 @@ public class MainWindow extends JFrame {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
+        viewIngredientDialog = new javax.swing.JDialog();
+        okViewIngredientButton = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        viewTable = new javax.swing.JTable();
+        searchViewIngredientLabel = new javax.swing.JLabel();
+        searchViewIngredientTextField = new javax.swing.JTextField();
         menuBar = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
         ingredientsMenuItem = new javax.swing.JMenu();
         addIngredientMenuItem = new javax.swing.JMenuItem();
+        viewIngredientMenuItem = new javax.swing.JMenuItem();
 
         addNewIngredientDialog.setTitle("Add Ingredient");
         addNewIngredientDialog.setMinimumSize(new java.awt.Dimension(430, 485));
@@ -246,6 +254,118 @@ public class MainWindow extends JFrame {
         });
         jScrollPane1.setViewportView(jList1);
 
+        viewIngredientDialog.setTitle("Ingredients");
+        viewIngredientDialog.setMaximumSize(new java.awt.Dimension(900, 750));
+        viewIngredientDialog.setMinimumSize(new java.awt.Dimension(900, 750));
+        viewIngredientDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        viewIngredientDialog.setResizable(false);
+        viewIngredientDialog.setSize(new java.awt.Dimension(900, 750));
+
+        okViewIngredientButton.setMnemonic('O');
+        okViewIngredientButton.setText("OK");
+        okViewIngredientButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okViewIngredientButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Noto Sans", 1, 15)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(14, 35, 237));
+        jLabel5.setText("Current Ingredients");
+
+        viewTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        viewTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Name", "Grams", "Calories", "Fat", "Sugar", "Carbohydrates", "Protein", "Cholesterol", "Sodium", "Category"
+            }
+        ));
+        viewTable.setColumnSelectionAllowed(true);
+        viewTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(viewTable);
+        viewTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+
+        searchViewIngredientLabel.setDisplayedMnemonic('S');
+        searchViewIngredientLabel.setLabelFor(searchViewIngredientTextField);
+        searchViewIngredientLabel.setText("Search:");
+
+        searchViewIngredientTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchViewIngredientTextFieldActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout viewIngredientDialogLayout = new javax.swing.GroupLayout(viewIngredientDialog.getContentPane());
+        viewIngredientDialog.getContentPane().setLayout(viewIngredientDialogLayout);
+        viewIngredientDialogLayout.setHorizontalGroup(
+            viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewIngredientDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 876, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewIngredientDialogLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(okViewIngredientButton, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(viewIngredientDialogLayout.createSequentialGroup()
+                        .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addGroup(viewIngredientDialogLayout.createSequentialGroup()
+                                .addComponent(searchViewIngredientLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(searchViewIngredientTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        viewIngredientDialogLayout.setVerticalGroup(
+            viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewIngredientDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchViewIngredientLabel)
+                    .addComponent(searchViewIngredientTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
+                .addComponent(okViewIngredientButton)
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HowManyCals v0.1");
         setMaximumSize(new java.awt.Dimension(900, 625));
@@ -276,6 +396,16 @@ public class MainWindow extends JFrame {
             }
         });
         ingredientsMenuItem.add(addIngredientMenuItem);
+
+        viewIngredientMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        viewIngredientMenuItem.setMnemonic('V');
+        viewIngredientMenuItem.setText("View Ingredients");
+        viewIngredientMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewIngredientMenuItemActionPerformed(evt);
+            }
+        });
+        ingredientsMenuItem.add(viewIngredientMenuItem);
 
         menuBar.add(ingredientsMenuItem);
 
@@ -381,6 +511,18 @@ public class MainWindow extends JFrame {
         
     }//GEN-LAST:event_newIngredientCategoryListActionPerformed
 
+    private void viewIngredientMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewIngredientMenuItemActionPerformed
+        this.viewIngredientDialog.setVisible(true);
+    }//GEN-LAST:event_viewIngredientMenuItemActionPerformed
+
+    private void okViewIngredientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okViewIngredientButtonActionPerformed
+        this.viewIngredientDialog.setVisible(false);
+    }//GEN-LAST:event_okViewIngredientButtonActionPerformed
+
+    private void searchViewIngredientTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchViewIngredientTextFieldActionPerformed
+        System.out.println("Enter?...");
+    }//GEN-LAST:event_searchViewIngredientTextFieldActionPerformed
+
     private void fillUpCategories() {
         try {
             this.categories = this.dao.categories();
@@ -425,8 +567,10 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JTextField newIngredientCaloriesField;
     private javax.swing.JLabel newIngredientCaloriesLabel;
@@ -448,5 +592,11 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel newIngredientSodiumLabel;
     private javax.swing.JTextField newIngredientSugarField;
     private javax.swing.JLabel newIngredientSugarLabel;
+    private javax.swing.JButton okViewIngredientButton;
+    private javax.swing.JLabel searchViewIngredientLabel;
+    private javax.swing.JTextField searchViewIngredientTextField;
+    private javax.swing.JDialog viewIngredientDialog;
+    private javax.swing.JMenuItem viewIngredientMenuItem;
+    private javax.swing.JTable viewTable;
     // End of variables declaration//GEN-END:variables
 }
