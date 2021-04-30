@@ -4,7 +4,6 @@ import howmanycals.db.dao.HowManyCalsDAO;
 import howmanycals.domain.NutritionalIngredient;
 import javax.swing.JFrame;
 import java.sql.SQLException;
-import java.util.function.Consumer;
 import javax.swing.JOptionPane;
 
 public class MainWindow extends JFrame {
@@ -259,6 +258,7 @@ public class MainWindow extends JFrame {
     }//GEN-LAST:event_addIngredientMenuItemActionPerformed
 
     private void addNewIngredientDialogWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_addNewIngredientDialogWindowOpened
+        // TODO: finish this ... 
         fillUpCategories();
     }//GEN-LAST:event_addNewIngredientDialogWindowOpened
 
@@ -277,17 +277,16 @@ public class MainWindow extends JFrame {
         
         try {            
             final NutritionalIngredient newIngredient =
-            
-            builder
-                .calories(calories)
-                .fat(fat)
-                .sugar(sugar)
-                .carbohydrates(carbs)
-                .protein(protein)
-                .cholesterol(cholesterol)
-                .sodium(sodium)
-                .build()
-                ;
+                builder
+                    .calories(calories)
+                    .fat(fat)
+                    .sugar(sugar)
+                    .carbohydrates(carbs)
+                    .protein(protein)
+                    .cholesterol(cholesterol)
+                    .sodium(sodium)
+                    .build()
+                    ;
             
             this.dao.createNutritionIngredient(newIngredient);
         } catch (NumberFormatException | SQLException ex) {
