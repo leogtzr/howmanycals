@@ -1,16 +1,16 @@
 package howmanycals;
 
+import static howmanycals.utils.FormatUtils.formatDoubleValueForTableVisualisation;
+
 import howmanycals.db.dao.HowManyCalsDAO;
 import howmanycals.domain.Category;
 import howmanycals.domain.NutritionalIngredient;
 import javax.swing.JFrame;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 public class MainWindow extends JFrame {
@@ -70,6 +70,9 @@ public class MainWindow extends JFrame {
         viewIngredientTable = new javax.swing.JTable();
         searchViewIngredientLabel = new javax.swing.JLabel();
         searchViewIngredientTextField = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
@@ -337,6 +340,21 @@ public class MainWindow extends JFrame {
             }
         });
 
+        jLabel7.setText("Summary:");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 946, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 125, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("tab1", jPanel1);
+
         javax.swing.GroupLayout viewIngredientDialogLayout = new javax.swing.GroupLayout(viewIngredientDialog.getContentPane());
         viewIngredientDialog.getContentPane().setLayout(viewIngredientDialogLayout);
         viewIngredientDialogLayout.setHorizontalGroup(
@@ -344,7 +362,7 @@ public class MainWindow extends JFrame {
             .addGroup(viewIngredientDialogLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1176, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewIngredientDialogLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(okViewIngredientButton, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -354,8 +372,12 @@ public class MainWindow extends JFrame {
                             .addGroup(viewIngredientDialogLayout.createSequentialGroup()
                                 .addComponent(searchViewIngredientLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(searchViewIngredientTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(searchViewIngredientTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel7))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(viewIngredientDialogLayout.createSequentialGroup()
+                        .addComponent(jTabbedPane1)
+                        .addGap(210, 210, 210)))
                 .addContainerGap())
         );
         viewIngredientDialogLayout.setVerticalGroup(
@@ -369,7 +391,11 @@ public class MainWindow extends JFrame {
                     .addComponent(searchViewIngredientTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(okViewIngredientButton)
                 .addContainerGap())
         );
@@ -540,10 +566,7 @@ public class MainWindow extends JFrame {
         
         try {
             final List<NutritionalIngredient> ingredients = this.dao.ingredients();
-            ingredients.forEach(ingredient -> {
-                final Object[] sanitizedRowData = sanitizeIngredientRowDataForTable(ingredient);
-                viewIngredientTableModel.addRow(sanitizedRowData);
-            });
+            ingredients.forEach(ingredient -> viewIngredientTableModel.addRow(sanitizeIngredientRowDataForTable(ingredient)));
         } catch (final SQLException ex) {
             this.showError("Error with the database", ex);
         }
@@ -554,13 +577,13 @@ public class MainWindow extends JFrame {
               ingredient.getId()
             , ingredient.getName()
             , ingredient.getGrams()
-            , ingredient.getCalories() == -1d ? "" : ingredient.getCalories()
-            , ingredient.getFat() == -1d ? "" : ingredient.getFat()
-            , ingredient.getSugar() == -1d ? "" : ingredient.getSugar()
-            , ingredient.getCarbohydrates() == -1d ? "" : ingredient.getCarbohydrates()
-            , ingredient.getProtein() == -1d ? "" : ingredient.getProtein()
-            , ingredient.getCholesterol() == -1d ? "" : ingredient.getCholesterol()
-            , ingredient.getSodium() == -1d ? "" : ingredient.getSodium()
+            , ingredient.getCalories() == -1d ? "" : formatDoubleValueForTableVisualisation(ingredient.getCalories())
+            , ingredient.getFat() == -1d ? "" : formatDoubleValueForTableVisualisation(ingredient.getFat())
+            , ingredient.getSugar() == -1d ? "" : formatDoubleValueForTableVisualisation(ingredient.getSugar())
+            , ingredient.getCarbohydrates() == -1d ? "" : formatDoubleValueForTableVisualisation(ingredient.getCarbohydrates())
+            , ingredient.getProtein() == -1d ? "" : formatDoubleValueForTableVisualisation(ingredient.getProtein())
+            , ingredient.getCholesterol() == -1d ? "" : formatDoubleValueForTableVisualisation(ingredient.getCholesterol())
+            , ingredient.getSodium() == -1d ? "" : formatDoubleValueForTableVisualisation(ingredient.getSodium())
             , ingredient.getCategory()
             , ingredient.getNotes()
         };
@@ -573,6 +596,7 @@ public class MainWindow extends JFrame {
             this.categories = this.dao.categories();
             this.categories.forEach(category -> this.newIngredientCategoryList.addItem(category.getName()));
         } catch (final SQLException ex) {
+            
             // TODO: improve error handling here.
             ex.printStackTrace();
         }
@@ -591,7 +615,7 @@ public class MainWindow extends JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -615,9 +639,12 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JList<String> jList1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JTextField newIngredientCaloriesField;
     private javax.swing.JLabel newIngredientCaloriesLabel;

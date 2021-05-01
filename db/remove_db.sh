@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 # note: this script is only for my personal usage.
 # do not use it in production...
@@ -13,7 +14,7 @@ remove_db() {
     docker-compose --file "${docker_compose_file}" stop
     docker-compose --file "${docker_compose_file}" kill
 
-    sudo rm --recursive --force "${work_dir}/database-data"
+    echo "${MY_PASS}" | sudo -S rm --recursive --force "${work_dir}/database-data"
     docker system prune --all --force
 }
 

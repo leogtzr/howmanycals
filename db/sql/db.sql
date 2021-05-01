@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS category (
 
 ---- Some ingredients:
 INSERT INTO nutrition_ingredient (name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, category, notes) 
-  VALUES('Ejote', 75.0, 80, -1, -1, -1, -1, -1, -1, 'Verdura', 'pal...');
+  VALUES('Pechuga Pollo', 200.0, 390, -1, -1, -1, 59.1, -1, -1, 'Protein', 'From fatsecret');
 INSERT INTO nutrition_ingredient (name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, category, notes) 
   VALUES('Queso manchego', 100, 23, -1, -1, -1, -1, -1, -1, 'Grasa', 'pal...x');
 
@@ -61,3 +61,5 @@ INSERT INTO nutrition_ingredient (name, grams, calories, fat, sugar, carbohydrat
 insert into category (name) values('Fruta');
 insert into category (name) values('Carne');
 insert into category (name) values('Verdura');
+insert into category (name) values('Protein');
+insert into category (name) values('Drink');
