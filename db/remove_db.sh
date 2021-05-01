@@ -1,8 +1,7 @@
 #!/bin/bash
-set -x
-
-# note: this script is only for my personal usage.
-# do not use it in production...
+# set -x
+#: Github: leogtzr
+# note: this script is only for my personal usage, DO NOT USE IT IN PRODUCTION.
 
 work_dir=$(dirname "$(readlink --canonicalize-existing "${0}" 2> /dev/null)")
 readonly docker_compose_file="${work_dir}/docker-compose.yml"

@@ -57,6 +57,7 @@ INSERT INTO nutrition_ingredient (name, grams, calories, fat, sugar, carbohydrat
 INSERT INTO nutrition_ingredient (name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, category, notes) 
   VALUES('Queso manchego', 100, 23, -1, -1, -1, -1, -1, -1, 'Grasa', 'pal...x');
 
+
 -- Some categories
 insert into category (name) values('Fruta');
 insert into category (name) values('Carne');

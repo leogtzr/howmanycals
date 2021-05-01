@@ -397,6 +397,18 @@ public class MainWindow extends JFrame {
 
         summaryStaticCholesterolLabel.setText("Cholesterol:");
 
+        summaryCaloriesLabel.setFont(new java.awt.Font("Noto Sans", 1, 13)); // NOI18N
+
+        summaryProteinLabel.setFont(new java.awt.Font("Noto Sans", 1, 13)); // NOI18N
+
+        summaryCarbsLabel.setFont(new java.awt.Font("Noto Sans", 1, 13)); // NOI18N
+
+        summarySugarLabel.setFont(new java.awt.Font("Noto Sans", 1, 13)); // NOI18N
+
+        summaryFatLabel.setFont(new java.awt.Font("Noto Sans", 1, 13)); // NOI18N
+
+        summaryCholesterolLabel.setFont(new java.awt.Font("Noto Sans", 1, 13)); // NOI18N
+
         javax.swing.GroupLayout valuesSummaryPanelLayout = new javax.swing.GroupLayout(valuesSummaryPanel);
         valuesSummaryPanel.setLayout(valuesSummaryPanelLayout);
         valuesSummaryPanelLayout.setHorizontalGroup(
@@ -562,7 +574,7 @@ public class MainWindow extends JFrame {
     private void addIngredientMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIngredientMenuItemActionPerformed
         System.out.println("Add Ingredient shortcut hit ... ");
         
-        addNewIngredientDialog.setVisible(true);
+        this.addNewIngredientDialog.setVisible(true);
     }//GEN-LAST:event_addIngredientMenuItemActionPerformed
 
     private void addNewIngredientDialogWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_addNewIngredientDialogWindowOpened
@@ -647,6 +659,7 @@ public class MainWindow extends JFrame {
     private void viewIngredientMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewIngredientMenuItemActionPerformed
         this.resetViewIngredientTable();
         this.fillViewIngredientTable();
+        this.resetSummaryLabels();
         
         this.viewIngredientDialog.setVisible(true);
     }//GEN-LAST:event_viewIngredientMenuItemActionPerformed

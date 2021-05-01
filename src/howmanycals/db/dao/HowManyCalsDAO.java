@@ -39,7 +39,6 @@ public class HowManyCalsDAO {
             ex.printStackTrace();
             throw new RuntimeException(ex.getMessage(), ex);
         }
-        
     }
     
     public Optional<NutritionalIngredient> findById(final int id) throws SQLException {
