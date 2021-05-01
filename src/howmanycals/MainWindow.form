@@ -357,9 +357,10 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane2" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" pref="1176" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jTabbedPane1" min="-2" pref="750" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="okViewIngredientButton" min="-2" pref="192" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
@@ -370,13 +371,8 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="searchViewIngredientTextField" min="-2" pref="248" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jTabbedPane1" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="210" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -395,13 +391,18 @@
                   </Group>
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Component id="jScrollPane2" min="-2" pref="418" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jTabbedPane1" min="-2" pref="164" max="-2" attributes="0"/>
-                  <EmptySpace pref="9" max="32767" attributes="0"/>
-                  <Component id="okViewIngredientButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="okViewIngredientButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jTabbedPane1" min="-2" pref="199" max="-2" attributes="0"/>
+                          <EmptySpace pref="40" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -530,6 +531,7 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="viewIngredientTableMouseClicked"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="viewIngredientTableKeyReleased"/>
               </Events>
             </Component>
           </SubComponents>
@@ -554,20 +556,15 @@
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="searchViewIngredientTextFieldKeyReleased"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel7">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Summary:"/>
-          </Properties>
-        </Component>
         <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="jPanel1">
+            <Container class="javax.swing.JPanel" name="valuesSummaryPanel">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="tab1">
-                    <Property name="tabTitle" type="java.lang.String" value="tab1"/>
+                  <JTabbedPaneConstraints tabName="Summary">
+                    <Property name="tabTitle" type="java.lang.String" value="Summary"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -575,15 +572,111 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="946" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="summaryStaticCaloriesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="summaryStaticProteinLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="summaryStaticCarbsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="summaryStaticSugarLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="summaryStaticFatLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="summaryStaticCholesterolLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="summaryCaloriesLabel" alignment="0" max="32767" attributes="0"/>
+                              <Component id="summaryProteinLabel" alignment="0" max="32767" attributes="0"/>
+                              <Component id="summaryCarbsLabel" alignment="0" max="32767" attributes="0"/>
+                              <Component id="summarySugarLabel" alignment="0" max="32767" attributes="0"/>
+                              <Component id="summaryFatLabel" alignment="0" max="32767" attributes="0"/>
+                              <Component id="summaryCholesterolLabel" alignment="0" pref="253" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="345" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="125" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="summaryStaticCaloriesLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="summaryCaloriesLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="summaryStaticProteinLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="summaryProteinLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="summaryStaticCarbsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="summaryCarbsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="summaryStaticSugarLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="summarySugarLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="summaryStaticFatLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="summaryFatLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="summaryStaticCholesterolLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="summaryCholesterolLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="summaryStaticCaloriesLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Calories:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="summaryStaticProteinLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Protein:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="summaryStaticCarbsLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Carbs:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="summaryStaticSugarLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Sugar:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="summaryStaticFatLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Fat:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="summaryStaticCholesterolLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Cholesterol:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="summaryCaloriesLabel">
+                </Component>
+                <Component class="javax.swing.JLabel" name="summaryProteinLabel">
+                </Component>
+                <Component class="javax.swing.JLabel" name="summaryCarbsLabel">
+                </Component>
+                <Component class="javax.swing.JLabel" name="summarySugarLabel">
+                </Component>
+                <Component class="javax.swing.JLabel" name="summaryFatLabel">
+                </Component>
+                <Component class="javax.swing.JLabel" name="summaryCholesterolLabel">
+                </Component>
+              </SubComponents>
             </Container>
           </SubComponents>
         </Container>
