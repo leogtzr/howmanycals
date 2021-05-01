@@ -13,12 +13,23 @@ import javax.swing.UnsupportedLookAndFeelException;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class MainWindow extends JFrame {
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(MainWindow.class.getSimpleName());
     
     private HowManyCalsDAO dao;
     private List<Category> categories;
 
     private void initDatabase() {
+        
+        LOGGER.info("Holaaaaa info");
+        LOGGER.debug("Holaaaaa debug");
+        LOGGER.error("Hola error");
+        LOGGER.trace("Hola trace ... ");
+        
         this.dao = new HowManyCalsDAO();
         this.dao.init();
     }
