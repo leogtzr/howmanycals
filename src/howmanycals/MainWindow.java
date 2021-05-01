@@ -9,6 +9,9 @@ import javax.swing.JOptionPane;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 public class MainWindow extends JFrame {
     
@@ -62,7 +65,7 @@ public class MainWindow extends JFrame {
         okViewIngredientButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        viewTable = new javax.swing.JTable();
+        viewIngredientTable = new javax.swing.JTable();
         searchViewIngredientLabel = new javax.swing.JLabel();
         searchViewIngredientTextField = new javax.swing.JTextField();
         menuBar = new javax.swing.JMenuBar();
@@ -255,11 +258,11 @@ public class MainWindow extends JFrame {
         jScrollPane1.setViewportView(jList1);
 
         viewIngredientDialog.setTitle("Ingredients");
-        viewIngredientDialog.setMaximumSize(new java.awt.Dimension(900, 750));
-        viewIngredientDialog.setMinimumSize(new java.awt.Dimension(900, 750));
+        viewIngredientDialog.setMaximumSize(new java.awt.Dimension(1200, 750));
+        viewIngredientDialog.setMinimumSize(new java.awt.Dimension(1200, 750));
         viewIngredientDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         viewIngredientDialog.setResizable(false);
-        viewIngredientDialog.setSize(new java.awt.Dimension(900, 750));
+        viewIngredientDialog.setSize(new java.awt.Dimension(1200, 750));
 
         okViewIngredientButton.setMnemonic('O');
         okViewIngredientButton.setText("OK");
@@ -273,56 +276,55 @@ public class MainWindow extends JFrame {
         jLabel5.setForeground(new java.awt.Color(14, 35, 237));
         jLabel5.setText("Current Ingredients");
 
-        viewTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        viewTable.setModel(new javax.swing.table.DefaultTableModel(
+        viewIngredientTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        viewIngredientTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "Name", "Grams", "Calories", "Fat", "Sugar", "Carbohydrates", "Protein", "Cholesterol", "Sodium", "Category"
             }
-        ));
-        viewTable.setColumnSelectionAllowed(true);
-        viewTable.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(viewTable);
-        viewTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, false, true, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        viewIngredientTable.setNextFocusableComponent(okViewIngredientButton);
+        viewIngredientTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(viewIngredientTable);
+        if (viewIngredientTable.getColumnModel().getColumnCount() > 0) {
+            viewIngredientTable.getColumnModel().getColumn(0).setMinWidth(30);
+            viewIngredientTable.getColumnModel().getColumn(0).setMaxWidth(30);
+            viewIngredientTable.getColumnModel().getColumn(1).setResizable(false);
+            viewIngredientTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+            viewIngredientTable.getColumnModel().getColumn(2).setMinWidth(50);
+            viewIngredientTable.getColumnModel().getColumn(2).setMaxWidth(50);
+            viewIngredientTable.getColumnModel().getColumn(3).setMinWidth(70);
+            viewIngredientTable.getColumnModel().getColumn(3).setMaxWidth(70);
+            viewIngredientTable.getColumnModel().getColumn(4).setMinWidth(50);
+            viewIngredientTable.getColumnModel().getColumn(4).setMaxWidth(50);
+            viewIngredientTable.getColumnModel().getColumn(5).setMinWidth(50);
+            viewIngredientTable.getColumnModel().getColumn(5).setMaxWidth(50);
+            viewIngredientTable.getColumnModel().getColumn(6).setMinWidth(102);
+            viewIngredientTable.getColumnModel().getColumn(6).setMaxWidth(102);
+            viewIngredientTable.getColumnModel().getColumn(7).setMinWidth(80);
+            viewIngredientTable.getColumnModel().getColumn(7).setMaxWidth(80);
+            viewIngredientTable.getColumnModel().getColumn(8).setMinWidth(90);
+            viewIngredientTable.getColumnModel().getColumn(8).setMaxWidth(90);
+            viewIngredientTable.getColumnModel().getColumn(9).setMinWidth(70);
+            viewIngredientTable.getColumnModel().getColumn(9).setMaxWidth(70);
+            viewIngredientTable.getColumnModel().getColumn(10).setResizable(false);
+        }
 
         searchViewIngredientLabel.setDisplayedMnemonic('S');
         searchViewIngredientLabel.setLabelFor(searchViewIngredientTextField);
         searchViewIngredientLabel.setText("Search:");
 
+        searchViewIngredientTextField.setNextFocusableComponent(viewIngredientTable);
         searchViewIngredientTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchViewIngredientTextFieldActionPerformed(evt);
@@ -336,7 +338,7 @@ public class MainWindow extends JFrame {
             .addGroup(viewIngredientDialogLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 876, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1176, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewIngredientDialogLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(okViewIngredientButton, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -512,6 +514,7 @@ public class MainWindow extends JFrame {
     }//GEN-LAST:event_newIngredientCategoryListActionPerformed
 
     private void viewIngredientMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewIngredientMenuItemActionPerformed
+        this.fillViewIngredientTable();
         this.viewIngredientDialog.setVisible(true);
     }//GEN-LAST:event_viewIngredientMenuItemActionPerformed
 
@@ -523,6 +526,47 @@ public class MainWindow extends JFrame {
         System.out.println("Enter?...");
     }//GEN-LAST:event_searchViewIngredientTextFieldActionPerformed
 
+    private void fillViewIngredientTable() {
+        final DefaultTableModel viewIngredientTableModel = (DefaultTableModel) viewIngredientTable.getModel();
+        
+        try {
+            final List<NutritionalIngredient> ingredients = this.dao.ingredients();
+            ingredients.forEach(ingredient -> {
+                final Object[] sanitizedRowData = sanitizeIngredientRowDataForTable(ingredient);
+                viewIngredientTableModel.addRow(sanitizedRowData);
+            });
+        } catch (final SQLException ex) {
+            this.showError("Error with the database", ex);
+        }
+    }
+    
+    private Object[] sanitizeIngredientRowDataForTable(final NutritionalIngredient ingredient) {
+        /*
+            private double calories = -1d;
+            private double fat = -1d;
+            private double sugar = -1d;
+            private double carbohydrates = -1d;
+            private double protein = -1d;
+            private double cholesterol = -1d;
+            private double sodium = -1d;
+        */
+        final Object[] ingredientRowData = {
+              ingredient.getId()
+            , ingredient.getName()
+            , ingredient.getGrams()
+            , ingredient.getCalories() == -1d ? "" : ingredient.getCalories()
+            , ingredient.getFat() == -1d ? "" : ingredient.getFat()
+            , ingredient.getSugar() == -1d ? "" : ingredient.getSugar()
+            , ingredient.getCarbohydrates() == -1d ? "" : ingredient.getCarbohydrates()
+            , ingredient.getProtein() == -1d ? "" : ingredient.getProtein()
+            , ingredient.getCholesterol() == -1d ? "" : ingredient.getCholesterol()
+            , ingredient.getSodium() == -1d ? "" : ingredient.getSodium()
+            , ingredient.getCategory()
+        };
+        
+        return ingredientRowData;
+    }
+    
     private void fillUpCategories() {
         try {
             this.categories = this.dao.categories();
@@ -597,6 +641,6 @@ public class MainWindow extends JFrame {
     private javax.swing.JTextField searchViewIngredientTextField;
     private javax.swing.JDialog viewIngredientDialog;
     private javax.swing.JMenuItem viewIngredientMenuItem;
-    private javax.swing.JTable viewTable;
+    private javax.swing.JTable viewIngredientTable;
     // End of variables declaration//GEN-END:variables
 }

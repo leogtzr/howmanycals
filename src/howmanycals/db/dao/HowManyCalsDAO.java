@@ -45,7 +45,7 @@ public class HowManyCalsDAO {
     public Optional<NutritionalIngredient> findById(final int id) throws SQLException {
         final String query = "SELECT * FROM nutrition_ingredient WHERE id = ?";
 
-        try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (final PreparedStatement preparedStatement = this.connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
             try (final ResultSet rs = preparedStatement.executeQuery()) {
                 if (rs.next()) {
@@ -69,6 +69,19 @@ public class HowManyCalsDAO {
         }
         
         return categories;
+    }
+    
+    public List<NutritionalIngredient> ingredients() throws SQLException {
+        final List<NutritionalIngredient> ingredients = new ArrayList<>();
+        final String query = "SELECT * FROM nutrition_ingredient";
+
+        try (final ResultSet rs = this.connection.createStatement().executeQuery(query)) {
+            while (rs.next()) {
+                ingredients.add(extractIngredient(rs));
+            }
+        }
+        
+        return ingredients;
     }
     
     private Category extractCategory(final ResultSet rs) throws SQLException {
