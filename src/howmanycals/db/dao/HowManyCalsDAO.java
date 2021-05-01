@@ -108,8 +108,8 @@ public class HowManyCalsDAO {
     
     public Optional<NutritionalIngredient> createNutritionIngredient(final NutritionalIngredient ingredient) throws SQLException {
         final String query = "INSERT INTO nutrition_ingredient" +
-                "(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, category) " + 
-                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, category, notes) " + 
+                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try (final PreparedStatement stmt = this.connection.prepareStatement(query, RETURN_GENERATED_KEYS)) {
             stmt.setString(1, ingredient.getName());
@@ -122,6 +122,7 @@ public class HowManyCalsDAO {
             stmt.setDouble(8, ingredient.getCholesterol());
             stmt.setDouble(9, ingredient.getSodium());
             stmt.setString(10, ingredient.getCategory());
+            stmt.setString(11, ingredient.getNotes());
             
             final int affectedRows = stmt.executeUpdate();
 

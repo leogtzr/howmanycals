@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS nutrition_ingredient (
   cholesterol REAL NOT NULL,
   sodium REAL NOT NULL,
   category VARCHAR(100) NOT NULL,
+  notes VARCHAR(150) NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -51,10 +52,10 @@ CREATE TABLE IF NOT EXISTS category (
 -- Data:
 
 ---- Some ingredients:
-INSERT INTO nutrition_ingredient (name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, category) 
-  VALUES('Ejote', 75.0, 80, -1, -1, -1, -1, -1, -1, 'Verdura');
-INSERT INTO nutrition_ingredient (name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, category) 
-  VALUES('Queso manchego', 100, 23, -1, -1, -1, -1, -1, -1, 'Grasa');
+INSERT INTO nutrition_ingredient (name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, category, notes) 
+  VALUES('Ejote', 75.0, 80, -1, -1, -1, -1, -1, -1, 'Verdura', 'pal...');
+INSERT INTO nutrition_ingredient (name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, category, notes) 
+  VALUES('Queso manchego', 100, 23, -1, -1, -1, -1, -1, -1, 'Grasa', 'pal...x');
 
 -- Some categories
 insert into category (name) values('Fruta');

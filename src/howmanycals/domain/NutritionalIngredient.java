@@ -15,6 +15,7 @@ public class NutritionalIngredient {
     private double cholesterol = -1d;
     private double sodium = -1d;
     private String category = "";
+    private String notes = "";
     
     public NutritionalIngredient() {}
     
@@ -30,6 +31,7 @@ public class NutritionalIngredient {
         this.cholesterol = builder.cholesterol;
         this.sodium = builder.sodium;
         this.category = builder.category;
+        this.notes = builder.notes;
     }
     
     public static class FormBuilder {
@@ -44,6 +46,7 @@ public class NutritionalIngredient {
         private double cholesterol = -1d;
         private double sodium = -1d;
         private String category = "";
+        private String notes = "";
 
         public FormBuilder(final String name, final String grams) {
             if (name == null || name.isBlank()) {
@@ -98,6 +101,11 @@ public class NutritionalIngredient {
                 throw new NumberFormatException("Please enter a valid category");
             }
             this.category = category;
+            return this;
+        }
+        
+        public FormBuilder notes(final String notes) {
+            this.notes = notes;
             return this;
         }
         
@@ -193,6 +201,22 @@ public class NutritionalIngredient {
 
     public void setId(final Integer id) {
         this.id = id;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    @Override
+    public String toString() {
+        return "NutritionalIngredient{" + "id=" + id + ", name=" + name + ", grams=" + grams + ", calories=" + 
+                calories + ", fat=" + fat + ", sugar=" + sugar + ", carbohydrates=" + carbohydrates + ", protein=" + 
+                protein + ", cholesterol=" + cholesterol + ", sodium=" + sodium + ", category=" + category + ", notes=" + 
+                notes + '}';
     }
     
 }

@@ -6,7 +6,7 @@
       <Properties>
         <Property name="title" type="java.lang.String" value="Add Ingredient"/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[430, 485]"/>
+          <Dimension value="[430, 540]"/>
         </Property>
         <Property name="modalityType" type="java.awt.Dialog$ModalityType" editor="org.netbeans.modules.form.editors.EnumEditor">
           <Value id="APPLICATION_MODAL"/>
@@ -20,61 +20,58 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="newIngredientNameLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="newIngredientGramsLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="newIngredientCaloriesLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="newIngredientFatLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                  <Component id="newIngredientSugarLabel" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="newIngredientCarbohydratesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="newIngredientProteinLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="newIngredientSodiumLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="newIngredientCategoryLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="newIngredientCholesterolLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="174" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="newIngredientFatField" alignment="1" max="32767" attributes="0"/>
-                              <Component id="newIngredientCaloriesField" alignment="1" max="32767" attributes="0"/>
-                              <Component id="newIngredientGramsField" alignment="1" max="32767" attributes="0"/>
-                              <Component id="newIngredientNameText" alignment="1" max="32767" attributes="0"/>
-                              <Component id="newIngredientSugarField" max="32767" attributes="0"/>
-                              <Component id="newIngredientCarbohydratesField" max="32767" attributes="0"/>
-                              <Component id="newIngredientProteinField" max="32767" attributes="0"/>
-                              <Component id="newIngredientCholesterolField" max="32767" attributes="0"/>
-                              <Component id="newIngredientSodiumField" max="32767" attributes="0"/>
-                              <Component id="newIngredientCategoryList" pref="283" max="32767" attributes="0"/>
-                          </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="newIngredientNameLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="newIngredientGramsLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="newIngredientCaloriesLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="newIngredientFatLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                          <Component id="newIngredientSugarLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="newIngredientCarbohydratesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="newIngredientProteinLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="newIngredientSodiumLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="newIngredientCategoryLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="newIngredientCholesterolLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="addNewIngredientButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="clearNewIngredientButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="174" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="newIngredientNotesField" max="32767" attributes="0"/>
+                      <Component id="newIngredientFatField" alignment="1" max="32767" attributes="0"/>
+                      <Component id="newIngredientCaloriesField" alignment="1" max="32767" attributes="0"/>
+                      <Component id="newIngredientGramsField" alignment="1" max="32767" attributes="0"/>
+                      <Component id="newIngredientNameText" alignment="1" max="32767" attributes="0"/>
+                      <Component id="newIngredientSugarField" max="32767" attributes="0"/>
+                      <Component id="newIngredientCarbohydratesField" max="32767" attributes="0"/>
+                      <Component id="newIngredientProteinField" max="32767" attributes="0"/>
+                      <Component id="newIngredientCholesterolField" max="32767" attributes="0"/>
+                      <Component id="newIngredientSodiumField" max="32767" attributes="0"/>
+                      <Component id="newIngredientCategoryList" pref="283" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -139,7 +136,12 @@
                       </Group>
                       <Component id="newIngredientCategoryList" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="12" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="newIngredientNotesField" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="25" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="addNewIngredientButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="clearNewIngredientButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -293,6 +295,13 @@
             <Property name="text" type="java.lang.String" value="(*)"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JTextField" name="newIngredientNotesField">
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel6">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Notes:"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -420,11 +429,11 @@
                   </Border>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="11" rowCount="0">
+                  <Table columnCount="12" rowCount="0">
                     <Column editable="false" title="ID" type="java.lang.Object"/>
-                    <Column editable="true" title="Name" type="java.lang.Object"/>
+                    <Column editable="false" title="Name" type="java.lang.Object"/>
                     <Column editable="false" title="Grams" type="java.lang.Object"/>
-                    <Column editable="true" title="Calories" type="java.lang.Object"/>
+                    <Column editable="false" title="Calories" type="java.lang.Object"/>
                     <Column editable="false" title="Fat" type="java.lang.Object"/>
                     <Column editable="false" title="Sugar" type="java.lang.Object"/>
                     <Column editable="false" title="Carbohydrates" type="java.lang.Object"/>
@@ -432,6 +441,7 @@
                     <Column editable="false" title="Cholesterol" type="java.lang.Object"/>
                     <Column editable="false" title="Sodium" type="java.lang.Object"/>
                     <Column editable="false" title="Category" type="java.lang.Object"/>
+                    <Column editable="false" title="Notes" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -486,7 +496,12 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
