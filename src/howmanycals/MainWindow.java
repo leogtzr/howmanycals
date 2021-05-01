@@ -5,12 +5,14 @@ import static howmanycals.utils.FormatUtils.formatDoubleValueForTableVisualisati
 import howmanycals.db.dao.HowManyCalsDAO;
 import howmanycals.domain.Category;
 import howmanycals.domain.NutritionalIngredient;
+import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.table.DefaultTableModel;
 
 import org.slf4j.Logger;
@@ -22,21 +24,16 @@ public class MainWindow extends JFrame {
     
     private HowManyCalsDAO dao;
     private List<Category> categories;
+    private List<NutritionalIngredient> ingredients;
 
     private void initDatabase() {
-        
-        LOGGER.info("Holaaaaa info");
-        LOGGER.debug("Holaaaaa debug");
-        LOGGER.error("Hola error");
-        LOGGER.trace("Hola trace ... ");
-        
         this.dao = new HowManyCalsDAO();
         this.dao.init();
     }
 
     public MainWindow() {
-        initDatabase();
-        initComponents();
+        this.initDatabase();
+        this.initComponents();
     }
 
     @SuppressWarnings("unchecked")
@@ -284,6 +281,16 @@ public class MainWindow extends JFrame {
         viewIngredientDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         viewIngredientDialog.setResizable(false);
         viewIngredientDialog.setSize(new java.awt.Dimension(1200, 750));
+        viewIngredientDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                viewIngredientDialogWindowOpened(evt);
+            }
+        });
+        viewIngredientDialog.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                viewIngredientDialogKeyPressed(evt);
+            }
+        });
 
         okViewIngredientButton.setMnemonic('O');
         okViewIngredientButton.setText("OK");
@@ -316,6 +323,11 @@ public class MainWindow extends JFrame {
         });
         viewIngredientTable.setNextFocusableComponent(okViewIngredientButton);
         viewIngredientTable.getTableHeader().setReorderingAllowed(false);
+        viewIngredientTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                viewIngredientTableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(viewIngredientTable);
         if (viewIngredientTable.getColumnModel().getColumnCount() > 0) {
             viewIngredientTable.getColumnModel().getColumn(0).setMinWidth(30);
@@ -348,6 +360,11 @@ public class MainWindow extends JFrame {
         searchViewIngredientTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchViewIngredientTextFieldActionPerformed(evt);
+            }
+        });
+        searchViewIngredientTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchViewIngredientTextFieldKeyReleased(evt);
             }
         });
 
@@ -560,7 +577,9 @@ public class MainWindow extends JFrame {
     }//GEN-LAST:event_newIngredientCategoryListActionPerformed
 
     private void viewIngredientMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewIngredientMenuItemActionPerformed
+        this.resetViewIngredientTable();
         this.fillViewIngredientTable();
+        
         this.viewIngredientDialog.setVisible(true);
     }//GEN-LAST:event_viewIngredientMenuItemActionPerformed
 
@@ -572,12 +591,79 @@ public class MainWindow extends JFrame {
         System.out.println("Enter?...");
     }//GEN-LAST:event_searchViewIngredientTextFieldActionPerformed
 
+    private void viewIngredientDialogWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_viewIngredientDialogWindowOpened
+        this.resetViewIngredientTable();
+        this.fillViewIngredientTable();
+    }//GEN-LAST:event_viewIngredientDialogWindowOpened
+
+    private void viewIngredientDialogKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_viewIngredientDialogKeyPressed
+        System.out.println("Key closed ... ");
+    }//GEN-LAST:event_viewIngredientDialogKeyPressed
+
+    private void rebuildViewTableFromSearchText(final String searchText) {
+        if (this.ingredients == null || this.ingredients.isEmpty()) {
+            LOGGER.debug("ingredients empty ... nothing to do here ... ");
+            return;
+        }
+        
+        ((DefaultTableModel) this.viewIngredientTable.getModel()).setRowCount(0);
+        
+        System.out.println(String.format("Searching for [%s]", searchText));
+        
+        final List<NutritionalIngredient> ingredientsContainingSearchText = 
+            this.ingredients.stream().filter(ingredient -> ingredient
+                    .getName()
+                    .toLowerCase()
+                    .contains(searchText))
+                .collect(Collectors.toList());
+        
+        ingredientsContainingSearchText.forEach(System.out::println);
+        
+        this.buildViewIngredientsTableWith(ingredientsContainingSearchText);
+    }
+    
+    private void searchViewIngredientTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchViewIngredientTextFieldKeyReleased
+        final String searchText = this.searchViewIngredientTextField.getText();
+        if (searchText.isEmpty()) {
+            if (!this.ingredients.isEmpty()) {
+                this.buildViewIngredientsTableWith(this.ingredients);
+            }
+            return;
+        }
+        
+        this.rebuildViewTableFromSearchText(searchText.toLowerCase());
+    }//GEN-LAST:event_searchViewIngredientTextFieldKeyReleased
+
+    private void viewIngredientTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewIngredientTableMouseClicked
+        final int[] selectedRowIndexes = this.viewIngredientTable.getSelectedRows();
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>");
+        for (final int idx : selectedRowIndexes) {
+            System.out.println(this.ingredients.get(idx));
+        }
+        System.out.println("</~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }//GEN-LAST:event_viewIngredientTableMouseClicked
+
+    private void buildViewIngredientsTableWith(final List<NutritionalIngredient> ingredientsToAdd) {
+        final DefaultTableModel viewIngredientTableModel = (DefaultTableModel) viewIngredientTable.getModel();
+        viewIngredientTableModel.setRowCount(0);
+        
+        ingredientsToAdd.forEach(ingredient -> viewIngredientTableModel.addRow(sanitizeIngredientRowDataForTable(ingredient)));
+    }
+    
+    private void resetViewIngredientTable() {
+        ((DefaultTableModel) viewIngredientTable.getModel()).setRowCount(0);
+    }
+    
     private void fillViewIngredientTable() {
         final DefaultTableModel viewIngredientTableModel = (DefaultTableModel) viewIngredientTable.getModel();
         
         try {
-            final List<NutritionalIngredient> ingredients = this.dao.ingredients();
-            ingredients.forEach(ingredient -> viewIngredientTableModel.addRow(sanitizeIngredientRowDataForTable(ingredient)));
+            this.ingredients = this.dao.ingredients();
+            if (this.ingredients != null && !this.ingredients.isEmpty()) {
+                this.buildViewIngredientsTableWith(this.ingredients);
+            }
+            // this.ingredients.forEach(ingredient -> viewIngredientTableModel.addRow(sanitizeIngredientRowDataForTable(ingredient)));
+            
         } catch (final SQLException ex) {
             this.showError("Error with the database", ex);
         }
@@ -607,7 +693,6 @@ public class MainWindow extends JFrame {
             this.categories = this.dao.categories();
             this.categories.forEach(category -> this.newIngredientCategoryList.addItem(category.getName()));
         } catch (final SQLException ex) {
-            
             // TODO: improve error handling here.
             ex.printStackTrace();
         }
