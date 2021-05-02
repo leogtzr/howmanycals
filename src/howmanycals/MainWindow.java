@@ -1,5 +1,3 @@
-// TODO: El cálculo de los labels se debe hacer respecto a los índices en la tabla inferior.
-
 package howmanycals;
 
 import static howmanycals.utils.FormatUtils.formatDoubleValueForTableVisualisation;
@@ -783,7 +781,7 @@ public class MainWindow extends JFrame {
         this.summaryCholesterolLabel.setText("");
     }
     
-    private void calculateSummaryFromSelectedRows(final int[] selectedRowIndexes) {
+    private void calculateSummaryFromSelectedRows() {
         double calories = 0d;
         double protein = 0d;
         double sugar = 0d;
@@ -791,15 +789,14 @@ public class MainWindow extends JFrame {
         double fat = 0d;
         double cholesterol = 0d;
         
-        final DefaultTableModel viewIngredientTableModel = (DefaultTableModel) viewIngredientTable.getModel();
+        final DefaultTableModel tableModel = (DefaultTableModel) this.selectedMealTable.getModel();
         
-        
-        for (final int idx : selectedRowIndexes) {
-            final int dbIdx = (Integer)viewIngredientTableModel.getValueAt(idx, 0);
+        final int rowCount = tableModel.getRowCount();
+        for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
+            final int dbIdx = (Integer) tableModel.getValueAt(rowIndex, 0);
             
             final Optional<NutritionalIngredient> dbIngredient = 
                     this.ingredients.stream().filter(ingredient -> ingredient.getId() == dbIdx).findAny();
-            
             if (dbIngredient.isPresent()) {
                 final NutritionalIngredient ingredient = dbIngredient.get();
                 calories += (ingredient.getCalories() == -1d) ? 0d : ingredient.getCalories();
@@ -817,15 +814,6 @@ public class MainWindow extends JFrame {
         this.summaryCarbsLabel.setText(formatDoubleValueForTableVisualisation(carbs));
         this.summaryFatLabel.setText(formatDoubleValueForTableVisualisation(fat));
         this.summaryCholesterolLabel.setText(formatDoubleValueForTableVisualisation(cholesterol));
-    }
-    
-    private void fillFoo(final int[] idxs) {
-        for (final int idx : idxs) {
-            System.out.printf("We will use: [%d]\n", idx);
-        }
-        
-        final DefaultTableModel selectedMealTableModel = (DefaultTableModel) this.selectedMealTable.getModel();
-        selectedMealTableModel.setRowCount(0);
     }
     
     private void viewIngredientTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_viewIngredientTableKeyReleased
@@ -846,6 +834,7 @@ public class MainWindow extends JFrame {
             final Optional<NutritionalIngredient> ingredient = findIngredientByIndex(nutritionIngredientIdx, this.ingredients);
             if (ingredient.isPresent()) {
                 this.addIngredientToSelectedMeals(ingredient.get());
+                this.calculateSummaryFromSelectedRows();
             }
         }
     }//GEN-LAST:event_viewIngredientTableMousePressed
@@ -858,11 +847,11 @@ public class MainWindow extends JFrame {
     private void selectedMealTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectedMealTableMousePressed
         final JTable table =(JTable) evt.getSource();
         final Point point = evt.getPoint();
-        int row = table.rowAtPoint(point);
-        final int nutritionIngredientIdx = (Integer) table.getModel().getValueAt(row, 0);
         
         if (evt.getClickCount() == 2 && table.getSelectedRow() != -1) {
-            System.out.println("Double inferior doble clic");
+            final int row = table.rowAtPoint(point);
+            ((DefaultTableModel) table.getModel()).removeRow(row);
+            this.calculateSummaryFromSelectedRows();
         }
     }//GEN-LAST:event_selectedMealTableMousePressed
 
