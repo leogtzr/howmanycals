@@ -1,3 +1,5 @@
+// TODO: El cálculo de los labels se debe hacer respecto a los índices en la tabla inferior.
+
 package howmanycals;
 
 import static howmanycals.utils.FormatUtils.formatDoubleValueForTableVisualisation;
@@ -5,6 +7,7 @@ import static howmanycals.utils.FormatUtils.formatDoubleValueForTableVisualisati
 import howmanycals.db.dao.HowManyCalsDAO;
 import howmanycals.domain.Category;
 import howmanycals.domain.NutritionalIngredient;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import java.sql.SQLException;
@@ -14,6 +17,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import org.slf4j.Logger;
@@ -35,6 +39,14 @@ public class MainWindow extends JFrame {
     public MainWindow() {
         this.initDatabase();
         this.initComponents();
+    }
+    
+    private Optional<NutritionalIngredient> findIngredientByIndex(
+            final int index
+            , final List<NutritionalIngredient> nutritionIngredients) {
+        return nutritionIngredients.stream()
+                .filter(ing -> ing.getId() == index)
+                .findFirst();
     }
 
     @SuppressWarnings("unchecked")
@@ -336,11 +348,11 @@ public class MainWindow extends JFrame {
             }
         });
         viewIngredientTable.setNextFocusableComponent(okViewIngredientButton);
-        viewIngredientTable.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        viewIngredientTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         viewIngredientTable.getTableHeader().setReorderingAllowed(false);
         viewIngredientTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                viewIngredientTableMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                viewIngredientTableMousePressed(evt);
             }
         });
         viewIngredientTable.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -481,6 +493,11 @@ public class MainWindow extends JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        selectedMealTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                selectedMealTableMousePressed(evt);
             }
         });
         jScrollPane3.setViewportView(selectedMealTable);
@@ -741,7 +758,7 @@ public class MainWindow extends JFrame {
                     .contains(searchText))
                 .collect(Collectors.toList());
         
-        this.buildViewIngredientsTableWith(ingredientsContainingSearchText);
+        this.buildTableWithIngredients(ingredientsContainingSearchText, this.viewIngredientTable);
     }
     
     private void searchViewIngredientTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchViewIngredientTextFieldKeyReleased
@@ -749,7 +766,7 @@ public class MainWindow extends JFrame {
         if (searchText.isEmpty()) {
             if (!this.ingredients.isEmpty()) {
                 this.resetSummaryLabels();
-                this.buildViewIngredientsTableWith(this.ingredients);
+                this.buildTableWithIngredients(this.ingredients, this.viewIngredientTable);
             }
             return;
         }
@@ -802,11 +819,15 @@ public class MainWindow extends JFrame {
         this.summaryCholesterolLabel.setText(formatDoubleValueForTableVisualisation(cholesterol));
     }
     
-    private void viewIngredientTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewIngredientTableMouseClicked
-        final int[] selectedRowIndexes = this.viewIngredientTable.getSelectedRows();
-        this.calculateSummaryFromSelectedRows(selectedRowIndexes);
-    }//GEN-LAST:event_viewIngredientTableMouseClicked
-
+    private void fillFoo(final int[] idxs) {
+        for (final int idx : idxs) {
+            System.out.printf("We will use: [%d]\n", idx);
+        }
+        
+        final DefaultTableModel selectedMealTableModel = (DefaultTableModel) this.selectedMealTable.getModel();
+        selectedMealTableModel.setRowCount(0);
+    }
+    
     private void viewIngredientTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_viewIngredientTableKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.viewIngredientTable.clearSelection();
@@ -814,11 +835,45 @@ public class MainWindow extends JFrame {
         }
     }//GEN-LAST:event_viewIngredientTableKeyReleased
 
-    private void buildViewIngredientsTableWith(final List<NutritionalIngredient> ingredientsToAdd) {
-        final DefaultTableModel viewIngredientTableModel = (DefaultTableModel) viewIngredientTable.getModel();
-        viewIngredientTableModel.setRowCount(0);
+    private void viewIngredientTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewIngredientTableMousePressed
+        final JTable table = (JTable) evt.getSource();
         
-        ingredientsToAdd.forEach(ingredient -> viewIngredientTableModel.addRow(sanitizeIngredientRowDataForTable(ingredient)));
+        if (evt.getClickCount() == 2 && table.getSelectedRow() != -1) {
+            final Point point = evt.getPoint();
+            int row = table.rowAtPoint(point);
+            final int nutritionIngredientIdx = (Integer) table.getModel().getValueAt(row, 0);
+            
+            final Optional<NutritionalIngredient> ingredient = findIngredientByIndex(nutritionIngredientIdx, this.ingredients);
+            if (ingredient.isPresent()) {
+                this.addIngredientToSelectedMeals(ingredient.get());
+            }
+        }
+    }//GEN-LAST:event_viewIngredientTableMousePressed
+
+    private void addIngredientToSelectedMeals(final NutritionalIngredient ingredient) {
+        final DefaultTableModel tableModel = (DefaultTableModel) this.selectedMealTable.getModel();
+        tableModel.addRow(sanitizeIngredientRowDataForTable(ingredient));
+    }
+    
+    private void selectedMealTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectedMealTableMousePressed
+        final JTable table =(JTable) evt.getSource();
+        final Point point = evt.getPoint();
+        int row = table.rowAtPoint(point);
+        final int nutritionIngredientIdx = (Integer) table.getModel().getValueAt(row, 0);
+        
+        if (evt.getClickCount() == 2 && table.getSelectedRow() != -1) {
+            System.out.println("Double inferior doble clic");
+        }
+    }//GEN-LAST:event_selectedMealTableMousePressed
+
+    private void buildTableWithIngredients(
+            final List<NutritionalIngredient> ingredientsToAdd
+            , final JTable table
+    ) {
+        final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+        tableModel.setRowCount(0);
+        
+        ingredientsToAdd.forEach(ingredient -> tableModel.addRow(sanitizeIngredientRowDataForTable(ingredient)));
     }
     
     private void resetViewIngredientTable() {
@@ -829,7 +884,7 @@ public class MainWindow extends JFrame {
         try {
             this.ingredients = this.dao.ingredients();
             if (this.ingredients != null && !this.ingredients.isEmpty()) {
-                this.buildViewIngredientsTableWith(this.ingredients);
+                this.buildTableWithIngredients(this.ingredients, this.viewIngredientTable);
             }
         } catch (final SQLException ex) {
             this.showError("Error with the database", ex);
