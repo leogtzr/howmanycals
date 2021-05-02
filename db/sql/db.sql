@@ -52,6 +52,16 @@ CREATE TABLE IF NOT EXISTS category (
 -- Data:
 
 ---- Some ingredients:
+
+-- Pollo
+INSERT INTO nutrition_ingredient (name, grams, calories, category, protein, notes) 
+  VALUES('100g pechuga pollo hervida', 100, 107, 'Protein', 22.42, 'From "cuantas calorias tiene una pechuga hervida"');
+INSERT INTO nutrition_ingredient (name, grams, calories, category, protein, notes) 
+  VALUES('200g pechuga pollo hervida', 200, 214, 'Protein', 22.42 * 2, 'From "cuantas calorias tiene una pechuga hervida"');
+
+INSERT INTO nutrition_ingredient (name, grams, calories, category, protein, notes) 
+  VALUES('2 huevos (110g)', 110, 160, 'Protein', 22.42 * 2, '~');
+
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
   VALUES('Queso Panela Zwan (3)', 90, 216, 'Queso', 'From the label');
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
@@ -80,6 +90,21 @@ INSERT INTO nutrition_ingredient (name, grams, calories, category, notes)
         VALUES('30g chile morrón', 30, 7.2, 'Verdura', 'From fatsecret.cl');
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
       VALUES('50g chile morrón', 50, 12.0, 'Verdura', 'From fatsecret.cl');
+INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
+      VALUES('100g Broccoli', 100, 34.0, 'Verdura', 'From fatsecret.cl');
+INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
+      VALUES('30g Broccoli', 30, 10.0, 'Verdura', 'From fatsecret.cl');
+INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
+      VALUES('50g Broccoli', 50, 17.0, 'Verdura', 'From fatsecret.cl');
+INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
+  VALUES('2 Jalapeños', 28, 8.0, 'Verdura', 'From Google');
+INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
+  VALUES('100g Pepino', 100, 12.0, 'Verdura', 'From fatsecret.com');
+INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
+  VALUES('200g Pepino', 200, 24.0, 'Verdura', 'From fatsecret.com');
+  
+
+      
 
 -- Some categories
 insert into category (name) values('Fruta');

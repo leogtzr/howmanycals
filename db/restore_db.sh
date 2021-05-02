@@ -1,5 +1,5 @@
 #!/bin/bash
-# set -x
+set -x
 #: Github: leogtzr
 # note: this script is only for my personal usage, DO NOT USE IT IN PRODUCTION.
 
@@ -14,8 +14,21 @@ remove_db() {
     docker-compose --file "${docker_compose_file}" kill
 
     echo "${MY_PASS}" | sudo -S rm --recursive --force "${work_dir}/database-data"
+    docker system prune --all --force
+
     if docker system prune --all --force; then
-        docker-compose --file "${docker_compose_file}" up --detach
+        if docker-compose --file "${docker_compose_file}" up --detach; then
+            # docker-compose --file "${docker_compose_file}" ps --all | \
+            #     grep --extended-regexp '^howmanycals.*'
+            local service_id_output=$(docker-compose --file "${docker_compose_file}" ps --quiet 'howmanycals')
+            if [[ -z "${service_id_output}" ]]; then
+                echo "Service is NOT running 😟"
+            else
+                echo "Service is running ... "
+                notify-send "We are up... 😊"
+            fi
+        fi
+
     fi
 }
 

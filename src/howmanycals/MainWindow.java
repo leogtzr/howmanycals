@@ -93,6 +93,8 @@ public class MainWindow extends JFrame {
         summarySugarLabel = new javax.swing.JLabel();
         summaryFatLabel = new javax.swing.JLabel();
         summaryCholesterolLabel = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        selectedMealTable = new javax.swing.JTable();
         menuBar = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
@@ -288,11 +290,11 @@ public class MainWindow extends JFrame {
         jScrollPane1.setViewportView(jList1);
 
         viewIngredientDialog.setTitle("Ingredients");
-        viewIngredientDialog.setMaximumSize(new java.awt.Dimension(1200, 750));
-        viewIngredientDialog.setMinimumSize(new java.awt.Dimension(1200, 750));
+        viewIngredientDialog.setMinimumSize(new java.awt.Dimension(1200, 900));
         viewIngredientDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        viewIngredientDialog.setPreferredSize(new java.awt.Dimension(1200, 900));
         viewIngredientDialog.setResizable(false);
-        viewIngredientDialog.setSize(new java.awt.Dimension(1200, 750));
+        viewIngredientDialog.setSize(new java.awt.Dimension(1200, 900));
         viewIngredientDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 viewIngredientDialogWindowOpened(evt);
@@ -334,6 +336,7 @@ public class MainWindow extends JFrame {
             }
         });
         viewIngredientTable.setNextFocusableComponent(okViewIngredientButton);
+        viewIngredientTable.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         viewIngredientTable.getTableHeader().setReorderingAllowed(false);
         viewIngredientTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -464,6 +467,45 @@ public class MainWindow extends JFrame {
 
         jTabbedPane1.addTab("Summary", valuesSummaryPanel);
 
+        selectedMealTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Name", "Grams", "Calories", "Fat", "Sugar", "Carbohydrates", "Protein", "Cholesterol", "Sodium", "Category", "Notes"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(selectedMealTable);
+        if (selectedMealTable.getColumnModel().getColumnCount() > 0) {
+            selectedMealTable.getColumnModel().getColumn(0).setMinWidth(30);
+            selectedMealTable.getColumnModel().getColumn(0).setMaxWidth(30);
+            selectedMealTable.getColumnModel().getColumn(1).setResizable(false);
+            selectedMealTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+            selectedMealTable.getColumnModel().getColumn(2).setMinWidth(50);
+            selectedMealTable.getColumnModel().getColumn(2).setMaxWidth(50);
+            selectedMealTable.getColumnModel().getColumn(3).setMinWidth(70);
+            selectedMealTable.getColumnModel().getColumn(3).setMaxWidth(70);
+            selectedMealTable.getColumnModel().getColumn(4).setMinWidth(50);
+            selectedMealTable.getColumnModel().getColumn(5).setMinWidth(50);
+            selectedMealTable.getColumnModel().getColumn(5).setMaxWidth(50);
+            selectedMealTable.getColumnModel().getColumn(6).setMinWidth(102);
+            selectedMealTable.getColumnModel().getColumn(6).setMaxWidth(102);
+            selectedMealTable.getColumnModel().getColumn(7).setMinWidth(80);
+            selectedMealTable.getColumnModel().getColumn(7).setMaxWidth(80);
+            selectedMealTable.getColumnModel().getColumn(8).setMinWidth(90);
+            selectedMealTable.getColumnModel().getColumn(8).setMaxWidth(90);
+            selectedMealTable.getColumnModel().getColumn(9).setMinWidth(70);
+            selectedMealTable.getColumnModel().getColumn(9).setMaxWidth(70);
+        }
+
         javax.swing.GroupLayout viewIngredientDialogLayout = new javax.swing.GroupLayout(viewIngredientDialog.getContentPane());
         viewIngredientDialog.getContentPane().setLayout(viewIngredientDialogLayout);
         viewIngredientDialogLayout.setHorizontalGroup(
@@ -471,10 +513,11 @@ public class MainWindow extends JFrame {
             .addGroup(viewIngredientDialogLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1176, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewIngredientDialogLayout.createSequentialGroup()
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
                         .addComponent(okViewIngredientButton, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(viewIngredientDialogLayout.createSequentialGroup()
                         .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -497,20 +540,17 @@ public class MainWindow extends JFrame {
                     .addComponent(searchViewIngredientTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(viewIngredientDialogLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(okViewIngredientButton)
-                        .addContainerGap())
-                    .addGroup(viewIngredientDialogLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(40, Short.MAX_VALUE))))
+                    .addComponent(okViewIngredientButton, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HowManyCals v0.1");
-        setMaximumSize(new java.awt.Dimension(900, 625));
         setResizable(false);
 
         fileMenuItem.setMnemonic('F');
@@ -581,7 +621,12 @@ public class MainWindow extends JFrame {
         if (this.categories != null) {
             this.categories.clear();
         }
-        this.fillUpCategories();
+        try {
+            this.fillUpCategories();
+        } catch (final SQLException ex) {
+            LOGGER.error("Error getting categories", ex);
+            this.showError("Error retrieving information from DB", ex);
+        }
     }//GEN-LAST:event_addNewIngredientDialogWindowOpened
 
     private void addNewIngredientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewIngredientButtonActionPerformed
@@ -695,8 +740,6 @@ public class MainWindow extends JFrame {
                     .toLowerCase()
                     .contains(searchText))
                 .collect(Collectors.toList());
-        
-        ingredientsContainingSearchText.forEach(System.out::println);
         
         this.buildViewIngredientsTableWith(ingredientsContainingSearchText);
     }
@@ -812,14 +855,9 @@ public class MainWindow extends JFrame {
         return ingredientRowData;
     }
     
-    private void fillUpCategories() {
-        try {
-            this.categories = this.dao.categories();
-            this.categories.forEach(category -> this.newIngredientCategoryList.addItem(category.getName()));
-        } catch (final SQLException ex) {
-            // TODO: improve error handling here.
-            ex.printStackTrace();
-        }
+    private void fillUpCategories() throws SQLException {
+        this.categories = this.dao.categories();
+        this.categories.forEach(category -> this.newIngredientCategoryList.addItem(category.getName()));
     }
     
     public static void main(final String args[]) {
@@ -862,6 +900,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JTextField newIngredientCaloriesField;
@@ -888,6 +927,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JButton okViewIngredientButton;
     private javax.swing.JLabel searchViewIngredientLabel;
     private javax.swing.JTextField searchViewIngredientTextField;
+    private javax.swing.JTable selectedMealTable;
     private javax.swing.JLabel summaryCaloriesLabel;
     private javax.swing.JLabel summaryCarbsLabel;
     private javax.swing.JLabel summaryCholesterolLabel;
