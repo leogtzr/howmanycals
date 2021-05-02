@@ -749,8 +749,6 @@ public class MainWindow extends JFrame {
                 fat += (ingredient.getFat() == -1d) ? 0d : ingredient.getFat();
                 cholesterol += (ingredient.getCholesterol() == -1d) ? 0d : ingredient.getCholesterol();
             }
-            
-            
         }
         
         this.summaryCaloriesLabel.setText(formatDoubleValueForTableVisualisation(calories));
