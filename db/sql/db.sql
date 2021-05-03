@@ -101,10 +101,13 @@ INSERT INTO nutrition_ingredient (name, grams, calories, category, notes)
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
   VALUES('100g Pepino', 100, 12.0, 'Verdura', 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
-  VALUES('200g Pepino', 200, 24.0, 'Verdura', 'From fatsecret.com');
-  
-
-      
+  VALUES('200g Pepino', 200, 24.0, 'Verdura', 'From fatsecret.com');      
+INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
+  VALUES('250g Watermelon', 250, 75, 'Fruta', 'From fatsecret.com');
+INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
+  VALUES('150g manzana roja', 150, 79, 'Fruta', 'From fatsecret.com');
+INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
+  VALUES('150g manzana roja', 150, 79, 'Fruta', 'From fatsecret.com');
 
 -- Some categories
 insert into category (name) values('Fruta');
