@@ -965,6 +965,7 @@ public class MainWindow extends JFrame {
 
     private void saveMealButtonDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMealButtonDialogActionPerformed
         // TODO add your handling code here:
+        // TODO: grab all the 
     }//GEN-LAST:event_saveMealButtonDialogActionPerformed
 
     private void buildTableWithIngredients(

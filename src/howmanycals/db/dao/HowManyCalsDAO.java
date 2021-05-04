@@ -140,6 +140,8 @@ public class HowManyCalsDAO {
         }        
     }
     
-    
+    public void saveMeal(final String mealName, final int[] indexes) throws SQLException {
+        
+    }
     
 }

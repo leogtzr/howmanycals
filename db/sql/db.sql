@@ -36,14 +36,6 @@ CREATE TABLE IF NOT EXISTS category (
   CONSTRAINT category_pkey PRIMARY KEY (id)
 );
 
--- 
-CREATE SEQUENCE IF NOT EXISTS category_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
 CREATE SEQUENCE IF NOT EXISTS meal_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -51,18 +43,34 @@ CREATE SEQUENCE IF NOT EXISTS meal_id_seq
     NO MAXVALUE
     CACHE 1;
 
+CREATE SEQUENCE IF NOT EXISTS ingredient_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+CREATE TABLE IF NOT EXISTS ingredients (
+  id INT NOT NULL DEFAULT nextval('ingredient_id_seq'::regclass),
+  id_meal INTEGER NOT NULL,
+  id_nutrition_ingredient INTEGER NOT NULL,
+  
+  CONSTRAINT ingredient_pkey PRIMARY KEY (id),
+  CONSTRAINT id_nutrition_ingredient_fkey FOREIGN KEY (id_nutrition_ingredient)
+        REFERENCES nutrition_ingredient (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
 CREATE TABLE IF NOT EXISTS meal (
   id INT NOT NULL DEFAULT nextval('meal_id_seq'::regclass),
   name varchar(250) NOT NULL,
   creation_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
-  id_ingredient INTEGER NOT NULL,
   
-  CONSTRAINT meal_pkey PRIMARY KEY (id),
-  CONSTRAINT id_ingredient_fkey FOREIGN KEY (id_ingredient)
-        REFERENCES nutrition_ingredient (id) MATCH SIMPLE
+  CONSTRAINT meal_pkey PRIMARY KEY (id)
 );
 
--- Data:
 
 -- Pollo
 INSERT INTO nutrition_ingredient (name, grams, calories, category, protein, notes) 
@@ -122,7 +130,7 @@ INSERT INTO nutrition_ingredient (name, grams, calories, category, notes)
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
   VALUES('20 Fresas', 0, 100, 'Fruta', 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
-  VALUES('10 Fresas', 0, 10, 'Fruta', 'From fatsecret.com');
+  VALUES('10 Fresas', 0, 40, 'Fruta', 'From fatsecret.com');
 
 
 -- Some categories
@@ -133,4 +141,32 @@ insert into category (name) values('Protein');
 insert into category (name) values('Drink');
 insert into category (name) values('Queso');
 
-insert into meal (name, id_ingredient) values('frijolitos', 1);
+insert into meal (name) values('frijolitos'); 
+
+insert into ingredients (id_meal, id_nutrition_ingredient) values(1, 1);
+insert into ingredients (id_meal, id_nutrition_ingredient) values(1, 2);
+insert into ingredients (id_meal, id_nutrition_ingredient) values(1, 3);
+
+/*
+SELECT 
+    m.id id_meal
+    , m.name as name
+    , m.creation_date
+    , ing.id_nutrition_ingredient 
+    , nut.name as ingredient_name
+    , nut.grams
+    , nut.calories
+    , nut.fat
+    , nut.sugar
+    , nut.carbohydrates
+    , nut.protein
+    , nut.cholesterol
+    , nut.sodium
+    , nut.category
+    , nut.notes
+FROM meal m
+INNER JOIN ingredients ing 
+    ON m.id = ing.id_meal
+INNER JOIN nutrition_ingredient nut
+    ON nut.id = ing.id_nutrition_ingredient;
+*/

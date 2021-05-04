@@ -14,8 +14,9 @@ remove_db() {
     docker-compose --file "${docker_compose_file}" kill
 
     echo "${MY_PASS}" | sudo -S rm --recursive --force "${work_dir}/database-data"
+    
     if docker system prune --all --force; then
-        docker-compose --file "${docker_compose_file}" up --detach
+        docker-compose --file "${docker_compose_file}" up
     fi
 }
 
@@ -47,4 +48,4 @@ remove_db #()
 #     fi
 # fi
 
-exit 0
+exit
