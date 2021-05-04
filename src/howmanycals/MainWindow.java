@@ -10,6 +10,7 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -312,6 +313,7 @@ public class MainWindow extends JFrame {
         viewIngredientDialog.setTitle("Ingredients");
         viewIngredientDialog.setMinimumSize(new java.awt.Dimension(1200, 900));
         viewIngredientDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        viewIngredientDialog.setPreferredSize(new java.awt.Dimension(1200, 900));
         viewIngredientDialog.setResizable(false);
         viewIngredientDialog.setSize(new java.awt.Dimension(1200, 900));
         viewIngredientDialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -957,6 +959,11 @@ public class MainWindow extends JFrame {
         this.saveMealDialog.setVisible(true);
     }//GEN-LAST:event_saveMealButtonActionPerformed
 
+    private void cleanMealSaveDialogFields() {
+        this.saveMealTextField.setText("");
+        this.saveNotesTextArea.setText("");
+    }
+    
     private void cancelMealSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelMealSaveButtonActionPerformed
         this.saveMealTextField.setText("");
         this.saveNotesTextArea.setText("");
@@ -964,8 +971,42 @@ public class MainWindow extends JFrame {
     }//GEN-LAST:event_cancelMealSaveButtonActionPerformed
 
     private void saveMealButtonDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMealButtonDialogActionPerformed
-        // TODO add your handling code here:
-        // TODO: grab all the 
+        final String mealName = this.saveMealTextField.getText();
+        if (mealName.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Error, enter a name", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // Grab all the IDs.
+        final DefaultTableModel tableModel = (DefaultTableModel) this.selectedMealTable.getModel();
+        if (tableModel.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "No ingredients selected for meal", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        final List<Integer> ids = new ArrayList<>();
+        
+        for (int row = 0; row < tableModel.getRowCount(); row++) {
+            final int id = (Integer) tableModel.getValueAt(row, 0);
+            ids.add(id);
+        }
+        
+        final int[] selectedIds = new int[ids.size()];
+        for (int i = 0; i < ids.size(); i++) {
+            selectedIds[i] = ids.get(i);
+        }
+        try {
+            this.dao.saveMeal(mealName, this.saveNotesTextArea.getText(), selectedIds).ifPresent(
+                    meal -> {
+                        this.showInfoMessage(String.format("'%s' saved", mealName), "Meal saved");
+                        this.saveMealDialog.setVisible(false);
+                        this.cleanMealSaveDialogFields();
+                    }
+            );
+        } catch (final SQLException ex) {
+            ex.printStackTrace();
+            this.showError(String.format("Error saving meal '%s'", mealName), ex);
+        }
+        
     }//GEN-LAST:event_saveMealButtonDialogActionPerformed
 
     private void buildTableWithIngredients(

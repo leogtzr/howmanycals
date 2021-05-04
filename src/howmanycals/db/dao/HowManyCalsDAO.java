@@ -106,6 +106,17 @@ public class HowManyCalsDAO {
         return ingredient;
     }
     
+    private Meal extractMeal(final ResultSet rs) throws SQLException {
+        final Meal meal = new Meal();
+        
+        meal.setId(rs.getInt("id"));
+        meal.setName(rs.getString("name"));
+        meal.setName(rs.getString("notes"));
+        meal.setCreationDate(rs.getTimestamp("creation_date").toLocalDateTime());
+        
+        return meal;
+    }
+    
     public Optional<NutritionalIngredient> createNutritionIngredient(final NutritionalIngredient ingredient) throws SQLException {
         final String query = "INSERT INTO nutrition_ingredient" +
                 "(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, category, notes) " + 
@@ -140,8 +151,74 @@ public class HowManyCalsDAO {
         }        
     }
     
-    public void saveMeal(final String mealName, final int[] indexes) throws SQLException {
+    private Optional<Meal> createMeal(final String name, final String notes) throws SQLException {
+        final String query = "INSERT INTO meal (name, notes) VALUES(?, ?)";
         
+        try (final PreparedStatement stmt = this.connection.prepareStatement(query, RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, name);
+            stmt.setString(2, notes);
+            
+            final int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Data insert failed, no rows affected.");
+            }
+
+            try (final ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    final Meal createdMeal = extractMeal(rs);
+                    return Optional.of(createdMeal);
+                } else {
+                    throw new SQLException("unable to create meal");
+                }
+            }
+        }        
+    }
+    
+    private Optional<Integer> insertIngredient(final Integer mealID, final Integer nutritionIngredientID) throws SQLException {
+        final String query = "INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(?, ?)";
+        
+        try (final PreparedStatement stmt = this.connection.prepareStatement(query, RETURN_GENERATED_KEYS)) {
+            stmt.setInt(1, mealID);
+            stmt.setInt(2, nutritionIngredientID);
+            
+            final int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Data insert failed, no rows affected.");
+            }
+
+            try (final ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    return Optional.of(rs.getInt("id"));
+                } else {
+                    throw new SQLException("unable to create meal");
+                }
+            }
+        }
+    }
+    
+    public Optional<Meal> saveMeal(final String mealName, final String notes, final int[] indexes) throws SQLException {
+        if (indexes == null || indexes.length == 0) {
+            throw new SQLException("indexes for ingredients are missing");
+        }
+        
+        final Optional<Meal> insertedMeal = this.createMeal(mealName, notes);
+        if (insertedMeal.isPresent()) {
+            final Meal mealDB = insertedMeal.get();
+            boolean ok = true;
+            for (int idx = 0; idx < indexes.length; idx++) {
+                final Optional<Integer> insertedNutritionIngredient = insertIngredient(mealDB.getId(), indexes[idx]);
+                if (insertedNutritionIngredient.isEmpty()) {
+                    ok = false;
+                    break;
+                }
+            }
+            
+            return ok ? insertedMeal : Optional.empty();
+        }
+        
+        return Optional.empty();
     }
     
 }

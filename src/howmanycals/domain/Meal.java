@@ -1,13 +1,15 @@
 package howmanycals.domain;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Meal {
     
     private Integer id;
     private String name;
-    private List<NutritionalIngredient> ingredients;
     private String notes;
+    private LocalDateTime creationDate;
+    private List<NutritionalIngredient> ingredients;
 
     public Integer getId() {
         return id;
@@ -39,6 +41,14 @@ public class Meal {
 
     public void setNotes(final String notes) {
         this.notes = notes;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(final LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
     
 }

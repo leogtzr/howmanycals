@@ -66,6 +66,7 @@ CREATE TABLE IF NOT EXISTS ingredients (
 CREATE TABLE IF NOT EXISTS meal (
   id INT NOT NULL DEFAULT nextval('meal_id_seq'::regclass),
   name varchar(250) NOT NULL,
+  notes TEXT,
   creation_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
   
   CONSTRAINT meal_pkey PRIMARY KEY (id)
@@ -77,10 +78,8 @@ INSERT INTO nutrition_ingredient (name, grams, calories, category, protein, note
   VALUES('100g pechuga pollo hervida', 100, 107, 'Protein', 22.42, 'From "cuantas calorias tiene una pechuga hervida"');
 INSERT INTO nutrition_ingredient (name, grams, calories, category, protein, notes) 
   VALUES('200g pechuga pollo hervida', 200, 214, 'Protein', 22.42 * 2, 'From "cuantas calorias tiene una pechuga hervida"');
-
 INSERT INTO nutrition_ingredient (name, grams, calories, category, protein, notes) 
   VALUES('2 huevos (110g)', 110, 160, 'Protein', 22.42 * 2, '~');
-
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
   VALUES('Queso Panela Zwan (3)', 90, 216, 'Queso', 'From the label');
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
@@ -95,6 +94,8 @@ INSERT INTO nutrition_ingredient (name, grams, calories, protein, category, note
   VALUES('1 tuna Tuny', 100, 93, 21, 'Protein', 'From the label');
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
   VALUES('1 Tostada Susalia', 12, 32.0, 'Snack', 'From the label');
+INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
+  VALUES('50g Aguacate Hass', 50, 80.0, 'Grasa', 'From the mypalfitness/fatsecret');
 
 -- Algo de verdura:
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
@@ -132,20 +133,19 @@ INSERT INTO nutrition_ingredient (name, grams, calories, category, notes)
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
   VALUES('10 Fresas', 0, 40, 'Fruta', 'From fatsecret.com');
 
+INSERT INTO category (name) VALUES('Fruta');
+INSERT INTO category (name) VALUES('Carne');
+INSERT INTO category (name) VALUES('Verdura');
+INSERT INTO category (name) VALUES('Protein');
+INSERT INTO category (name) VALUES('Drink');
+INSERT INTO category (name) VALUES('Queso');
+INSERT INTO category (name) VALUES('Fat');
 
--- Some categories
-insert into category (name) values('Fruta');
-insert into category (name) values('Carne');
-insert into category (name) values('Verdura');
-insert into category (name) values('Protein');
-insert into category (name) values('Drink');
-insert into category (name) values('Queso');
+INSERT INTO meal (name, notes) VALUES('frijolitos', 'Delicioso!'); 
 
-insert into meal (name) values('frijolitos'); 
-
-insert into ingredients (id_meal, id_nutrition_ingredient) values(1, 1);
-insert into ingredients (id_meal, id_nutrition_ingredient) values(1, 2);
-insert into ingredients (id_meal, id_nutrition_ingredient) values(1, 3);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 1);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 2);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 3);
 
 /*
 SELECT 
