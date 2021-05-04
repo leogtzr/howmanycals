@@ -107,6 +107,14 @@ public class MainWindow extends JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         selectedMealTable = new javax.swing.JTable();
         saveMealButton = new javax.swing.JButton();
+        saveMealDialog = new javax.swing.JDialog();
+        saveMealNameLabel = new javax.swing.JLabel();
+        saveMealTextField = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        saveNotesTextArea = new javax.swing.JTextArea();
+        saveNotesLabel = new javax.swing.JLabel();
+        saveMealButtonDialog = new javax.swing.JButton();
+        cancelMealSaveButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
@@ -304,7 +312,6 @@ public class MainWindow extends JFrame {
         viewIngredientDialog.setTitle("Ingredients");
         viewIngredientDialog.setMinimumSize(new java.awt.Dimension(1200, 900));
         viewIngredientDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
-        viewIngredientDialog.setPreferredSize(new java.awt.Dimension(1200, 900));
         viewIngredientDialog.setResizable(false);
         viewIngredientDialog.setSize(new java.awt.Dimension(1200, 900));
         viewIngredientDialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -579,6 +586,84 @@ public class MainWindow extends JFrame {
                 .addContainerGap())
         );
 
+        saveMealDialog.setTitle("Save meal?");
+        saveMealDialog.setMaximumSize(new java.awt.Dimension(466, 215));
+        saveMealDialog.setMinimumSize(new java.awt.Dimension(466, 215));
+        saveMealDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        saveMealDialog.setResizable(false);
+
+        saveMealNameLabel.setDisplayedMnemonic('M');
+        saveMealNameLabel.setLabelFor(saveMealTextField);
+        saveMealNameLabel.setText("Meal Name:");
+
+        saveNotesTextArea.setColumns(20);
+        saveNotesTextArea.setRows(5);
+        jScrollPane4.setViewportView(saveNotesTextArea);
+
+        saveNotesLabel.setDisplayedMnemonic('N');
+        saveNotesLabel.setLabelFor(saveNotesTextArea);
+        saveNotesLabel.setText("Notes (optional):");
+
+        saveMealButtonDialog.setMnemonic('s');
+        saveMealButtonDialog.setText("Save");
+        saveMealButtonDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveMealButtonDialogActionPerformed(evt);
+            }
+        });
+
+        cancelMealSaveButton.setMnemonic('c');
+        cancelMealSaveButton.setText("Cancel");
+        cancelMealSaveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelMealSaveButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout saveMealDialogLayout = new javax.swing.GroupLayout(saveMealDialog.getContentPane());
+        saveMealDialog.getContentPane().setLayout(saveMealDialogLayout);
+        saveMealDialogLayout.setHorizontalGroup(
+            saveMealDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(saveMealDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(saveMealDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
+                    .addGroup(saveMealDialogLayout.createSequentialGroup()
+                        .addComponent(saveMealNameLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saveMealTextField))
+                    .addGroup(saveMealDialogLayout.createSequentialGroup()
+                        .addComponent(saveNotesLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, saveMealDialogLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(cancelMealSaveButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saveMealButtonDialog)))
+                .addContainerGap())
+        );
+        saveMealDialogLayout.setVerticalGroup(
+            saveMealDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(saveMealDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(saveMealDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(saveMealNameLabel)
+                    .addComponent(saveMealTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(saveMealDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(saveMealDialogLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saveNotesLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(69, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, saveMealDialogLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(saveMealDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cancelMealSaveButton)
+                            .addComponent(saveMealButtonDialog))
+                        .addContainerGap())))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HowManyCals v0.1");
         setResizable(false);
@@ -642,8 +727,6 @@ public class MainWindow extends JFrame {
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void addIngredientMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIngredientMenuItemActionPerformed
-        System.out.println("Add Ingredient shortcut hit ... ");
-        
         this.addNewIngredientDialog.setVisible(true);
     }//GEN-LAST:event_addIngredientMenuItemActionPerformed
 
@@ -871,14 +954,18 @@ public class MainWindow extends JFrame {
     }//GEN-LAST:event_selectedMealTableMousePressed
 
     private void saveMealButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMealButtonActionPerformed
-        final String mealSaveName = JOptionPane.showInputDialog(
-                this
-                , "Please enter a name for this meal");        
-        if (mealSaveName == null || mealSaveName.isEmpty()) {
-            return;
-        }
-        final int x = 23;
+        this.saveMealDialog.setVisible(true);
     }//GEN-LAST:event_saveMealButtonActionPerformed
+
+    private void cancelMealSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelMealSaveButtonActionPerformed
+        this.saveMealTextField.setText("");
+        this.saveNotesTextArea.setText("");
+        this.saveMealDialog.setVisible(false);
+    }//GEN-LAST:event_cancelMealSaveButtonActionPerformed
+
+    private void saveMealButtonDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMealButtonDialogActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_saveMealButtonDialogActionPerformed
 
     private void buildTableWithIngredients(
             final List<NutritionalIngredient> ingredientsToAdd
@@ -956,6 +1043,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JMenuItem addIngredientMenuItem;
     private javax.swing.JButton addNewIngredientButton;
     private javax.swing.JDialog addNewIngredientDialog;
+    private javax.swing.JButton cancelMealSaveButton;
     private javax.swing.JButton clearNewIngredientButton;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenuItem;
@@ -970,6 +1058,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JTextField newIngredientCaloriesField;
@@ -995,6 +1084,12 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel newIngredientSugarLabel;
     private javax.swing.JButton okViewIngredientButton;
     private javax.swing.JButton saveMealButton;
+    private javax.swing.JButton saveMealButtonDialog;
+    private javax.swing.JDialog saveMealDialog;
+    private javax.swing.JLabel saveMealNameLabel;
+    private javax.swing.JTextField saveMealTextField;
+    private javax.swing.JLabel saveNotesLabel;
+    private javax.swing.JTextArea saveNotesTextArea;
     private javax.swing.JLabel searchViewIngredientLabel;
     private javax.swing.JTextField searchViewIngredientTextField;
     private javax.swing.JTable selectedMealTable;

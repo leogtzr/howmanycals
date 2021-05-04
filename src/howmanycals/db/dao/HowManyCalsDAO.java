@@ -2,6 +2,7 @@ package howmanycals.db.dao;
 
 import howmanycals.db.DBConnection;
 import howmanycals.domain.Category;
+import howmanycals.domain.Meal;
 import howmanycals.domain.NutritionalIngredient;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -138,5 +139,7 @@ public class HowManyCalsDAO {
             }
         }        
     }
+    
+    
     
 }

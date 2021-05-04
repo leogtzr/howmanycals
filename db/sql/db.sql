@@ -121,6 +121,8 @@ INSERT INTO nutrition_ingredient (name, grams, calories, category, notes)
   VALUES('150g manzana roja', 150, 79, 'Fruta', 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
   VALUES('20 Fresas', 0, 100, 'Fruta', 'From fatsecret.com');
+INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
+  VALUES('10 Fresas', 0, 10, 'Fruta', 'From fatsecret.com');
 
 
 -- Some categories
@@ -131,4 +133,4 @@ insert into category (name) values('Protein');
 insert into category (name) values('Drink');
 insert into category (name) values('Queso');
 
-insert into meal (name, id_ingredient) values('frijolitos chingones', 1);
+insert into meal (name, id_ingredient) values('frijolitos', 1);
