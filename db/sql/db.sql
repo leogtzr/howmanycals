@@ -72,8 +72,9 @@ CREATE TABLE IF NOT EXISTS meal (
   CONSTRAINT meal_pkey PRIMARY KEY (id)
 );
 
+CREATE UNIQUE INDEX IF NOT EXISTS index_id_meal ON meal(id);
+CREATE UNIQUE INDEX IF NOT EXISTS index_name_meal ON meal(name);
 
--- Pollo
 INSERT INTO nutrition_ingredient (name, grams, calories, category, protein, notes) 
   VALUES('100g pechuga pollo hervida', 100, 107, 'Protein', 22.42, 'From "cuantas calorias tiene una pechuga hervida"');
 INSERT INTO nutrition_ingredient (name, grams, calories, category, protein, notes) 

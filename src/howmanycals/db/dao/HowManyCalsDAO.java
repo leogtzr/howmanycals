@@ -221,4 +221,20 @@ public class HowManyCalsDAO {
         return Optional.empty();
     }
     
+    public Optional<Meal> findMealByName(final String name) throws SQLException {
+        final String query = "SELECT * FROM meal WHERE LOWER(name) = ?";
+
+        try (final PreparedStatement preparedStatement = this.connection.prepareStatement(query)) {
+            preparedStatement.setString(1, name);
+            try (final ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) {
+                    final Meal meal = extractMeal(rs);
+                    return Optional.of(meal);
+                }
+            }
+        }
+
+        return Optional.empty();
+    }
+    
 }

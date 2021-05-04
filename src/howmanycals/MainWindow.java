@@ -5,6 +5,7 @@ import static howmanycals.utils.FormatUtils.formatDoubleValueForTableVisualisati
 
 import howmanycals.db.dao.HowManyCalsDAO;
 import howmanycals.domain.Category;
+import howmanycals.domain.Meal;
 import howmanycals.domain.NutritionalIngredient;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -788,6 +789,10 @@ public class MainWindow extends JFrame {
         
     }//GEN-LAST:event_addNewIngredientButtonActionPerformed
 
+    private void showError(final String message, final String title) {
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
+    }
+    
     private void showError(final String message, final Throwable cause) {
         JOptionPane.showMessageDialog(this, cause.getMessage(), message, JOptionPane.ERROR_MESSAGE);
     }
@@ -971,30 +976,38 @@ public class MainWindow extends JFrame {
     }//GEN-LAST:event_cancelMealSaveButtonActionPerformed
 
     private void saveMealButtonDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMealButtonDialogActionPerformed
-        final String mealName = this.saveMealTextField.getText();
+        final String mealName = this.saveMealTextField.getText().trim();
         if (mealName.isBlank()) {
             JOptionPane.showMessageDialog(this, "Error, enter a name", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
-        // Grab all the IDs.
-        final DefaultTableModel tableModel = (DefaultTableModel) this.selectedMealTable.getModel();
-        if (tableModel.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "No ingredients selected for meal", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        final List<Integer> ids = new ArrayList<>();
-        
-        for (int row = 0; row < tableModel.getRowCount(); row++) {
-            final int id = (Integer) tableModel.getValueAt(row, 0);
-            ids.add(id);
-        }
-        
-        final int[] selectedIds = new int[ids.size()];
-        for (int i = 0; i < ids.size(); i++) {
-            selectedIds[i] = ids.get(i);
-        }
         try {
+            // Check if meal name already exists:
+            final Optional<Meal> mealInDB = this.dao.findMealByName(mealName.toLowerCase());
+            if (mealInDB.isPresent()) {
+                this.showError(String.format("Meal '%s' already exists.", mealName), "ERROR");
+                return;
+            }
+
+            // Grab all the IDs.
+            final DefaultTableModel tableModel = (DefaultTableModel) this.selectedMealTable.getModel();
+            if (tableModel.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "No ingredients selected for meal", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            final List<Integer> ids = new ArrayList<>();
+
+            for (int row = 0; row < tableModel.getRowCount(); row++) {
+                final int id = (Integer) tableModel.getValueAt(row, 0);
+                ids.add(id);
+            }
+
+            final int[] selectedIds = new int[ids.size()];
+            for (int i = 0; i < ids.size(); i++) {
+                selectedIds[i] = ids.get(i);
+            }
+        
             this.dao.saveMeal(mealName, this.saveNotesTextArea.getText(), selectedIds).ifPresent(
                     meal -> {
                         this.showInfoMessage(String.format("'%s' saved", mealName), "Meal saved");
