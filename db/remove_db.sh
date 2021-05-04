@@ -1,5 +1,5 @@
 #!/bin/bash
-# set -x
+set -x
 #: Github: leogtzr
 # note: this script is only for my personal usage, DO NOT USE IT IN PRODUCTION.
 

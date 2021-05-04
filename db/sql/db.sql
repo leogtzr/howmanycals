@@ -1,18 +1,5 @@
 CREATE EXTENSION pgcrypto;
 
-CREATE SEQUENCE IF NOT EXISTS meal_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-CREATE TABLE IF NOT EXISTS meal (
-  id INT NOT NULL DEFAULT nextval('meal_id_seq'::regclass),
-  name varchar(250) NOT NULL,
-  CONSTRAINT meal_pkey PRIMARY KEY (id)
-);
-
 CREATE SEQUENCE IF NOT EXISTS nutrition_ingredient_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -49,9 +36,33 @@ CREATE TABLE IF NOT EXISTS category (
   CONSTRAINT category_pkey PRIMARY KEY (id)
 );
 
--- Data:
+-- 
+CREATE SEQUENCE IF NOT EXISTS category_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
----- Some ingredients:
+CREATE SEQUENCE IF NOT EXISTS meal_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+CREATE TABLE IF NOT EXISTS meal (
+  id INT NOT NULL DEFAULT nextval('meal_id_seq'::regclass),
+  name varchar(250) NOT NULL,
+  creation_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+  id_ingredient INTEGER NOT NULL,
+  
+  CONSTRAINT meal_pkey PRIMARY KEY (id),
+  CONSTRAINT id_ingredient_fkey FOREIGN KEY (id_ingredient)
+        REFERENCES nutrition_ingredient (id) MATCH SIMPLE
+);
+
+-- Data:
 
 -- Pollo
 INSERT INTO nutrition_ingredient (name, grams, calories, category, protein, notes) 
@@ -108,6 +119,9 @@ INSERT INTO nutrition_ingredient (name, grams, calories, category, notes)
   VALUES('150g manzana roja', 150, 79, 'Fruta', 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
   VALUES('150g manzana roja', 150, 79, 'Fruta', 'From fatsecret.com');
+INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
+  VALUES('20 Fresas', 0, 100, 'Fruta', 'From fatsecret.com');
+
 
 -- Some categories
 insert into category (name) values('Fruta');
@@ -116,3 +130,5 @@ insert into category (name) values('Verdura');
 insert into category (name) values('Protein');
 insert into category (name) values('Drink');
 insert into category (name) values('Queso');
+
+insert into meal (name, id_ingredient) values('frijolitos chingones', 1);

@@ -362,7 +362,10 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jTabbedPane1" min="-2" pref="750" max="-2" attributes="0"/>
                           <EmptySpace pref="234" max="32767" attributes="0"/>
-                          <Component id="okViewIngredientButton" min="-2" pref="192" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="okViewIngredientButton" alignment="1" min="-2" pref="192" max="-2" attributes="0"/>
+                              <Component id="saveMealButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -396,7 +399,11 @@
                   <Component id="jScrollPane3" pref="144" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="okViewIngredientButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="saveMealButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="okViewIngredientButton" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <Component id="jTabbedPane1" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -536,7 +543,7 @@
         </Container>
         <Component class="javax.swing.JLabel" name="searchViewIngredientLabel">
           <Properties>
-            <Property name="displayedMnemonic" type="int" value="83"/>
+            <Property name="displayedMnemonic" type="int" value="101"/>
             <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="searchViewIngredientTextField"/>
             </Property>
@@ -807,6 +814,15 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="saveMealButton">
+          <Properties>
+            <Property name="mnemonic" type="int" value="83"/>
+            <Property name="text" type="java.lang.String" value="Save Meal"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveMealButtonActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Menu class="javax.swing.JMenuBar" name="menuBar">
