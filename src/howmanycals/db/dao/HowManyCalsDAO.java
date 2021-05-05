@@ -45,9 +45,9 @@ public class HowManyCalsDAO {
     public Optional<NutritionalIngredient> findById(final int id) throws SQLException {
         final String query = "SELECT * FROM nutrition_ingredient WHERE id = ?";
 
-        try (final PreparedStatement preparedStatement = this.connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, id);
-            try (final ResultSet rs = preparedStatement.executeQuery()) {
+        try (final PreparedStatement stmt = this.connection.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            try (final ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     final NutritionalIngredient nutritionalIngredient = extractIngredient(rs);
                     return Optional.of(nutritionalIngredient);
@@ -255,6 +255,46 @@ public class HowManyCalsDAO {
         }
 
         return Optional.empty();
+    }
+    
+    public List<NutritionalIngredient> findIngredientsByMealID(final int id) throws SQLException {
+        final String query = "SELECT \n" +
+                "    m.id\n" +
+                "    , m.name as name\n" +
+                "    , m.creation_date\n" +
+                "    , ing.id_nutrition_ingredient \n" +
+                "    , nut.name as ingredient_name\n" +
+                "    , nut.grams\n" +
+                "    , nut.calories\n" +
+                "    , nut.fat\n" +
+                "    , nut.sugar\n" +
+                "    , nut.carbohydrates\n" +
+                "    , nut.protein\n" +
+                "    , nut.cholesterol\n" +
+                "    , nut.sodium\n" +
+                "    , nut.category\n" +
+                "    , nut.notes\n" +
+                "FROM meal m\n" +
+                "INNER JOIN ingredients ing \n" +
+                "    ON m.id = ing.id_meal\n" +
+                "INNER JOIN nutrition_ingredient nut\n" +
+                "    ON nut.id = ing.id_nutrition_ingredient\n" +
+                "WHERE m.id = ?";
+        
+        final List<NutritionalIngredient> ingredients = new ArrayList<>();
+
+        try (final PreparedStatement stmt = this.connection.prepareStatement(query)) {
+            stmt.setInt(1, 1);
+            
+            try (final ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    final NutritionalIngredient ingredient = extractIngredient(rs);
+                    ingredients.add(ingredient);
+                }
+            }
+        }
+        
+        return ingredients;
     }
     
 }

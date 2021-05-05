@@ -744,6 +744,11 @@ public class MainWindow extends JFrame {
                 return canEdit [columnIndex];
             }
         });
+        viewMealsTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                viewMealsTableMouseClicked(evt);
+            }
+        });
         jScrollPane6.setViewportView(viewMealsTable);
         if (viewMealsTable.getColumnModel().getColumnCount() > 0) {
             viewMealsTable.getColumnModel().getColumn(0).setMinWidth(35);
@@ -1092,7 +1097,7 @@ public class MainWindow extends JFrame {
             int row = table.rowAtPoint(point);
             final int nutritionIngredientIdx = (Integer) table.getModel().getValueAt(row, 0);
             
-            final Optional<NutritionalIngredient> ingredient = findIngredientByIndex(nutritionIngredientIdx, this.ingredients);
+            final Optional<NutritionalIngredient> ingredient = this.findIngredientByIndex(nutritionIngredientIdx, this.ingredients);
             if (ingredient.isPresent()) {
                 this.addIngredientToSelectedMeals(ingredient.get());
                 this.calculateSummaryFromSelectedRows();
@@ -1179,11 +1184,13 @@ public class MainWindow extends JFrame {
     }//GEN-LAST:event_saveMealButtonDialogActionPerformed
 
     private void viewMealsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMealsButtonActionPerformed
+        this.viewMealsSearchMealTextField.setText("");
+        ((DefaultTableModel) this.viewMealsTable.getModel()).setRowCount(0);
         this.viewMealsDialog.setVisible(true);
     }//GEN-LAST:event_viewMealsButtonActionPerformed
 
     private void viewMealsSearchMealTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMealsSearchMealTextFieldActionPerformed
-        // TODO: shit.
+        // TODO: 
     }//GEN-LAST:event_viewMealsSearchMealTextFieldActionPerformed
 
     private void cleanViewMealsTable(final JTable table) {
@@ -1201,7 +1208,6 @@ public class MainWindow extends JFrame {
             final String toSearchText = searchText.trim().toLowerCase();
             final List<Meal> mealsByFoundBySearch = this.dao.containsByName(toSearchText.trim().toLowerCase());
             if (!mealsByFoundBySearch.isEmpty()) {
-                // TODO: create table with results ... 
                 final DefaultTableModel mealsTableModel = (DefaultTableModel) this.viewMealsTable.getModel();
                 mealsByFoundBySearch.forEach(meal -> this.sanitizeMealForTable(mealsTableModel, meal));
             }
@@ -1211,6 +1217,22 @@ public class MainWindow extends JFrame {
         }
     
     }//GEN-LAST:event_viewMealsSearchMealTextFieldKeyReleased
+
+    private void viewMealsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMealsTableMouseClicked
+        final JTable table = (JTable) evt.getSource();
+        
+        final Point point = evt.getPoint();
+        int row = table.rowAtPoint(point);
+        final int nutritionIngredientIdx = (Integer) table.getModel().getValueAt(row, 0);
+        
+        try {
+            final List<NutritionalIngredient> mealIngredients = this.dao.findIngredientsByMealID(nutritionIngredientIdx);
+            mealIngredients.forEach(System.out::println);
+        } catch (final SQLException ex) {
+            LOGGER.error("Error getting ingredients for meal.", ex);
+            this.showError("Error getting ingreadients for meal.", "Error");
+        }
+    }//GEN-LAST:event_viewMealsTableMouseClicked
 
     private void buildTableWithIngredients(
             final List<NutritionalIngredient> ingredientsToAdd
