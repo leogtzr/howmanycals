@@ -324,7 +324,6 @@ public class MainWindow extends JFrame {
         viewIngredientDialog.setTitle("Ingredients");
         viewIngredientDialog.setMinimumSize(new java.awt.Dimension(1200, 900));
         viewIngredientDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
-        viewIngredientDialog.setPreferredSize(new java.awt.Dimension(1200, 900));
         viewIngredientDialog.setResizable(false);
         viewIngredientDialog.setSize(new java.awt.Dimension(1200, 900));
         viewIngredientDialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -600,7 +599,6 @@ public class MainWindow extends JFrame {
         );
 
         saveMealDialog.setTitle("Save meal?");
-        saveMealDialog.setMaximumSize(new java.awt.Dimension(466, 215));
         saveMealDialog.setMinimumSize(new java.awt.Dimension(466, 215));
         saveMealDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         saveMealDialog.setResizable(false);
@@ -678,7 +676,6 @@ public class MainWindow extends JFrame {
         );
 
         viewMealsDialog.setTitle("View Meals");
-        viewMealsDialog.setMaximumSize(new java.awt.Dimension(1200, 700));
         viewMealsDialog.setMinimumSize(new java.awt.Dimension(1200, 700));
         viewMealsDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         viewMealsDialog.setResizable(false);
@@ -812,7 +809,7 @@ public class MainWindow extends JFrame {
         });
 
         createMealsButton.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        createMealsButton.setForeground(new java.awt.Color(17, 244, 110));
+        createMealsButton.setForeground(new java.awt.Color(48, 209, 114));
         createMealsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/create-new.png"))); // NOI18N
         createMealsButton.setMnemonic('C');
         createMealsButton.setText("Create Meals");
@@ -936,10 +933,10 @@ public class MainWindow extends JFrame {
                 this.showInfoMessage(String.format("'%s' added correctly.", dbIngredient.getName()), "Ingredient added to database.");
             });
         } catch (final NumberFormatException ex) {
-            ex.printStackTrace();
+            LOGGER.error(ex.getMessage(), ex);
             this.showError("Missing or invalid field format", ex);
         } catch (final SQLException ex) {
-            ex.printStackTrace();
+            LOGGER.error(ex.getMessage(), ex);
             this.showError("Error creating ingredient", ex);
         }
         
@@ -1171,7 +1168,7 @@ public class MainWindow extends JFrame {
                     }
             );
         } catch (final SQLException ex) {
-            ex.printStackTrace();
+            LOGGER.error(ex.getMessage(), ex);
             this.showError(String.format("Error saving meal '%s'", mealName), ex);
         }
         
@@ -1204,8 +1201,8 @@ public class MainWindow extends JFrame {
                 
             }
         } catch (final SQLException ex) {
-            // TODO: handle error here...
-            ex.printStackTrace();
+            LOGGER.error(ex.getMessage(), ex);
+            this.showError("Error getting meals from the database.", "DB error");
         }
     
     }//GEN-LAST:event_viewMealsSearchMealTextFieldKeyReleased
