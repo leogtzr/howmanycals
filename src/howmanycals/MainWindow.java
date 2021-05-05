@@ -1264,6 +1264,7 @@ public class MainWindow extends JFrame {
     
     private void resetViewIngredientTable() {
         ((DefaultTableModel) viewIngredientTable.getModel()).setRowCount(0);
+        ((DefaultTableModel) this.selectedMealTable.getModel()).setRowCount(0);
     }
     
     private void fillViewIngredientTable() {
