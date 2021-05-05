@@ -284,7 +284,7 @@ public class HowManyCalsDAO {
         final List<NutritionalIngredient> ingredients = new ArrayList<>();
 
         try (final PreparedStatement stmt = this.connection.prepareStatement(query)) {
-            stmt.setInt(1, 1);
+            stmt.setInt(1, id);
             
             try (final ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {

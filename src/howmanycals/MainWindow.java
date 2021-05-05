@@ -123,7 +123,7 @@ public class MainWindow extends JFrame {
         viewMealSearchLabel = new javax.swing.JLabel();
         viewMealsSearchMealTextField = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        viewSelectedMealTable = new javax.swing.JTable();
         jScrollPane6 = new javax.swing.JScrollPane();
         viewMealsTable = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
@@ -699,33 +699,41 @@ public class MainWindow extends JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        viewSelectedMealTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
                 "ID", "Name", "Grams", "Calories", "Sugar", "Carbohydrates", "Protein", "Cholesterol", "Sodium", "Category", "Notes"
             }
-        ));
-        jScrollPane5.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(30);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(30);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setMinWidth(50);
-            jTable1.getColumnModel().getColumn(2).setMaxWidth(50);
-            jTable1.getColumnModel().getColumn(3).setMinWidth(70);
-            jTable1.getColumnModel().getColumn(3).setMaxWidth(70);
-            jTable1.getColumnModel().getColumn(4).setMinWidth(50);
-            jTable1.getColumnModel().getColumn(4).setMaxWidth(50);
-            jTable1.getColumnModel().getColumn(5).setMinWidth(102);
-            jTable1.getColumnModel().getColumn(5).setMaxWidth(102);
-            jTable1.getColumnModel().getColumn(6).setMinWidth(80);
-            jTable1.getColumnModel().getColumn(6).setMaxWidth(80);
-            jTable1.getColumnModel().getColumn(7).setMinWidth(90);
-            jTable1.getColumnModel().getColumn(7).setMaxWidth(90);
-            jTable1.getColumnModel().getColumn(8).setMinWidth(70);
-            jTable1.getColumnModel().getColumn(8).setMaxWidth(70);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(viewSelectedMealTable);
+        if (viewSelectedMealTable.getColumnModel().getColumnCount() > 0) {
+            viewSelectedMealTable.getColumnModel().getColumn(0).setMinWidth(30);
+            viewSelectedMealTable.getColumnModel().getColumn(0).setMaxWidth(30);
+            viewSelectedMealTable.getColumnModel().getColumn(1).setResizable(false);
+            viewSelectedMealTable.getColumnModel().getColumn(2).setMinWidth(50);
+            viewSelectedMealTable.getColumnModel().getColumn(2).setMaxWidth(50);
+            viewSelectedMealTable.getColumnModel().getColumn(3).setMinWidth(70);
+            viewSelectedMealTable.getColumnModel().getColumn(3).setMaxWidth(70);
+            viewSelectedMealTable.getColumnModel().getColumn(4).setMinWidth(50);
+            viewSelectedMealTable.getColumnModel().getColumn(4).setMaxWidth(50);
+            viewSelectedMealTable.getColumnModel().getColumn(5).setMinWidth(102);
+            viewSelectedMealTable.getColumnModel().getColumn(5).setMaxWidth(102);
+            viewSelectedMealTable.getColumnModel().getColumn(6).setMinWidth(80);
+            viewSelectedMealTable.getColumnModel().getColumn(6).setMaxWidth(80);
+            viewSelectedMealTable.getColumnModel().getColumn(7).setMinWidth(90);
+            viewSelectedMealTable.getColumnModel().getColumn(7).setMaxWidth(90);
+            viewSelectedMealTable.getColumnModel().getColumn(8).setMinWidth(70);
+            viewSelectedMealTable.getColumnModel().getColumn(8).setMaxWidth(70);
         }
 
         viewMealsTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -1203,6 +1211,8 @@ public class MainWindow extends JFrame {
             return;
         }
         
+        ((DefaultTableModel) this.viewSelectedMealTable.getModel()).setRowCount(0);
+        
         this.cleanViewMealsTable(this.viewMealsTable);
         try {
             final String toSearchText = searchText.trim().toLowerCase();
@@ -1210,6 +1220,8 @@ public class MainWindow extends JFrame {
             if (!mealsByFoundBySearch.isEmpty()) {
                 final DefaultTableModel mealsTableModel = (DefaultTableModel) this.viewMealsTable.getModel();
                 mealsByFoundBySearch.forEach(meal -> this.sanitizeMealForTable(mealsTableModel, meal));
+            } else {
+                System.out.println("No ingredients ... ");
             }
         } catch (final SQLException ex) {
             LOGGER.error(ex.getMessage(), ex);
@@ -1220,6 +1232,7 @@ public class MainWindow extends JFrame {
 
     private void viewMealsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMealsTableMouseClicked
         final JTable table = (JTable) evt.getSource();
+        ((DefaultTableModel) this.viewSelectedMealTable.getModel()).setRowCount(0);
         
         final Point point = evt.getPoint();
         int row = table.rowAtPoint(point);
@@ -1227,7 +1240,12 @@ public class MainWindow extends JFrame {
         
         try {
             final List<NutritionalIngredient> mealIngredients = this.dao.findIngredientsByMealID(nutritionIngredientIdx);
-            mealIngredients.forEach(System.out::println);
+            if (!mealIngredients.isEmpty()) {
+                final DefaultTableModel tableModel = (DefaultTableModel) this.viewSelectedMealTable.getModel();
+                mealIngredients.forEach(ingredient -> tableModel.addRow(sanitizeIngredientRowDataForTable(ingredient)));
+            } else {
+                System.out.println("empty...");
+            }
         } catch (final SQLException ex) {
             LOGGER.error("Error getting ingredients for meal.", ex);
             this.showError("Error getting ingreadients for meal.", "Error");
@@ -1331,7 +1349,6 @@ public class MainWindow extends JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JTextField newIngredientCaloriesField;
     private javax.swing.JLabel newIngredientCaloriesLabel;
@@ -1387,6 +1404,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel viewMealsFoundLabel;
     private javax.swing.JTextField viewMealsSearchMealTextField;
     private javax.swing.JTable viewMealsTable;
+    private javax.swing.JTable viewSelectedMealTable;
     // End of variables declaration//GEN-END:variables
 
     private void sanitizeMealForTable(final DefaultTableModel tableModel, final Meal meal) {
