@@ -1,4 +1,3 @@
-// TODO: DB table for saving the meal.
 package howmanycals;
 
 import static howmanycals.utils.FormatUtils.formatDoubleValueForTableVisualisation;
@@ -117,6 +116,17 @@ public class MainWindow extends JFrame {
         saveNotesLabel = new javax.swing.JLabel();
         saveMealButtonDialog = new javax.swing.JButton();
         cancelMealSaveButton = new javax.swing.JButton();
+        viewMealsDialog = new javax.swing.JDialog();
+        viewMealSearchLabel = new javax.swing.JLabel();
+        viewMealsSearchMealTextField = new javax.swing.JTextField();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        viewMealsTable = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        viewMealsFoundLabel = new javax.swing.JLabel();
+        viewMealsButton = new javax.swing.JButton();
+        createMealsButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
@@ -667,9 +677,145 @@ public class MainWindow extends JFrame {
                         .addContainerGap())))
         );
 
+        viewMealsDialog.setTitle("View Meals");
+        viewMealsDialog.setMaximumSize(new java.awt.Dimension(1200, 700));
+        viewMealsDialog.setMinimumSize(new java.awt.Dimension(1200, 700));
+        viewMealsDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        viewMealsDialog.setResizable(false);
+
+        viewMealSearchLabel.setDisplayedMnemonic('M');
+        viewMealSearchLabel.setLabelFor(viewMealsSearchMealTextField);
+        viewMealSearchLabel.setText("Meal:");
+
+        viewMealsSearchMealTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewMealsSearchMealTextFieldActionPerformed(evt);
+            }
+        });
+        viewMealsSearchMealTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                viewMealsSearchMealTextFieldKeyReleased(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Name", "Grams", "Calories", "Sugar", "Carbohydrates", "Protein", "Cholesterol", "Sodium", "Category", "Notes"
+            }
+        ));
+        jScrollPane5.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setMinWidth(30);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(30);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setMinWidth(50);
+            jTable1.getColumnModel().getColumn(2).setMaxWidth(50);
+            jTable1.getColumnModel().getColumn(3).setMinWidth(70);
+            jTable1.getColumnModel().getColumn(3).setMaxWidth(70);
+            jTable1.getColumnModel().getColumn(4).setMinWidth(50);
+            jTable1.getColumnModel().getColumn(4).setMaxWidth(50);
+            jTable1.getColumnModel().getColumn(5).setMinWidth(102);
+            jTable1.getColumnModel().getColumn(5).setMaxWidth(102);
+            jTable1.getColumnModel().getColumn(6).setMinWidth(80);
+            jTable1.getColumnModel().getColumn(6).setMaxWidth(80);
+            jTable1.getColumnModel().getColumn(7).setMinWidth(90);
+            jTable1.getColumnModel().getColumn(7).setMaxWidth(90);
+            jTable1.getColumnModel().getColumn(8).setMinWidth(70);
+            jTable1.getColumnModel().getColumn(8).setMaxWidth(70);
+        }
+
+        viewMealsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Name", "Creation Time", "Notes"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(viewMealsTable);
+        if (viewMealsTable.getColumnModel().getColumnCount() > 0) {
+            viewMealsTable.getColumnModel().getColumn(0).setMinWidth(50);
+            viewMealsTable.getColumnModel().getColumn(0).setMaxWidth(50);
+            viewMealsTable.getColumnModel().getColumn(1).setResizable(false);
+            viewMealsTable.getColumnModel().getColumn(2).setMinWidth(100);
+            viewMealsTable.getColumnModel().getColumn(2).setMaxWidth(100);
+        }
+
+        jLabel7.setText("Meal name:");
+
+        javax.swing.GroupLayout viewMealsDialogLayout = new javax.swing.GroupLayout(viewMealsDialog.getContentPane());
+        viewMealsDialog.getContentPane().setLayout(viewMealsDialogLayout);
+        viewMealsDialogLayout.setHorizontalGroup(
+            viewMealsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewMealsDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(viewMealsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1176, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6)
+                    .addGroup(viewMealsDialogLayout.createSequentialGroup()
+                        .addGroup(viewMealsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(viewMealsDialogLayout.createSequentialGroup()
+                                .addComponent(viewMealSearchLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(viewMealsSearchMealTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(viewMealsDialogLayout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(viewMealsFoundLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        viewMealsDialogLayout.setVerticalGroup(
+            viewMealsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewMealsDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(viewMealsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(viewMealSearchLabel)
+                    .addComponent(viewMealsSearchMealTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addGroup(viewMealsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(viewMealsFoundLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(241, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HowManyCals v0.1");
         setResizable(false);
+
+        viewMealsButton.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        viewMealsButton.setForeground(new java.awt.Color(5, 70, 254));
+        viewMealsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/view.png"))); // NOI18N
+        viewMealsButton.setMnemonic('V');
+        viewMealsButton.setText("View Meals");
+        viewMealsButton.setNextFocusableComponent(createMealsButton);
+        viewMealsButton.setOpaque(true);
+        viewMealsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewMealsButtonActionPerformed(evt);
+            }
+        });
+
+        createMealsButton.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        createMealsButton.setForeground(new java.awt.Color(17, 244, 110));
+        createMealsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/create-new.png"))); // NOI18N
+        createMealsButton.setMnemonic('C');
+        createMealsButton.setText("Create Meals");
 
         fileMenuItem.setMnemonic('F');
         fileMenuItem.setText("File");
@@ -715,11 +861,21 @@ public class MainWindow extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(128, 128, 128)
+                .addComponent(viewMealsButton)
+                .addGap(148, 148, 148)
+                .addComponent(createMealsButton)
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 590, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(viewMealsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(createMealsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(505, Short.MAX_VALUE))
         );
 
         pack();
@@ -846,22 +1002,21 @@ public class MainWindow extends JFrame {
         System.out.println("Key closed ... ");
     }//GEN-LAST:event_viewIngredientDialogKeyPressed
 
-    private void rebuildViewTableFromSearchText(final String searchText) {
+    private void rebuildViewTableFromSearchText(
+            final String searchText
+            , final JTable table
+            , final List<NutritionalIngredient> nutritionIngredients) {
         if (this.ingredients == null || this.ingredients.isEmpty()) {
             LOGGER.debug("ingredients empty ... nothing to do here ... ");
             return;
         }
         
-        ((DefaultTableModel) this.viewIngredientTable.getModel()).setRowCount(0);
+        ((DefaultTableModel) table.getModel()).setRowCount(0);
         
-        final List<NutritionalIngredient> ingredientsContainingSearchText = 
-            this.ingredients.stream().filter(ingredient -> ingredient
-                    .getName()
-                    .toLowerCase()
-                    .contains(searchText))
-                .collect(Collectors.toList());
+        final List<NutritionalIngredient> ingredientsContainingSearchText = nutritionIngredients.stream()
+                .filter(ingredient -> ingredient.getName().toLowerCase().contains(searchText)).collect(Collectors.toList());
         
-        this.buildTableWithIngredients(ingredientsContainingSearchText, this.viewIngredientTable);
+        this.buildTableWithIngredients(ingredientsContainingSearchText, table);
     }
     
     private void searchViewIngredientTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchViewIngredientTextFieldKeyReleased
@@ -874,7 +1029,7 @@ public class MainWindow extends JFrame {
             return;
         }
         
-        this.rebuildViewTableFromSearchText(searchText.toLowerCase());
+        this.rebuildViewTableFromSearchText(searchText.toLowerCase(), this.viewIngredientTable, this.ingredients);
     }//GEN-LAST:event_searchViewIngredientTextFieldKeyReleased
 
     private void resetSummaryLabels() {
@@ -1022,6 +1177,39 @@ public class MainWindow extends JFrame {
         
     }//GEN-LAST:event_saveMealButtonDialogActionPerformed
 
+    private void viewMealsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMealsButtonActionPerformed
+        this.viewMealsDialog.setVisible(true);
+    }//GEN-LAST:event_viewMealsButtonActionPerformed
+
+    private void viewMealsSearchMealTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMealsSearchMealTextFieldActionPerformed
+        // TODO: shit.
+    }//GEN-LAST:event_viewMealsSearchMealTextFieldActionPerformed
+
+    private void cleanViewMealsTable(final JTable table) {
+        ((DefaultTableModel) table.getModel()).setRowCount(0);
+    }
+    
+    private void viewMealsSearchMealTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_viewMealsSearchMealTextFieldKeyReleased
+        final String searchText = this.viewMealsSearchMealTextField.getText();
+        if (searchText.isEmpty()) {
+            return;
+        }
+        
+        this.cleanViewMealsTable(this.viewMealsTable);
+        try {
+            final String toSearch = searchText.trim().toLowerCase();
+            final List<Meal> mealsByFoundBySearch = this.dao.containsByName(searchText.trim().toLowerCase());
+            if (!mealsByFoundBySearch.isEmpty()) {
+                // TODO: create table with results ... 
+                
+            }
+        } catch (final SQLException ex) {
+            // TODO: handle error here...
+            ex.printStackTrace();
+        }
+    
+    }//GEN-LAST:event_viewMealsSearchMealTextFieldKeyReleased
+
     private void buildTableWithIngredients(
             final List<NutritionalIngredient> ingredientsToAdd
             , final JTable table
@@ -1100,6 +1288,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JDialog addNewIngredientDialog;
     private javax.swing.JButton cancelMealSaveButton;
     private javax.swing.JButton clearNewIngredientButton;
+    private javax.swing.JButton createMealsButton;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenuItem;
     private javax.swing.JMenu ingredientsMenuItem;
@@ -1109,12 +1298,16 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JTextField newIngredientCaloriesField;
     private javax.swing.JLabel newIngredientCaloriesLabel;
@@ -1164,5 +1357,11 @@ public class MainWindow extends JFrame {
     private javax.swing.JDialog viewIngredientDialog;
     private javax.swing.JMenuItem viewIngredientMenuItem;
     private javax.swing.JTable viewIngredientTable;
+    private javax.swing.JLabel viewMealSearchLabel;
+    private javax.swing.JButton viewMealsButton;
+    private javax.swing.JDialog viewMealsDialog;
+    private javax.swing.JLabel viewMealsFoundLabel;
+    private javax.swing.JTextField viewMealsSearchMealTextField;
+    private javax.swing.JTable viewMealsTable;
     // End of variables declaration//GEN-END:variables
 }

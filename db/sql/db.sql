@@ -118,21 +118,21 @@ INSERT INTO nutrition_ingredient (name, grams, calories, category, notes)
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
       VALUES('50g Broccoli', 50, 17.0, 'Verdura', 'From fatsecret.cl');
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
-  VALUES('2 Jalapeños', 28, 8.0, 'Verdura', 'From Google');
+      VALUES('2 Jalapeños', 28, 8.0, 'Verdura', 'From Google');
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
-  VALUES('100g Pepino', 100, 12.0, 'Verdura', 'From fatsecret.com');
+      VALUES('100g Pepino', 100, 12.0, 'Verdura', 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
-  VALUES('200g Pepino', 200, 24.0, 'Verdura', 'From fatsecret.com');      
+      VALUES('200g Pepino', 200, 24.0, 'Verdura', 'From fatsecret.com');      
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
-  VALUES('250g Watermelon', 250, 75, 'Fruta', 'From fatsecret.com');
+      VALUES('250g Watermelon', 250, 75, 'Fruta', 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
-  VALUES('150g manzana roja', 150, 79, 'Fruta', 'From fatsecret.com');
+      VALUES('150g manzana roja', 150, 79, 'Fruta', 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
-  VALUES('150g manzana roja', 150, 79, 'Fruta', 'From fatsecret.com');
+      VALUES('150g manzana roja', 150, 79, 'Fruta', 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
-  VALUES('20 Fresas', 0, 100, 'Fruta', 'From fatsecret.com');
+      VALUES('20 Fresas', 0, 100, 'Fruta', 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
-  VALUES('10 Fresas', 0, 40, 'Fruta', 'From fatsecret.com');
+      VALUES('10 Fresas', 0, 40, 'Fruta', 'From fatsecret.com');
 
 INSERT INTO category (name) VALUES('Fruta');
 INSERT INTO category (name) VALUES('Carne');
@@ -142,7 +142,8 @@ INSERT INTO category (name) VALUES('Drink');
 INSERT INTO category (name) VALUES('Queso');
 INSERT INTO category (name) VALUES('Fat');
 
-INSERT INTO meal (name, notes) VALUES('frijolitos', 'Delicioso!'); 
+INSERT INTO meal (name, notes) VALUES('frijolitos', 'Deliciososssss'); 
+INSERT INTO meal (name, notes) VALUES('frijoles charros', 'Delicioso!'); 
 
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 1);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 2);

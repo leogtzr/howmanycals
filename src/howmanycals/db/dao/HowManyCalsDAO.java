@@ -221,11 +221,33 @@ public class HowManyCalsDAO {
         return Optional.empty();
     }
     
+    public List<Meal> containsByName(final String name) throws SQLException {
+        final String query = "SELECT * FROM meal WHERE LOWER(name) LIKE ?";
+        final List<Meal> meals = new ArrayList<>();
+
+        try (final PreparedStatement preparedStatement = this.connection.prepareStatement(query)) {
+            preparedStatement.setString(1, String.format("%%%s%%", name));
+            
+            System.out.println(preparedStatement);
+            
+            try (final ResultSet rs = preparedStatement.executeQuery()) {
+                while (rs.next()) {
+                    final Meal meal = extractMeal(rs);
+                    meals.add(meal);
+                }
+            }
+        }
+
+        return meals;
+    }
+    
     public Optional<Meal> findMealByName(final String name) throws SQLException {
+        // final String query = "SELECT * FROM meal WHERE LOWER(name) = ?";
         final String query = "SELECT * FROM meal WHERE LOWER(name) = ?";
 
         try (final PreparedStatement preparedStatement = this.connection.prepareStatement(query)) {
             preparedStatement.setString(1, name);
+            
             try (final ResultSet rs = preparedStatement.executeQuery()) {
                 if (rs.next()) {
                     final Meal meal = extractMeal(rs);

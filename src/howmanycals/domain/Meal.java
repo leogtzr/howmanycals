@@ -50,5 +50,11 @@ public class Meal {
     public void setCreationDate(final LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
+
+    @Override
+    public String toString() {
+        return "Meal{" + "id=" + id + ", name=" + name + ", notes=" + notes + 
+                ", creationDate=" + creationDate + ", ingredients=" + ingredients + '}';
+    }
     
 }
