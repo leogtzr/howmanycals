@@ -228,8 +228,6 @@ public class HowManyCalsDAO {
         try (final PreparedStatement preparedStatement = this.connection.prepareStatement(query)) {
             preparedStatement.setString(1, String.format("%%%s%%", name));
             
-            System.out.println(preparedStatement);
-            
             try (final ResultSet rs = preparedStatement.executeQuery()) {
                 while (rs.next()) {
                     final Meal meal = extractMeal(rs);

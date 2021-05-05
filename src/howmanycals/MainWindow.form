@@ -949,6 +949,9 @@
     <Container class="javax.swing.JDialog" name="viewMealsDialog">
       <Properties>
         <Property name="title" type="java.lang.String" value="View Meals"/>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[1200, 700]"/>
+        </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[1200, 700]"/>
         </Property>
@@ -1133,7 +1136,7 @@
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
-                    <Column maxWidth="50" minWidth="50" prefWidth="-1" resizable="true">
+                    <Column maxWidth="35" minWidth="35" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -1143,7 +1146,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="100" minWidth="100" prefWidth="-1" resizable="true">
+                    <Column maxWidth="180" minWidth="180" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>

@@ -1,4 +1,8 @@
-version: "3"
+version: "3.7"
+# networks:
+#   default:
+#     external:
+#       name: bridge
 services:
   howmanycals:
     container_name: howmanycals

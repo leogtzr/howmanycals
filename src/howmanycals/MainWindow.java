@@ -10,6 +10,7 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -26,6 +27,8 @@ import org.slf4j.LoggerFactory;
 public class MainWindow extends JFrame {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(MainWindow.class.getSimpleName());
+    private static final DateTimeFormatter CREATION_TIME_FORMATTER = 
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     
     private HowManyCalsDAO dao;
     private List<Category> categories;
@@ -676,6 +679,7 @@ public class MainWindow extends JFrame {
         );
 
         viewMealsDialog.setTitle("View Meals");
+        viewMealsDialog.setMaximumSize(new java.awt.Dimension(1200, 700));
         viewMealsDialog.setMinimumSize(new java.awt.Dimension(1200, 700));
         viewMealsDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         viewMealsDialog.setResizable(false);
@@ -742,11 +746,11 @@ public class MainWindow extends JFrame {
         });
         jScrollPane6.setViewportView(viewMealsTable);
         if (viewMealsTable.getColumnModel().getColumnCount() > 0) {
-            viewMealsTable.getColumnModel().getColumn(0).setMinWidth(50);
-            viewMealsTable.getColumnModel().getColumn(0).setMaxWidth(50);
+            viewMealsTable.getColumnModel().getColumn(0).setMinWidth(35);
+            viewMealsTable.getColumnModel().getColumn(0).setMaxWidth(35);
             viewMealsTable.getColumnModel().getColumn(1).setResizable(false);
-            viewMealsTable.getColumnModel().getColumn(2).setMinWidth(100);
-            viewMealsTable.getColumnModel().getColumn(2).setMaxWidth(100);
+            viewMealsTable.getColumnModel().getColumn(2).setMinWidth(180);
+            viewMealsTable.getColumnModel().getColumn(2).setMaxWidth(180);
         }
 
         jLabel7.setText("Meal name:");
@@ -1194,11 +1198,12 @@ public class MainWindow extends JFrame {
         
         this.cleanViewMealsTable(this.viewMealsTable);
         try {
-            final String toSearch = searchText.trim().toLowerCase();
-            final List<Meal> mealsByFoundBySearch = this.dao.containsByName(searchText.trim().toLowerCase());
+            final String toSearchText = searchText.trim().toLowerCase();
+            final List<Meal> mealsByFoundBySearch = this.dao.containsByName(toSearchText.trim().toLowerCase());
             if (!mealsByFoundBySearch.isEmpty()) {
                 // TODO: create table with results ... 
-                
+                final DefaultTableModel mealsTableModel = (DefaultTableModel) this.viewMealsTable.getModel();
+                mealsByFoundBySearch.forEach(meal -> this.sanitizeMealForTable(mealsTableModel, meal));
             }
         } catch (final SQLException ex) {
             LOGGER.error(ex.getMessage(), ex);
@@ -1361,4 +1366,14 @@ public class MainWindow extends JFrame {
     private javax.swing.JTextField viewMealsSearchMealTextField;
     private javax.swing.JTable viewMealsTable;
     // End of variables declaration//GEN-END:variables
+
+    private void sanitizeMealForTable(final DefaultTableModel tableModel, final Meal meal) {
+        final Object[] mealRowData = {
+              meal.getId()
+            , meal.getName()
+            , meal.getCreationDate().format(CREATION_TIME_FORMATTER)
+            , meal.getNotes()
+        };
+        tableModel.addRow(mealRowData);
+    }
 }
