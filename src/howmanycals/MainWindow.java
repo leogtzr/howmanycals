@@ -1193,8 +1193,19 @@ public class MainWindow extends JFrame {
 
     private void viewMealsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMealsButtonActionPerformed
         this.viewMealsSearchMealTextField.setText("");
-        ((DefaultTableModel) this.viewMealsTable.getModel()).setRowCount(0);
-        this.viewMealsDialog.setVisible(true);
+        final DefaultTableModel mealsTableModel = (DefaultTableModel) this.viewMealsTable.getModel();
+        mealsTableModel.setRowCount(0);
+        
+        try {
+            final List<Meal> meals = this.dao.meals();
+            this.populateTableWithMeals(meals, this.viewMealsTable);
+            this.viewMealsDialog.setVisible(true);
+        } catch (final SQLException ex) {
+            LOGGER.error("Error getting meals", ex);
+            this.showError("Error getting meals", "Error metting meals");
+        }
+        
+        
     }//GEN-LAST:event_viewMealsButtonActionPerformed
 
     private void viewMealsSearchMealTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMealsSearchMealTextFieldActionPerformed
@@ -1217,12 +1228,7 @@ public class MainWindow extends JFrame {
         try {
             final String toSearchText = searchText.trim().toLowerCase();
             final List<Meal> mealsByFoundBySearch = this.dao.containsByName(toSearchText.trim().toLowerCase());
-            if (!mealsByFoundBySearch.isEmpty()) {
-                final DefaultTableModel mealsTableModel = (DefaultTableModel) this.viewMealsTable.getModel();
-                mealsByFoundBySearch.forEach(meal -> this.sanitizeMealForTable(mealsTableModel, meal));
-            } else {
-                System.out.println("No ingredients ... ");
-            }
+            this.populateTableWithMeals(mealsByFoundBySearch, this.viewMealsTable);
         } catch (final SQLException ex) {
             LOGGER.error(ex.getMessage(), ex);
             this.showError("Error getting meals from the database.", "DB error");
@@ -1230,6 +1236,15 @@ public class MainWindow extends JFrame {
     
     }//GEN-LAST:event_viewMealsSearchMealTextFieldKeyReleased
 
+    private void populateTableWithMeals(final List<Meal> meals, final JTable table) {
+        if (meals.isEmpty()) {
+            return;
+        }
+        
+        final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+        meals.forEach(meal -> this.sanitizeMealForTable(tableModel, meal));
+    }
+    
     private void viewMealsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMealsTableMouseClicked
         final JTable table = (JTable) evt.getSource();
         ((DefaultTableModel) this.viewSelectedMealTable.getModel()).setRowCount(0);
@@ -1242,7 +1257,7 @@ public class MainWindow extends JFrame {
             final List<NutritionalIngredient> mealIngredients = this.dao.findIngredientsByMealID(nutritionIngredientIdx);
             if (!mealIngredients.isEmpty()) {
                 final DefaultTableModel tableModel = (DefaultTableModel) this.viewSelectedMealTable.getModel();
-                mealIngredients.forEach(ingredient -> tableModel.addRow(sanitizeIngredientRowDataForTable(ingredient)));
+                mealIngredients.forEach(ingredient -> tableModel.addRow(this.sanitizeIngredientRowDataForTable(ingredient)));
             } else {
                 System.out.println("empty...");
             }
@@ -1263,7 +1278,7 @@ public class MainWindow extends JFrame {
     }
     
     private void resetViewIngredientTable() {
-        ((DefaultTableModel) viewIngredientTable.getModel()).setRowCount(0);
+        ((DefaultTableModel) this.viewIngredientTable.getModel()).setRowCount(0);
         ((DefaultTableModel) this.selectedMealTable.getModel()).setRowCount(0);
     }
     

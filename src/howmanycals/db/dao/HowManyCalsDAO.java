@@ -239,6 +239,19 @@ public class HowManyCalsDAO {
         return meals;
     }
     
+    public List<Meal> meals() throws SQLException {
+        final String query = "SELECT * FROM meal";
+        final List<Meal> meals = new ArrayList<>();
+        
+        try (final ResultSet rs = connection.createStatement().executeQuery(query)) {
+            while (rs.next()) {
+                meals.add(extractMeal(rs));
+            }
+        }
+
+        return meals;
+    }
+    
     public Optional<Meal> findMealByName(final String name) throws SQLException {
         // final String query = "SELECT * FROM meal WHERE LOWER(name) = ?";
         final String query = "SELECT * FROM meal WHERE LOWER(name) = ?";
