@@ -5,6 +5,7 @@ import static howmanycals.utils.FormatUtils.formatDoubleValueForTableVisualisati
 import howmanycals.db.dao.HowManyCalsDAO;
 import howmanycals.domain.Category;
 import howmanycals.domain.Meal;
+import howmanycals.domain.MealNutritionInformation;
 import howmanycals.domain.NutritionalIngredient;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -128,14 +129,29 @@ public class MainWindow extends JFrame {
         viewMealsTable = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         viewMealsFoundLabel = new javax.swing.JLabel();
+        mealSummaryTabbedPanel = new javax.swing.JTabbedPane();
+        mealSummaryPanel = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        caloriesSummaryMealLabel = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        proteinSummaryMealLabel = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        carbsSummaryMealLabel = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        sugarSummaryMealLabel = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        fatSummaryMealLabel = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        cholesterolSummaryMealLabel = new javax.swing.JLabel();
         viewMealsButton = new javax.swing.JButton();
-        createMealsButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
         ingredientsMenuItem = new javax.swing.JMenu();
         addIngredientMenuItem = new javax.swing.JMenuItem();
         viewIngredientMenuItem = new javax.swing.JMenuItem();
+        aboutMenu = new javax.swing.JMenu();
+        aboutMenuItem = new javax.swing.JMenuItem();
 
         addNewIngredientDialog.setTitle("Add Ingredient");
         addNewIngredientDialog.setMinimumSize(new java.awt.Dimension(430, 540));
@@ -766,7 +782,88 @@ public class MainWindow extends JFrame {
             viewMealsTable.getColumnModel().getColumn(2).setMaxWidth(180);
         }
 
-        jLabel7.setText("Meal name:");
+        jLabel7.setDisplayedMnemonic('I');
+        jLabel7.setLabelFor(viewSelectedMealTable);
+        jLabel7.setText("Ingredients:");
+
+        jLabel8.setText("Calories:");
+
+        caloriesSummaryMealLabel.setText("jLabel9");
+
+        jLabel9.setText("Protein:");
+
+        proteinSummaryMealLabel.setText("jLabel10");
+
+        jLabel10.setText("Carbs:");
+
+        carbsSummaryMealLabel.setText("jLabel11");
+
+        jLabel11.setText("Sugar:");
+
+        sugarSummaryMealLabel.setText("jLabel12");
+
+        jLabel12.setText("Fat:");
+
+        fatSummaryMealLabel.setText("jLabel13");
+
+        jLabel13.setText("Cholesterol:");
+
+        cholesterolSummaryMealLabel.setText("jLabel14");
+
+        javax.swing.GroupLayout mealSummaryPanelLayout = new javax.swing.GroupLayout(mealSummaryPanel);
+        mealSummaryPanel.setLayout(mealSummaryPanelLayout);
+        mealSummaryPanelLayout.setHorizontalGroup(
+            mealSummaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mealSummaryPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(mealSummaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13))
+                .addGap(66, 66, 66)
+                .addGroup(mealSummaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(proteinSummaryMealLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
+                    .addComponent(caloriesSummaryMealLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(carbsSummaryMealLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(sugarSummaryMealLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(fatSummaryMealLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cholesterolSummaryMealLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(711, Short.MAX_VALUE))
+        );
+        mealSummaryPanelLayout.setVerticalGroup(
+            mealSummaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mealSummaryPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(mealSummaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(caloriesSummaryMealLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(mealSummaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(proteinSummaryMealLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(mealSummaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(carbsSummaryMealLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(mealSummaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(sugarSummaryMealLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(mealSummaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(fatSummaryMealLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(mealSummaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(cholesterolSummaryMealLabel))
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        mealSummaryTabbedPanel.addTab("Summary", mealSummaryPanel);
 
         javax.swing.GroupLayout viewMealsDialogLayout = new javax.swing.GroupLayout(viewMealsDialog.getContentPane());
         viewMealsDialog.getContentPane().setLayout(viewMealsDialogLayout);
@@ -775,7 +872,7 @@ public class MainWindow extends JFrame {
             .addGroup(viewMealsDialogLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(viewMealsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1176, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5)
                     .addComponent(jScrollPane6)
                     .addGroup(viewMealsDialogLayout.createSequentialGroup()
                         .addGroup(viewMealsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -787,7 +884,8 @@ public class MainWindow extends JFrame {
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(viewMealsFoundLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(mealSummaryTabbedPanel))
                 .addContainerGap())
         );
         viewMealsDialogLayout.setVerticalGroup(
@@ -805,7 +903,9 @@ public class MainWindow extends JFrame {
                     .addComponent(viewMealsFoundLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(mealSummaryTabbedPanel)
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -814,22 +914,14 @@ public class MainWindow extends JFrame {
 
         viewMealsButton.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
         viewMealsButton.setForeground(new java.awt.Color(5, 70, 254));
-        viewMealsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/view.png"))); // NOI18N
         viewMealsButton.setMnemonic('V');
         viewMealsButton.setText("View Meals");
-        viewMealsButton.setNextFocusableComponent(createMealsButton);
         viewMealsButton.setOpaque(true);
         viewMealsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewMealsButtonActionPerformed(evt);
             }
         });
-
-        createMealsButton.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        createMealsButton.setForeground(new java.awt.Color(48, 209, 114));
-        createMealsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/create-new.png"))); // NOI18N
-        createMealsButton.setMnemonic('C');
-        createMealsButton.setText("Create Meals");
 
         fileMenuItem.setMnemonic('F');
         fileMenuItem.setText("File");
@@ -869,6 +961,18 @@ public class MainWindow extends JFrame {
 
         menuBar.add(ingredientsMenuItem);
 
+        aboutMenu.setText("About");
+
+        aboutMenuItem.setText("About");
+        aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutMenuItemActionPerformed(evt);
+            }
+        });
+        aboutMenu.add(aboutMenuItem);
+
+        menuBar.add(aboutMenu);
+
         setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -876,20 +980,16 @@ public class MainWindow extends JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(128, 128, 128)
+                .addContainerGap()
                 .addComponent(viewMealsButton)
-                .addGap(148, 148, 148)
-                .addComponent(createMealsButton)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(379, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(viewMealsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(createMealsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(505, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(viewMealsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(237, Short.MAX_VALUE))
         );
 
         pack();
@@ -1055,7 +1155,14 @@ public class MainWindow extends JFrame {
         this.summaryCholesterolLabel.setText("");
     }
     
-    private void calculateSummaryFromSelectedRows() {
+    private Optional<MealNutritionInformation> calculateSummaryFromTable(
+            final JTable table
+            , final List<NutritionalIngredient> nutIngredients) {
+        
+        if (ingredients.isEmpty()) {
+            return Optional.empty();
+        }
+        
         double calories = 0d;
         double protein = 0d;
         double sugar = 0d;
@@ -1063,14 +1170,14 @@ public class MainWindow extends JFrame {
         double fat = 0d;
         double cholesterol = 0d;
         
-        final DefaultTableModel tableModel = (DefaultTableModel) this.selectedMealTable.getModel();
+        final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         
         final int rowCount = tableModel.getRowCount();
         for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
             final int dbIdx = (Integer) tableModel.getValueAt(rowIndex, 0);
             
             final Optional<NutritionalIngredient> dbIngredient = 
-                    this.ingredients.stream().filter(ingredient -> ingredient.getId() == dbIdx).findAny();
+                    nutIngredients.stream().filter(ingredient -> ingredient.getId() == dbIdx).findAny();
             if (dbIngredient.isPresent()) {
                 final NutritionalIngredient ingredient = dbIngredient.get();
                 calories += (ingredient.getCalories() == -1d) ? 0d : ingredient.getCalories();
@@ -1082,12 +1189,62 @@ public class MainWindow extends JFrame {
             }
         }
         
-        this.summaryCaloriesLabel.setText(formatDoubleValueForTableVisualisation(calories));
-        this.summaryProteinLabel.setText(formatDoubleValueForTableVisualisation(protein));
-        this.summarySugarLabel.setText(formatDoubleValueForTableVisualisation(sugar));
-        this.summaryCarbsLabel.setText(formatDoubleValueForTableVisualisation(carbs));
-        this.summaryFatLabel.setText(formatDoubleValueForTableVisualisation(fat));
-        this.summaryCholesterolLabel.setText(formatDoubleValueForTableVisualisation(cholesterol));
+        final MealNutritionInformation mealNutritionInformation = new MealNutritionInformation();
+        mealNutritionInformation.setCalories(calories);
+        mealNutritionInformation.setProtein(protein);
+        mealNutritionInformation.setSugar(sugar);
+        mealNutritionInformation.setCarbohydrates(carbs);
+        mealNutritionInformation.setFat(fat);
+        mealNutritionInformation.setCholesterol(cholesterol);
+        
+        return Optional.of(mealNutritionInformation);
+    }
+    
+    private Optional<MealNutritionInformation> calculateSummaryFromIngredients(final List<NutritionalIngredient> nutIngredients) {
+        if (nutIngredients.isEmpty()) {
+            return Optional.empty();
+        }
+        
+        double calories = 0d;
+        double protein = 0d;
+        double sugar = 0d;
+        double carbs = 0d;
+        double fat = 0d;
+        double cholesterol = 0d;
+        
+        for (final NutritionalIngredient ingredient : nutIngredients) {
+            calories += (ingredient.getCalories() == -1d) ? 0d : ingredient.getCalories();
+            protein += (ingredient.getProtein() == -1d) ? 0d : ingredient.getProtein();
+            sugar += (ingredient.getSugar() == -1d) ? 0d : ingredient.getSugar();
+            carbs += (ingredient.getCarbohydrates() == -1d) ? 0d : ingredient.getCarbohydrates();
+            fat += (ingredient.getFat() == -1d) ? 0d : ingredient.getFat();
+            cholesterol += (ingredient.getCholesterol() == -1d) ? 0d : ingredient.getCholesterol();
+        }
+        
+        final MealNutritionInformation mealNutritionInformation = new MealNutritionInformation();
+        mealNutritionInformation.setCalories(calories);
+        mealNutritionInformation.setProtein(protein);
+        mealNutritionInformation.setSugar(sugar);
+        mealNutritionInformation.setCarbohydrates(carbs);
+        mealNutritionInformation.setFat(fat);
+        mealNutritionInformation.setCholesterol(cholesterol);
+        
+        return Optional.of(mealNutritionInformation);
+    }
+    
+    private void calculateSummaryFromSelectedRows() {
+        final Optional<MealNutritionInformation> summary = 
+                this.calculateSummaryFromTable(this.selectedMealTable, this.ingredients);
+        
+        if (summary.isPresent()) {
+            final MealNutritionInformation mealNutritionFacts = summary.get();
+            this.summaryCaloriesLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getCalories()));
+            this.summaryProteinLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getProtein()));
+            this.summarySugarLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getSugar()));
+            this.summaryCarbsLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getCarbohydrates()));
+            this.summaryFatLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getFat()));
+            this.summaryCholesterolLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getCholesterol()));
+        }
     }
     
     private void viewIngredientTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_viewIngredientTableKeyReleased
@@ -1193,6 +1350,12 @@ public class MainWindow extends JFrame {
 
     private void viewMealsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMealsButtonActionPerformed
         this.viewMealsSearchMealTextField.setText("");
+        this.caloriesSummaryMealLabel.setText("");
+        this.proteinSummaryMealLabel.setText("");
+        this.sugarSummaryMealLabel.setText("");
+        this.carbsSummaryMealLabel.setText("");
+        this.fatSummaryMealLabel.setText("");
+        this.cholesterolSummaryMealLabel.setText("");
         final DefaultTableModel mealsTableModel = (DefaultTableModel) this.viewMealsTable.getModel();
         mealsTableModel.setRowCount(0);
         
@@ -1233,7 +1396,6 @@ public class MainWindow extends JFrame {
             LOGGER.error(ex.getMessage(), ex);
             this.showError("Error getting meals from the database.", "DB error");
         }
-    
     }//GEN-LAST:event_viewMealsSearchMealTextFieldKeyReleased
 
     private void populateTableWithMeals(final List<Meal> meals, final JTable table) {
@@ -1258,14 +1420,24 @@ public class MainWindow extends JFrame {
             if (!mealIngredients.isEmpty()) {
                 final DefaultTableModel tableModel = (DefaultTableModel) this.viewSelectedMealTable.getModel();
                 mealIngredients.forEach(ingredient -> tableModel.addRow(this.sanitizeIngredientRowDataForTable(ingredient)));
-            } else {
-                System.out.println("empty...");
+                this.calculateSummaryFromIngredients(mealIngredients).ifPresent(mealNutritionFacts -> {
+                    this.caloriesSummaryMealLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getCalories()));
+                    this.proteinSummaryMealLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getProtein()));
+                    this.sugarSummaryMealLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getSugar()));
+                    this.carbsSummaryMealLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getCarbohydrates()));
+                    this.fatSummaryMealLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getFat()));
+                    this.cholesterolSummaryMealLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getCholesterol()));
+                });
             }
         } catch (final SQLException ex) {
             LOGGER.error("Error getting ingredients for meal.", ex);
             this.showError("Error getting ingreadients for meal.", "Error");
         }
     }//GEN-LAST:event_viewMealsTableMouseClicked
+
+    private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
+        // TODO: 
+    }//GEN-LAST:event_aboutMenuItemActionPerformed
 
     private void buildTableWithIngredients(
             final List<NutritionalIngredient> ingredientsToAdd
@@ -1341,22 +1513,33 @@ public class MainWindow extends JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu aboutMenu;
+    private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem addIngredientMenuItem;
     private javax.swing.JButton addNewIngredientButton;
     private javax.swing.JDialog addNewIngredientDialog;
+    private javax.swing.JLabel caloriesSummaryMealLabel;
     private javax.swing.JButton cancelMealSaveButton;
+    private javax.swing.JLabel carbsSummaryMealLabel;
+    private javax.swing.JLabel cholesterolSummaryMealLabel;
     private javax.swing.JButton clearNewIngredientButton;
-    private javax.swing.JButton createMealsButton;
     private javax.swing.JMenuItem exitMenuItem;
+    private javax.swing.JLabel fatSummaryMealLabel;
     private javax.swing.JMenu fileMenuItem;
     private javax.swing.JMenu ingredientsMenuItem;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -1365,6 +1548,8 @@ public class MainWindow extends JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel mealSummaryPanel;
+    private javax.swing.JTabbedPane mealSummaryTabbedPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JTextField newIngredientCaloriesField;
     private javax.swing.JLabel newIngredientCaloriesLabel;
@@ -1388,6 +1573,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JTextField newIngredientSugarField;
     private javax.swing.JLabel newIngredientSugarLabel;
     private javax.swing.JButton okViewIngredientButton;
+    private javax.swing.JLabel proteinSummaryMealLabel;
     private javax.swing.JButton saveMealButton;
     private javax.swing.JButton saveMealButtonDialog;
     private javax.swing.JDialog saveMealDialog;
@@ -1398,6 +1584,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel searchViewIngredientLabel;
     private javax.swing.JTextField searchViewIngredientTextField;
     private javax.swing.JTable selectedMealTable;
+    private javax.swing.JLabel sugarSummaryMealLabel;
     private javax.swing.JLabel summaryCaloriesLabel;
     private javax.swing.JLabel summaryCarbsLabel;
     private javax.swing.JLabel summaryCholesterolLabel;
