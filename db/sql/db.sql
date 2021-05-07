@@ -133,6 +133,8 @@ INSERT INTO nutrition_ingredient (name, grams, calories, category, notes)
       VALUES('20 Fresas', 0, 100, 'Fruta', 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
       VALUES('10 Fresas', 0, 40, 'Fruta', 'From fatsecret.com');
+INSERT INTO nutrition_ingredient (name, grams, calories, category, notes) 
+      VALUES('100g Granny Smith', 52, , 'Fruta', 'From fatsecret.com');
 
 INSERT INTO category (name) VALUES('Fruta');
 INSERT INTO category (name) VALUES('Carne');

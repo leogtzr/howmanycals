@@ -60,7 +60,7 @@ public class HowManyCalsDAO {
     
     public List<Category> categories() throws SQLException {
         final List<Category> categories = new ArrayList<>();
-        final String query = "SELECT DISTINCT(name), id FROM category ORDER BY name";
+        final String query = "SELECT DISTINCT(name), id FROM category ORDER BY id";
 
         try (final ResultSet rs = connection.createStatement().executeQuery(query)) {
             while (rs.next()) {
@@ -253,7 +253,6 @@ public class HowManyCalsDAO {
     }
     
     public Optional<Meal> findMealByName(final String name) throws SQLException {
-        // final String query = "SELECT * FROM meal WHERE LOWER(name) = ?";
         final String query = "SELECT * FROM meal WHERE LOWER(name) = ?";
 
         try (final PreparedStatement preparedStatement = this.connection.prepareStatement(query)) {
@@ -308,6 +307,25 @@ public class HowManyCalsDAO {
         }
         
         return ingredients;
+    }
+    
+    public Optional<Category> findCategoryByName(final String categoryName) throws SQLException {
+        final String query = "SELECT * FROM category WHERE name = ?";
+        
+        final List<NutritionalIngredient> ingredients = new ArrayList<>();
+
+        try (final PreparedStatement stmt = this.connection.prepareStatement(query)) {
+            stmt.setString(1, categoryName);
+            
+            try (final ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    final Category category = extractCategory(rs);
+                    return Optional.of(category);
+                }
+            }
+        }
+        
+        return Optional.empty();
     }
     
 }

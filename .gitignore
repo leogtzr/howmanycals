@@ -28,4 +28,4 @@ db/postgres-data
 db/database-data
 
 # Logs:
-logs/howmanycals-app.log
+logs/

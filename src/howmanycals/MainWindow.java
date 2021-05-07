@@ -19,6 +19,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -112,6 +114,8 @@ public class MainWindow extends JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         selectedMealTable = new javax.swing.JTable();
         saveMealButton = new javax.swing.JButton();
+        byCategorySearchComboBox = new javax.swing.JComboBox<>();
+        byCategorySearchIngredientsCheckBox = new javax.swing.JCheckBox();
         saveMealDialog = new javax.swing.JDialog();
         saveMealNameLabel = new javax.swing.JLabel();
         saveMealTextField = new javax.swing.JTextField();
@@ -569,6 +573,21 @@ public class MainWindow extends JFrame {
             }
         });
 
+        byCategorySearchComboBox.setEnabled(false);
+        byCategorySearchComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                byCategorySearchComboBoxActionPerformed(evt);
+            }
+        });
+
+        byCategorySearchIngredientsCheckBox.setMnemonic('C');
+        byCategorySearchIngredientsCheckBox.setText("By Category");
+        byCategorySearchIngredientsCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                byCategorySearchIngredientsCheckBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout viewIngredientDialogLayout = new javax.swing.GroupLayout(viewIngredientDialog.getContentPane());
         viewIngredientDialog.getContentPane().setLayout(viewIngredientDialogLayout);
         viewIngredientDialogLayout.setHorizontalGroup(
@@ -585,13 +604,16 @@ public class MainWindow extends JFrame {
                             .addComponent(okViewIngredientButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(saveMealButton, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(viewIngredientDialogLayout.createSequentialGroup()
-                        .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addGroup(viewIngredientDialogLayout.createSequentialGroup()
-                                .addComponent(searchViewIngredientLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(searchViewIngredientTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabel5)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(viewIngredientDialogLayout.createSequentialGroup()
+                        .addComponent(searchViewIngredientLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(searchViewIngredientTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(byCategorySearchIngredientsCheckBox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(byCategorySearchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         viewIngredientDialogLayout.setVerticalGroup(
@@ -602,7 +624,9 @@ public class MainWindow extends JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchViewIngredientLabel)
-                    .addComponent(searchViewIngredientTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(searchViewIngredientTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(byCategorySearchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(byCategorySearchIngredientsCheckBox))
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -695,7 +719,6 @@ public class MainWindow extends JFrame {
         );
 
         viewMealsDialog.setTitle("View Meals");
-        viewMealsDialog.setMaximumSize(new java.awt.Dimension(1200, 700));
         viewMealsDialog.setMinimumSize(new java.awt.Dimension(1200, 700));
         viewMealsDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         viewMealsDialog.setResizable(false);
@@ -1091,12 +1114,22 @@ public class MainWindow extends JFrame {
         
     }//GEN-LAST:event_newIngredientCategoryListActionPerformed
 
+    private void populateByCategorySelector() throws SQLException {
+        final List<Category> ingredientCategories = this.dao.categories();
+        ingredientCategories.forEach(category -> this.byCategorySearchComboBox.addItem(category.getName()));
+    }
+    
     private void viewIngredientMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewIngredientMenuItemActionPerformed
-        this.resetViewIngredientTable();
-        this.fillViewIngredientTable();
-        this.resetSummaryLabels();
-        
-        this.viewIngredientDialog.setVisible(true);
+        try {
+            this.resetViewIngredientTable();
+            this.fillViewIngredientTable();
+            this.resetSummaryLabels();
+            this.populateByCategorySelector();
+            this.viewIngredientDialog.setVisible(true);
+        } catch (final SQLException ex) {
+            LOGGER.error("Error with the database", ex);
+            this.showError("Error with the database", ex);
+        }
     }//GEN-LAST:event_viewIngredientMenuItemActionPerformed
 
     private void okViewIngredientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okViewIngredientButtonActionPerformed
@@ -1108,8 +1141,12 @@ public class MainWindow extends JFrame {
     }//GEN-LAST:event_searchViewIngredientTextFieldActionPerformed
 
     private void viewIngredientDialogWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_viewIngredientDialogWindowOpened
-        this.resetViewIngredientTable();
-        this.fillViewIngredientTable();
+        try {
+            this.resetViewIngredientTable();
+            this.fillViewIngredientTable();
+        } catch (final SQLException ex) {
+            this.showError("Error with the database", ex);
+        }
     }//GEN-LAST:event_viewIngredientDialogWindowOpened
 
     private void viewIngredientDialogKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_viewIngredientDialogKeyPressed
@@ -1367,8 +1404,6 @@ public class MainWindow extends JFrame {
             LOGGER.error("Error getting meals", ex);
             this.showError("Error getting meals", "Error metting meals");
         }
-        
-        
     }//GEN-LAST:event_viewMealsButtonActionPerformed
 
     private void viewMealsSearchMealTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMealsSearchMealTextFieldActionPerformed
@@ -1436,13 +1471,27 @@ public class MainWindow extends JFrame {
     }//GEN-LAST:event_viewMealsTableMouseClicked
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
-        // TODO: 
+        // TODO: do something here...
     }//GEN-LAST:event_aboutMenuItemActionPerformed
 
-    private void buildTableWithIngredients(
-            final List<NutritionalIngredient> ingredientsToAdd
-            , final JTable table
-    ) {
+    private void byCategorySearchComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_byCategorySearchComboBoxActionPerformed
+        System.out.println("It was changed ... ");
+        final JComboBox categoriesBox = (JComboBox) evt.getSource();
+        final String categoryName = categoriesBox.getSelectedItem().toString();
+        try {
+            this.dao.findCategoryByName(categoryName).ifPresent(System.out::println);
+        } catch (final SQLException ex) {
+            this.showError("Error getting categories", "Error");
+            LOGGER.error("Error connecting to DB", ex);
+        }
+    }//GEN-LAST:event_byCategorySearchComboBoxActionPerformed
+
+    private void byCategorySearchIngredientsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_byCategorySearchIngredientsCheckBoxActionPerformed
+        final JCheckBox checkBox = (JCheckBox) evt.getSource();
+        this.byCategorySearchComboBox.setEnabled(checkBox.isEnabled());
+    }//GEN-LAST:event_byCategorySearchIngredientsCheckBoxActionPerformed
+
+    private void buildTableWithIngredients(final List<NutritionalIngredient> ingredientsToAdd, final JTable table) {
         final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         tableModel.setRowCount(0);
         
@@ -1454,14 +1503,10 @@ public class MainWindow extends JFrame {
         ((DefaultTableModel) this.selectedMealTable.getModel()).setRowCount(0);
     }
     
-    private void fillViewIngredientTable() {
-        try {
-            this.ingredients = this.dao.ingredients();
-            if (this.ingredients != null && !this.ingredients.isEmpty()) {
-                this.buildTableWithIngredients(this.ingredients, this.viewIngredientTable);
-            }
-        } catch (final SQLException ex) {
-            this.showError("Error with the database", ex);
+    private void fillViewIngredientTable() throws SQLException {
+        this.ingredients = this.dao.ingredients();
+        if (this.ingredients != null && !this.ingredients.isEmpty()) {
+            this.buildTableWithIngredients(this.ingredients, this.viewIngredientTable);
         }
     }
     
@@ -1518,6 +1563,8 @@ public class MainWindow extends JFrame {
     private javax.swing.JMenuItem addIngredientMenuItem;
     private javax.swing.JButton addNewIngredientButton;
     private javax.swing.JDialog addNewIngredientDialog;
+    private javax.swing.JComboBox<String> byCategorySearchComboBox;
+    private javax.swing.JCheckBox byCategorySearchIngredientsCheckBox;
     private javax.swing.JLabel caloriesSummaryMealLabel;
     private javax.swing.JButton cancelMealSaveButton;
     private javax.swing.JLabel carbsSummaryMealLabel;
