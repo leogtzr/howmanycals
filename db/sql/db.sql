@@ -99,7 +99,7 @@ INSERT INTO category (name) VALUES('Fat');
 INSERT INTO category (name) VALUES('Carbs');
 INSERT INTO category (name) VALUES('Fibra');
 
-INSERT INTO nutrition_ingredient (name, grams, calories, id_category, protein, notes) 
+INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
   VALUES('100g pechuga pollo hervida', 100, 107, 4, 22.42, 'From "cuantas calorias tiene una pechuga hervida"');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, protein, notes) 
   VALUES('200g pechuga pollo hervida', 200, 214, 4, 22.42 * 2, 'From "cuantas calorias tiene una pechuga hervida"');

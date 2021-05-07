@@ -338,6 +338,12 @@ public class HowManyCalsDAO {
             try (final ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     final NutritionalIngredient ingredient = extractIngredient(rs);
+                    
+                    final Category category = new Category();
+                    category.setId(rs.getInt("cat_id"));
+                    category.setName(rs.getString("cat_name"));
+                    ingredient.setCategory(category);
+                    
                     ingredients.add(ingredient);
                 }
             }

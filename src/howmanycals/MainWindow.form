@@ -975,7 +975,7 @@
     </Container>
     <Container class="javax.swing.JDialog" name="viewMealsDialog">
       <Properties>
-        <Property name="title" type="java.lang.String" value="View Meals"/>
+        <Property name="title" type="java.lang.String" value="Meals"/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[1200, 700]"/>
         </Property>
@@ -1225,12 +1225,12 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="staticCaloriesSummaryMealLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="staticProteinSummaryMealLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="staticCarbsSummaryMealLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="staticSugarSummaryMealLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="staticCholesterolSummaryMealLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -1238,7 +1238,7 @@
                               <Component id="caloriesSummaryMealLabel" max="32767" attributes="0"/>
                               <Component id="carbsSummaryMealLabel" max="32767" attributes="0"/>
                               <Component id="sugarSummaryMealLabel" max="32767" attributes="0"/>
-                              <Component id="fatSummaryMealLabel" max="32767" attributes="0"/>
+                              <Component id="staticFatSummaryMealLabel" max="32767" attributes="0"/>
                               <Component id="cholesterolSummaryMealLabel" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace pref="711" max="32767" attributes="0"/>
@@ -1250,32 +1250,32 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="staticCaloriesSummaryMealLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="caloriesSummaryMealLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="staticProteinSummaryMealLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="proteinSummaryMealLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="staticCarbsSummaryMealLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="carbsSummaryMealLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="staticSugarSummaryMealLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="sugarSummaryMealLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="fatSummaryMealLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="staticFatSummaryMealLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="staticCholesterolSummaryMealLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="cholesterolSummaryMealLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="16" max="32767" attributes="0"/>
@@ -1284,65 +1284,47 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel8">
+                <Component class="javax.swing.JLabel" name="staticCaloriesSummaryMealLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Calories:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="caloriesSummaryMealLabel">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="jLabel9"/>
-                  </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel9">
+                <Component class="javax.swing.JLabel" name="staticProteinSummaryMealLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Protein:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="proteinSummaryMealLabel">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="jLabel10"/>
-                  </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel10">
+                <Component class="javax.swing.JLabel" name="staticCarbsSummaryMealLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Carbs:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="carbsSummaryMealLabel">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="jLabel11"/>
-                  </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel11">
+                <Component class="javax.swing.JLabel" name="staticSugarSummaryMealLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Sugar:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="sugarSummaryMealLabel">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="jLabel12"/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel12">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Fat:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="fatSummaryMealLabel">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="jLabel13"/>
-                  </Properties>
+                <Component class="javax.swing.JLabel" name="staticFatSummaryMealLabel">
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel13">
+                <Component class="javax.swing.JLabel" name="staticCholesterolSummaryMealLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Cholesterol:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="cholesterolSummaryMealLabel">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="jLabel14"/>
-                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
