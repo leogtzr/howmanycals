@@ -20,6 +20,8 @@ CREATE TABLE IF NOT EXISTS category (
   CONSTRAINT category_pkey PRIMARY KEY (id)
 );
 
+CREATE UNIQUE INDEX IF NOT EXISTS index_id_category ON category(id);
+
 CREATE TABLE IF NOT EXISTS nutrition_ingredient (
   id INT NOT NULL DEFAULT nextval('nutrition_ingredient_id_seq'::regclass),
   name VARCHAR(250) NOT NULL,
@@ -41,6 +43,8 @@ CREATE TABLE IF NOT EXISTS nutrition_ingredient (
     ON DELETE NO ACTION
     NOT VALID
 );
+
+CREATE UNIQUE INDEX IF NOT EXISTS index_id_nutrition_ingredient ON nutrition_ingredient(id);
 
 CREATE SEQUENCE IF NOT EXISTS meal_id_seq
     START WITH 1
@@ -69,6 +73,8 @@ CREATE TABLE IF NOT EXISTS ingredients (
         NOT VALID
 );
 
+CREATE UNIQUE INDEX IF NOT EXISTS index_id_ingredients ON ingredients(id);
+
 CREATE TABLE IF NOT EXISTS meal (
   id INT NOT NULL DEFAULT nextval('meal_id_seq'::regclass),
   name varchar(250) NOT NULL,
@@ -80,6 +86,8 @@ CREATE TABLE IF NOT EXISTS meal (
 
 CREATE UNIQUE INDEX IF NOT EXISTS index_id_meal ON meal(id);
 CREATE UNIQUE INDEX IF NOT EXISTS index_name_meal ON meal(name);
+
+
 
 INSERT INTO category (name) VALUES('Fruta');
 INSERT INTO category (name) VALUES('Carne');

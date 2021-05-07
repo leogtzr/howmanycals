@@ -26,6 +26,7 @@ hs_err_pid*
 
 db/postgres-data
 db/database-data
+db/backups/
 
 # Logs:
 logs/
