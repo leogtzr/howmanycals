@@ -14,7 +14,7 @@ public class NutritionalIngredient {
     private double protein = -1d;
     private double cholesterol = -1d;
     private double sodium = -1d;
-    private String category = "";
+    private Category category;
     private String notes = "";
     
     public NutritionalIngredient() {}
@@ -45,7 +45,7 @@ public class NutritionalIngredient {
         private double protein = -1d;
         private double cholesterol = -1d;
         private double sodium = -1d;
-        private String category = "";
+        private Category category;
         private String notes = "";
 
         public FormBuilder(final String name, final String grams) {
@@ -96,8 +96,8 @@ public class NutritionalIngredient {
             return this;
         }
         
-        public FormBuilder category(final String category) {
-            if (category == null || category.isBlank()) {
+        public FormBuilder category(final Category category) {
+            if (category == null) {
                 throw new NumberFormatException("Please enter a valid category");
             }
             this.category = category;
@@ -112,9 +112,16 @@ public class NutritionalIngredient {
         public NutritionalIngredient build() {
             return new NutritionalIngredient(this);
         }
-        
     }
 
+    public Category getCategory() {
+        return this.category;
+    }
+
+    public void setCategory(final Category category) {
+        this.category = category;
+    }
+    
     public String getName() {
         return name;
     }
@@ -187,14 +194,6 @@ public class NutritionalIngredient {
         this.sugar = sugar;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(final String category) {
-        this.category = category;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -213,10 +212,10 @@ public class NutritionalIngredient {
 
     @Override
     public String toString() {
-        return "NutritionalIngredient{" + "id=" + id + ", name=" + name + ", grams=" + grams + ", calories=" + 
-                calories + ", fat=" + fat + ", sugar=" + sugar + ", carbohydrates=" + carbohydrates + ", protein=" + 
-                protein + ", cholesterol=" + cholesterol + ", sodium=" + sodium + ", category=" + category + ", notes=" + 
-                notes + '}';
+        return "NutritionalIngredient{" + "id=" + id + ", name=" + name + ", grams=" + 
+                grams + ", calories=" + calories + ", fat=" + fat + ", sugar=" + sugar + ", carbohydrates=" + 
+                carbohydrates + ", protein=" + protein + ", cholesterol=" + cholesterol + ", sodium=" + 
+                sodium + ", category=" + category + ", notes=" + notes + '}';
     }
     
 }

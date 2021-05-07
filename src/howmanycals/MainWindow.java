@@ -1049,7 +1049,7 @@ public class MainWindow extends JFrame {
         final String cholesterol = this.newIngredientCholesterolField.getText();
         final String sodium = this.newIngredientSodiumField.getText();
         final int selectedIndex = this.newIngredientCategoryList.getSelectedIndex();
-        final Category selectedCateory = this.categories.get(selectedIndex);
+        final Category selectedCategory = this.categories.get(selectedIndex);
         final String notes = this.newIngredientNotesField.getText();
         
         try {
@@ -1064,7 +1064,7 @@ public class MainWindow extends JFrame {
                     .protein(protein)
                     .cholesterol(cholesterol)
                     .sodium(sodium)
-                    .category(selectedCateory.getName())
+                    .category(selectedCategory)
                     .notes(notes)
                     .build()
                     ;
@@ -1475,11 +1475,19 @@ public class MainWindow extends JFrame {
     }//GEN-LAST:event_aboutMenuItemActionPerformed
 
     private void byCategorySearchComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_byCategorySearchComboBoxActionPerformed
-        System.out.println("It was changed ... ");
+        if (!this.byCategorySearchIngredientsCheckBox.isSelected()) {
+            return;
+        }
+        
         final JComboBox categoriesBox = (JComboBox) evt.getSource();
         final String categoryName = categoriesBox.getSelectedItem().toString();
         try {
-            this.dao.findCategoryByName(categoryName).ifPresent(System.out::println);
+            final Optional<Category> selectedCategory = this.dao.findCategoryByName(categoryName);
+            if (selectedCategory.isPresent()) {
+                final Category cat = selectedCategory.get();
+                final List<NutritionalIngredient> nutritionIngredientsByCategory = this.dao.findIngredientsByCategoryID(cat.getId());
+                this.buildTableWithIngredients(nutritionIngredientsByCategory, this.viewIngredientTable);
+            }
         } catch (final SQLException ex) {
             this.showError("Error getting categories", "Error");
             LOGGER.error("Error connecting to DB", ex);
@@ -1522,7 +1530,7 @@ public class MainWindow extends JFrame {
             , ingredient.getProtein() == -1d ? "" : formatDoubleValueForTableVisualisation(ingredient.getProtein())
             , ingredient.getCholesterol() == -1d ? "" : formatDoubleValueForTableVisualisation(ingredient.getCholesterol())
             , ingredient.getSodium() == -1d ? "" : formatDoubleValueForTableVisualisation(ingredient.getSodium())
-            , ingredient.getCategory()
+            , ingredient.getCategory().getName()
             , ingredient.getNotes()
         };
         

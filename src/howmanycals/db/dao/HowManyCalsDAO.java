@@ -73,7 +73,10 @@ public class HowManyCalsDAO {
     
     public List<NutritionalIngredient> ingredients() throws SQLException {
         final List<NutritionalIngredient> ingredients = new ArrayList<>();
-        final String query = "SELECT * FROM nutrition_ingredient";
+        final String query = "SELECT nut.*, cat.id AS cat_id, cat.name AS cat_name\n" +
+            "FROM nutrition_ingredient nut\n" +
+            "INNER JOIN category cat\n" +
+            "ON cat.id = nut.id_category";
 
         try (final ResultSet rs = this.connection.createStatement().executeQuery(query)) {
             while (rs.next()) {
@@ -101,7 +104,12 @@ public class HowManyCalsDAO {
         ingredient.setProtein(rs.getFloat("protein"));
         ingredient.setCholesterol(rs.getFloat("cholesterol"));
         ingredient.setSodium(rs.getFloat("sodium"));
-        ingredient.setCategory(rs.getString("category"));
+        
+        final Category category = new Category();
+        category.setId(rs.getInt("cat_id"));
+        category.setName(rs.getString("cat_name"));
+        
+        ingredient.setCategory(category);
         
         return ingredient;
     }
@@ -132,7 +140,7 @@ public class HowManyCalsDAO {
             stmt.setDouble(7, ingredient.getProtein());
             stmt.setDouble(8, ingredient.getCholesterol());
             stmt.setDouble(9, ingredient.getSodium());
-            stmt.setString(10, ingredient.getCategory());
+            stmt.setInt(10, ingredient.getCategory().getId());
             stmt.setString(11, ingredient.getNotes());
             
             final int affectedRows = stmt.executeUpdate();
@@ -225,13 +233,12 @@ public class HowManyCalsDAO {
         final String query = "SELECT * FROM meal WHERE LOWER(name) LIKE ?";
         final List<Meal> meals = new ArrayList<>();
 
-        try (final PreparedStatement preparedStatement = this.connection.prepareStatement(query)) {
-            preparedStatement.setString(1, String.format("%%%s%%", name));
+        try (final PreparedStatement stmt = this.connection.prepareStatement(query)) {
+            stmt.setString(1, String.format("%%%s%%", name));
             
-            try (final ResultSet rs = preparedStatement.executeQuery()) {
+            try (final ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    final Meal meal = extractMeal(rs);
-                    meals.add(meal);
+                    meals.add(extractMeal(rs));
                 }
             }
         }
@@ -326,6 +333,29 @@ public class HowManyCalsDAO {
         }
         
         return Optional.empty();
+    }
+    
+    public List<NutritionalIngredient> findIngredientsByCategoryID(final int id) throws SQLException {
+        final String query = "SELECT nut.*, cat.id AS cat_id, cat.name AS cat_name\n"
+                + "FROM nutrition_ingredient nut\n"
+                + "INNER JOIN category cat\n"
+                + "ON cat.id = nut.id_category\n"
+                + "WHERE nut.id_category = ?";
+        
+        final List<NutritionalIngredient> ingredients = new ArrayList<>();
+
+        try (final PreparedStatement stmt = this.connection.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            
+            try (final ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    final NutritionalIngredient ingredient = extractIngredient(rs);
+                    ingredients.add(ingredient);
+                }
+            }
+        }
+        
+        return ingredients;
     }
     
 }

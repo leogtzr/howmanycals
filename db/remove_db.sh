@@ -15,9 +15,10 @@ remove_db() {
 
     echo "${MY_PASS}" | sudo -S rm --recursive --force "${work_dir}/database-data"
     
-    if docker system prune --all --force; then
-        docker-compose --file "${docker_compose_file}" up
-    fi
+    docker-compose --file "${docker_compose_file}" up
+    # if docker system prune --all --force; then
+    #     docker-compose --file "${docker_compose_file}" up
+    # fi
 }
 
 ask() {
