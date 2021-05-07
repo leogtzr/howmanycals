@@ -278,27 +278,15 @@ public class HowManyCalsDAO {
     
     public List<NutritionalIngredient> findIngredientsByMealID(final int id) throws SQLException {
         final String query = "SELECT \n" +
-                "    m.id\n" +
-                "    , m.name as name\n" +
-                "    , m.creation_date\n" +
-                "    , ing.id_nutrition_ingredient \n" +
-                "    , nut.name as ingredient_name\n" +
-                "    , nut.grams\n" +
-                "    , nut.calories\n" +
-                "    , nut.fat\n" +
-                "    , nut.sugar\n" +
-                "    , nut.carbohydrates\n" +
-                "    , nut.protein\n" +
-                "    , nut.cholesterol\n" +
-                "    , nut.sodium\n" +
-                "    , nut.category\n" +
-                "    , nut.notes\n" +
-                "FROM meal m\n" +
-                "INNER JOIN ingredients ing \n" +
-                "    ON m.id = ing.id_meal\n" +
-                "INNER JOIN nutrition_ingredient nut\n" +
-                "    ON nut.id = ing.id_nutrition_ingredient\n" +
-                "WHERE m.id = ?";
+"    nut.*, cat.id AS cat_id, cat.name AS cat_name\n" +
+"    FROM meal m\n" +
+"    INNER JOIN ingredients ing \n" +
+"        ON m.id = ing.id_meal\n" +
+"    INNER JOIN nutrition_ingredient nut\n" +
+"        ON nut.id = ing.id_nutrition_ingredient\n" +
+"    INNER JOIN category cat\n" +
+"        ON cat.id = nut.id_category\n" +
+"    WHERE m.id = ?";
         
         final List<NutritionalIngredient> ingredients = new ArrayList<>();
 

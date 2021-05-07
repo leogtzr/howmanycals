@@ -1496,7 +1496,21 @@ public class MainWindow extends JFrame {
 
     private void byCategorySearchIngredientsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_byCategorySearchIngredientsCheckBoxActionPerformed
         final JCheckBox checkBox = (JCheckBox) evt.getSource();
-        this.byCategorySearchComboBox.setEnabled(checkBox.isEnabled());
+        this.byCategorySearchComboBox.setEnabled(checkBox.isSelected());
+        
+        try {
+            if (checkBox.isEnabled() == false) {
+                this.ingredients = this.dao.ingredients();
+                this.buildTableWithIngredients(this.ingredients, this.viewIngredientTable);
+            } else {
+                this.resetViewIngredientTable();
+                this.buildTableWithIngredients(this.ingredients, this.viewIngredientTable);
+                System.out.println("Simply bye ...");
+            }
+        } catch (final SQLException ex) {
+            this.showError("Error connecting to the database", "ERROR");
+            LOGGER.error("Error connecting to the database", ex);
+        }
     }//GEN-LAST:event_byCategorySearchIngredientsCheckBoxActionPerformed
 
     private void buildTableWithIngredients(final List<NutritionalIngredient> ingredientsToAdd, final JTable table) {
