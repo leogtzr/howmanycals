@@ -9,6 +9,7 @@ import howmanycals.domain.MealNutritionInformation;
 import howmanycals.domain.Note;
 import howmanycals.domain.NutritionalIngredient;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import java.sql.SQLException;
@@ -20,9 +21,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javax.swing.AbstractAction;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JTable;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 
 import org.slf4j.Logger;
@@ -49,6 +54,25 @@ public class MainWindow extends JFrame {
     public MainWindow() {
         this.initDatabase();
         this.initComponents();
+        this.postComponentsSetup();
+    }
+    
+    private void createKeybindings(final JTable table, final JDialog dialog) {
+        table.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "Enter");
+            table.getActionMap().put("Enter", new AbstractAction() {
+                @Override
+                public void actionPerformed(final ActionEvent ae) {
+                    final JTable table = (JTable) ae.getSource();
+                    final int selectedRow = table.getSelectedRow();
+                    System.out.println(String.format("Enter? -> %d (%d)", table.getModel().getRowCount(), selectedRow));
+                    dialog.setVisible(true);
+                }
+            });
+    }
+    
+    private void postComponentsSetup() {
+        // ...
+        this.createKeybindings(this.notesTable, this.viewNoteDialog);
     }
     
     private Optional<NutritionalIngredient> findIngredientByIndex(
@@ -158,6 +182,8 @@ public class MainWindow extends JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         notesFileMenu = new javax.swing.JMenu();
         notesNewMenuItem = new javax.swing.JMenuItem();
+        viewNoteDialog = new javax.swing.JDialog();
+        closeViewNoteDialogButton = new javax.swing.JButton();
         viewMealsButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
@@ -935,6 +961,7 @@ public class MainWindow extends JFrame {
         notesDialog.setTitle("Notes");
         notesDialog.setMaximumSize(new java.awt.Dimension(850, 600));
         notesDialog.setMinimumSize(new java.awt.Dimension(850, 600));
+        notesDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         notesDialog.setResizable(false);
         notesDialog.setSize(new java.awt.Dimension(850, 600));
 
@@ -954,6 +981,8 @@ public class MainWindow extends JFrame {
                 return canEdit [columnIndex];
             }
         });
+        notesTable.setToolTipText("Enter to view");
+        notesTable.setShowVerticalLines(false);
         jScrollPane7.setViewportView(notesTable);
         if (notesTable.getColumnModel().getColumnCount() > 0) {
             notesTable.getColumnModel().getColumn(0).setMinWidth(40);
@@ -1004,6 +1033,38 @@ public class MainWindow extends JFrame {
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(closeNotesDialogButton)
+                .addContainerGap())
+        );
+
+        viewNoteDialog.setTitle("Note");
+        viewNoteDialog.setMaximumSize(new java.awt.Dimension(400, 300));
+        viewNoteDialog.setMinimumSize(new java.awt.Dimension(400, 300));
+        viewNoteDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        viewNoteDialog.setResizable(false);
+        viewNoteDialog.setSize(new java.awt.Dimension(400, 300));
+
+        closeViewNoteDialogButton.setMnemonic('C');
+        closeViewNoteDialogButton.setText("Close");
+        closeViewNoteDialogButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeViewNoteDialogButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout viewNoteDialogLayout = new javax.swing.GroupLayout(viewNoteDialog.getContentPane());
+        viewNoteDialog.getContentPane().setLayout(viewNoteDialogLayout);
+        viewNoteDialogLayout.setHorizontalGroup(
+            viewNoteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewNoteDialogLayout.createSequentialGroup()
+                .addContainerGap(345, Short.MAX_VALUE)
+                .addComponent(closeViewNoteDialogButton)
+                .addContainerGap())
+        );
+        viewNoteDialogLayout.setVerticalGroup(
+            viewNoteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewNoteDialogLayout.createSequentialGroup()
+                .addContainerGap(259, Short.MAX_VALUE)
+                .addComponent(closeViewNoteDialogButton)
                 .addContainerGap())
         );
 
@@ -1603,8 +1664,14 @@ public class MainWindow extends JFrame {
         }
     }//GEN-LAST:event_byCategorySearchIngredientsCheckBoxActionPerformed
 
+    private void resetNotesDialog() {
+        final JTable notesTable = this.notesTable;
+        ((DefaultTableModel) notesTable.getModel()).setRowCount(0);
+    }
+    
     private void notesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notesMenuItemActionPerformed
         try {
+            this.resetNotesDialog();
             final List<Note> notes = this.dao.notes();
             final DefaultTableModel tableModel = (DefaultTableModel) this.notesTable.getModel();
             notes.forEach(note -> tableModel.addRow(this.sanitizeNoteForTable(note)));
@@ -1622,6 +1689,10 @@ public class MainWindow extends JFrame {
     private void closeNotesDialogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeNotesDialogButtonActionPerformed
         this.notesDialog.setVisible(false);
     }//GEN-LAST:event_closeNotesDialogButtonActionPerformed
+
+    private void closeViewNoteDialogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeViewNoteDialogButtonActionPerformed
+        this.viewNoteDialog.setVisible(false);
+    }//GEN-LAST:event_closeViewNoteDialogButtonActionPerformed
 
     private void buildTableWithIngredients(final List<NutritionalIngredient> ingredientsToAdd, final JTable table) {
         final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
@@ -1712,6 +1783,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel cholesterolSummaryMealLabel;
     private javax.swing.JButton clearNewIngredientButton;
     private javax.swing.JButton closeNotesDialogButton;
+    private javax.swing.JButton closeViewNoteDialogButton;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenuItem;
     private javax.swing.JMenu ingredientsMenuItem;
@@ -1804,6 +1876,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel viewMealsFoundLabel;
     private javax.swing.JTextField viewMealsSearchMealTextField;
     private javax.swing.JTable viewMealsTable;
+    private javax.swing.JDialog viewNoteDialog;
     private javax.swing.JTable viewSelectedMealTable;
     // End of variables declaration//GEN-END:variables
 
