@@ -87,7 +87,23 @@ CREATE TABLE IF NOT EXISTS meal (
 CREATE UNIQUE INDEX IF NOT EXISTS index_id_meal ON meal(id);
 CREATE UNIQUE INDEX IF NOT EXISTS index_name_meal ON meal(name);
 
+-- notes:
+CREATE SEQUENCE IF NOT EXISTS note_id_seq
+  START WITH 1
+  INCREMENT BY 1
+  NO MINVALUE
+  NO MAXVALUE
+  CACHE 1;
 
+CREATE TABLE IF NOT EXISTS note (
+  id INT NOT NULL DEFAULT nextval('note_id_seq'::regclass),
+  note TEXT NOT NULL,
+  creation_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+  
+  CONSTRAINT note_pkey PRIMARY KEY (id)  
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS index_id_note ON note(id);
 
 INSERT INTO category (name) VALUES('Fruta');
 INSERT INTO category (name) VALUES('Carne');
@@ -100,9 +116,9 @@ INSERT INTO category (name) VALUES('Carbs');
 INSERT INTO category (name) VALUES('Fibra');
 
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-  VALUES('100g pechuga pollo hervida', 100, 107, 4, 22.42, 'From "cuantas calorias tiene una pechuga hervida"');
-INSERT INTO nutrition_ingredient (name, grams, calories, id_category, protein, notes) 
-  VALUES('200g pechuga pollo hervida', 200, 214, 4, 22.42 * 2, 'From "cuantas calorias tiene una pechuga hervida"');
+  VALUES('100g pechuga pollo hervida', 100, 107, 4, 'From "cuantas calorias tiene una pechuga hervida"');
+INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
+  VALUES('200g pechuga pollo hervida', 200, 214, 4, 'From "cuantas calorias tiene una pechuga hervida"');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, protein, notes) 
   VALUES('2 huevos (110g)', 110, 160, 4, 22.42 * 2, '~');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
@@ -164,3 +180,9 @@ INSERT INTO meal (name, notes) VALUES('frijolitos', 'Deliciososssss');
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 1);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 2);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 3);
+
+INSERT INTO note (note) VALUES('The note 1');
+INSERT INTO note (note) VALUES('The note 2');
+INSERT INTO note (note) VALUES('The note 3');
+INSERT INTO note (note) VALUES('The note 4');
+INSERT INTO note (note) VALUES('The note 5');

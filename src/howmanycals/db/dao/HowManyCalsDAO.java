@@ -3,6 +3,7 @@ package howmanycals.db.dao;
 import howmanycals.db.DBConnection;
 import howmanycals.domain.Category;
 import howmanycals.domain.Meal;
+import howmanycals.domain.Note;
 import howmanycals.domain.NutritionalIngredient;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -350,6 +351,28 @@ public class HowManyCalsDAO {
         }
         
         return ingredients;
+    }
+    
+    public List<Note> notes() throws SQLException {
+        final String query = "SELECT * FROM note ORDER BY creation_date";
+        final List<Note> notes = new ArrayList<>();
+        
+        try (final ResultSet rs = connection.createStatement().executeQuery(query)) {
+            while (rs.next()) {
+                notes.add(extractNote(rs));
+            }
+        }
+
+        return notes;
+    }
+
+    private Note extractNote(final ResultSet rs) throws SQLException {
+        final Note note = new Note();
+        note.setId(rs.getInt("id"));
+        note.setNote(rs.getString("note"));
+        note.setCreationDate(rs.getTimestamp("creation_date").toLocalDateTime());
+        
+        return note;
     }
     
 }

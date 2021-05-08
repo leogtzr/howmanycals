@@ -6,6 +6,7 @@ import howmanycals.db.dao.HowManyCalsDAO;
 import howmanycals.domain.Category;
 import howmanycals.domain.Meal;
 import howmanycals.domain.MealNutritionInformation;
+import howmanycals.domain.Note;
 import howmanycals.domain.NutritionalIngredient;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -150,6 +151,13 @@ public class MainWindow extends JFrame {
         staticFatSummaryMealLabel = new javax.swing.JLabel();
         staticCholesterolSummaryMealLabel = new javax.swing.JLabel();
         cholesterolSummaryMealLabel = new javax.swing.JLabel();
+        notesDialog = new javax.swing.JDialog();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        notesTable = new javax.swing.JTable();
+        closeNotesDialogButton = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        notesFileMenu = new javax.swing.JMenu();
+        notesNewMenuItem = new javax.swing.JMenuItem();
         viewMealsButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
@@ -157,6 +165,8 @@ public class MainWindow extends JFrame {
         ingredientsMenuItem = new javax.swing.JMenu();
         addIngredientMenuItem = new javax.swing.JMenuItem();
         viewIngredientMenuItem = new javax.swing.JMenuItem();
+        notesMenu = new javax.swing.JMenu();
+        notesMenuItem = new javax.swing.JMenuItem();
         aboutMenu = new javax.swing.JMenu();
         aboutMenuItem = new javax.swing.JMenuItem();
 
@@ -922,6 +932,81 @@ public class MainWindow extends JFrame {
                 .addContainerGap())
         );
 
+        notesDialog.setTitle("Notes");
+        notesDialog.setMaximumSize(new java.awt.Dimension(850, 600));
+        notesDialog.setMinimumSize(new java.awt.Dimension(850, 600));
+        notesDialog.setResizable(false);
+        notesDialog.setSize(new java.awt.Dimension(850, 600));
+
+        notesTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Note", "Created"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane7.setViewportView(notesTable);
+        if (notesTable.getColumnModel().getColumnCount() > 0) {
+            notesTable.getColumnModel().getColumn(0).setMinWidth(40);
+            notesTable.getColumnModel().getColumn(0).setMaxWidth(40);
+        }
+
+        closeNotesDialogButton.setMnemonic('C');
+        closeNotesDialogButton.setText("Close");
+        closeNotesDialogButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeNotesDialogButtonActionPerformed(evt);
+            }
+        });
+
+        notesFileMenu.setMnemonic('F');
+        notesFileMenu.setText("File");
+
+        notesNewMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        notesNewMenuItem.setMnemonic('N');
+        notesNewMenuItem.setText("New");
+        notesNewMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                notesNewMenuItemActionPerformed(evt);
+            }
+        });
+        notesFileMenu.add(notesNewMenuItem);
+
+        jMenuBar1.add(notesFileMenu);
+
+        notesDialog.setJMenuBar(jMenuBar1);
+
+        javax.swing.GroupLayout notesDialogLayout = new javax.swing.GroupLayout(notesDialog.getContentPane());
+        notesDialog.getContentPane().setLayout(notesDialogLayout);
+        notesDialogLayout.setHorizontalGroup(
+            notesDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(notesDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(notesDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 826, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, notesDialogLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(closeNotesDialogButton)))
+                .addContainerGap())
+        );
+        notesDialogLayout.setVerticalGroup(
+            notesDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(notesDialogLayout.createSequentialGroup()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(closeNotesDialogButton)
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HowManyCals v0.1");
         setResizable(false);
@@ -974,6 +1059,20 @@ public class MainWindow extends JFrame {
         ingredientsMenuItem.add(viewIngredientMenuItem);
 
         menuBar.add(ingredientsMenuItem);
+
+        notesMenu.setMnemonic('N');
+        notesMenu.setText("Notes");
+
+        notesMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        notesMenuItem.setText("Notes");
+        notesMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                notesMenuItemActionPerformed(evt);
+            }
+        });
+        notesMenu.add(notesMenuItem);
+
+        menuBar.add(notesMenu);
 
         aboutMenu.setText("About");
 
@@ -1504,6 +1603,26 @@ public class MainWindow extends JFrame {
         }
     }//GEN-LAST:event_byCategorySearchIngredientsCheckBoxActionPerformed
 
+    private void notesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notesMenuItemActionPerformed
+        try {
+            final List<Note> notes = this.dao.notes();
+            final DefaultTableModel tableModel = (DefaultTableModel) this.notesTable.getModel();
+            notes.forEach(note -> tableModel.addRow(this.sanitizeNoteForTable(note)));
+            this.notesDialog.setVisible(true);
+        } catch (final SQLException ex) {
+            this.showError("Error getting notes", "Error");
+            LOGGER.error("Error getting notes from database.", ex);
+        }
+    }//GEN-LAST:event_notesMenuItemActionPerformed
+
+    private void notesNewMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notesNewMenuItemActionPerformed
+        System.out.println("Create new note ... ");
+    }//GEN-LAST:event_notesNewMenuItemActionPerformed
+
+    private void closeNotesDialogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeNotesDialogButtonActionPerformed
+        this.notesDialog.setVisible(false);
+    }//GEN-LAST:event_closeNotesDialogButtonActionPerformed
+
     private void buildTableWithIngredients(final List<NutritionalIngredient> ingredientsToAdd, final JTable table) {
         final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         tableModel.setRowCount(0);
@@ -1541,6 +1660,16 @@ public class MainWindow extends JFrame {
         return ingredientRowData;
     }
     
+    private Object[] sanitizeNoteForTable(final Note note) {
+        final Object[] rowData = {
+            note.getId()
+           , note.getNote()
+           , note.getCreationDate().format(CREATION_TIME_FORMATTER)
+        };
+        
+        return rowData;
+    }
+    
     private void fillUpCategories() throws SQLException {
         this.categories = this.dao.categories();
         this.categories.forEach(category -> this.newIngredientCategoryList.addItem(category.getName()));
@@ -1554,10 +1683,7 @@ public class MainWindow extends JFrame {
          */
         try {
             for (final LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                System.out.println(info.getName());
-            }
-            for (final LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Metal".equals(info.getName())) {
+                if (info.getName().equals(howmanycals.gui.GUI.LOOK)) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -1585,6 +1711,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel carbsSummaryMealLabel;
     private javax.swing.JLabel cholesterolSummaryMealLabel;
     private javax.swing.JButton clearNewIngredientButton;
+    private javax.swing.JButton closeNotesDialogButton;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenuItem;
     private javax.swing.JMenu ingredientsMenuItem;
@@ -1597,12 +1724,14 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JList<String> jList1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel mealSummaryPanel;
     private javax.swing.JTabbedPane mealSummaryTabbedPanel;
@@ -1628,6 +1757,12 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel newIngredientSodiumLabel;
     private javax.swing.JTextField newIngredientSugarField;
     private javax.swing.JLabel newIngredientSugarLabel;
+    private javax.swing.JDialog notesDialog;
+    private javax.swing.JMenu notesFileMenu;
+    private javax.swing.JMenu notesMenu;
+    private javax.swing.JMenuItem notesMenuItem;
+    private javax.swing.JMenuItem notesNewMenuItem;
+    private javax.swing.JTable notesTable;
     private javax.swing.JButton okViewIngredientButton;
     private javax.swing.JLabel proteinSummaryMealLabel;
     private javax.swing.JButton saveMealButton;
