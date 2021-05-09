@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+# set -x
 #: Github: leogtzr
 # note: this script is only for my personal usage, DO NOT USE IT IN PRODUCTION.
 
@@ -20,11 +20,19 @@ if [[ ! -d "${backup_dir}" ]]; then
     mkdir "${backup_dir}"
 fi
 
-PGPASSWORD="${HOWMANYCALS_DB_PASSWORD}" docker-compose --file "${docker_compose_file}" \
-    exec "${HOWMANYCALS_DB}" pg_dump --username leo "${HOWMANYCALS_DB}" > "${backup_dir}/db_dump-ALL-${datetime}.sql"
+if PGPASSWORD="${HOWMANYCALS_DB_PASSWORD}" docker-compose --file "${docker_compose_file}" \
+    exec "${HOWMANYCALS_DB}" pg_dump --username leo "${HOWMANYCALS_DB}" > "${backup_dir}/db_dump-ALL-${datetime}.sql"; then
+    printf "Full schema and data backup created at: %s\n" "${backup_dir}/db_dump-ALL-${datetime}.sql"
+else
+    printf "error: creating (schema and data) backup: %s\n" "${backup_dir}/db_dump-ALL-${datetime}.sql"
+fi
 
 # can be reloaded with: gunzip -c filename.gz | psql dbname
-PGPASSWORD="${HOWMANYCALS_DB_PASSWORD}" docker-compose --file "${docker_compose_file}" \
-    exec "${HOWMANYCALS_DB}" pg_dump --data-only --username leo "${HOWMANYCALS_DB}" | gzip > "${backup_dir}/db_dump-DATA-${datetime}.sql.gz"
+if PGPASSWORD="${HOWMANYCALS_DB_PASSWORD}" docker-compose --file "${docker_compose_file}" \
+    exec "${HOWMANYCALS_DB}" pg_dump --data-only --username leo "${HOWMANYCALS_DB}" | gzip > "${backup_dir}/db_dump-DATA-${datetime}.sql.gz"; then
+    printf "Data backup created at: %s\n" "${backup_dir}/db_dump-DATA-${datetime}.sql.gz"
+else
+    printf "error: creating (data) backup: %s\n" "${backup_dir}/db_dump-DATA-${datetime}.sql.gz"
+fi
 
 exit 0

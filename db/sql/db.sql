@@ -126,7 +126,13 @@ INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes)
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
   VALUES('Queso Panela Zwan (1)', 30, 72, 6, 'From the label');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-  VALUES('1 scoop ISOPURE', 31, 103.6, 4, 'From the label');
+  VALUES('1 scoop ISOPURE Fresa', 31, 103.6, 4, 'From the label');
+INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
+  VALUES('1 scoop ISOPURE Unflavored', 29, 100, 4, 'From the label');
+INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
+  VALUES('2 scoop ISOPURE Unflavored', 58, 200, 4, 'From the label');
+INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
+  VALUES('1 1/2 scoop ISOPURE Unflavored', 43.5, 150, 4, 'From the label');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
   VALUES('1 1/2 scoop ISOPURE', 46.5, 155.4, 4, 'From the label');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
@@ -137,7 +143,6 @@ INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes)
   VALUES('1 Tostada Susalia', 12, 32.0, 8, 'From the label');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
   VALUES('50g Aguacate Hass', 50, 80.0, 7, 'From the mypalfitness/fatsecret');
-
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
         VALUES('100g esparragos/asparagus', 100, 20.0, 3, 'From fatsecret.cl');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 

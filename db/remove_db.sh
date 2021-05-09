@@ -5,9 +5,13 @@ set -x
 
 work_dir=$(dirname "$(readlink --canonicalize-existing "${0}" 2> /dev/null)")
 readonly docker_compose_file="${work_dir}/docker-compose.yml"
+readonly export_schema_and_data_script="${work_dir}/export_schema_and_data.sh"
 readonly error_docker_file_not_found=80
 
 remove_db() {
+    if [[ -f "${export_schema_and_data_script}" ]]; then
+        "${export_schema_and_data_script}"
+    fi
     # docker container rm $(docker container ls -f 'name=howmany*' -q) should work too...
     docker-compose --file "${docker_compose_file}" down
     docker-compose --file "${docker_compose_file}" stop

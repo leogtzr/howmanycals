@@ -184,6 +184,10 @@ public class MainWindow extends JFrame {
         notesNewMenuItem = new javax.swing.JMenuItem();
         viewNoteDialog = new javax.swing.JDialog();
         closeViewNoteDialogButton = new javax.swing.JButton();
+        staticCateViewNoteDialogLabel = new javax.swing.JLabel();
+        dateViewNoteDialogLabel = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         viewMealsButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
@@ -1051,19 +1055,40 @@ public class MainWindow extends JFrame {
             }
         });
 
+        staticCateViewNoteDialogLabel.setLabelFor(dateViewNoteDialogLabel);
+        staticCateViewNoteDialogLabel.setText("Date:");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane8.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout viewNoteDialogLayout = new javax.swing.GroupLayout(viewNoteDialog.getContentPane());
         viewNoteDialog.getContentPane().setLayout(viewNoteDialogLayout);
         viewNoteDialogLayout.setHorizontalGroup(
             viewNoteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewNoteDialogLayout.createSequentialGroup()
-                .addContainerGap(345, Short.MAX_VALUE)
-                .addComponent(closeViewNoteDialogButton)
+            .addGroup(viewNoteDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(viewNoteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewNoteDialogLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(closeViewNoteDialogButton))
+                    .addGroup(viewNoteDialogLayout.createSequentialGroup()
+                        .addComponent(staticCateViewNoteDialogLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(dateViewNoteDialogLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         viewNoteDialogLayout.setVerticalGroup(
             viewNoteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewNoteDialogLayout.createSequentialGroup()
-                .addContainerGap(259, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(viewNoteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(staticCateViewNoteDialogLabel)
+                    .addComponent(dateViewNoteDialogLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(closeViewNoteDialogButton)
                 .addContainerGap())
         );
@@ -1784,6 +1809,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JButton clearNewIngredientButton;
     private javax.swing.JButton closeNotesDialogButton;
     private javax.swing.JButton closeViewNoteDialogButton;
+    private javax.swing.JLabel dateViewNoteDialogLabel;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenuItem;
     private javax.swing.JMenu ingredientsMenuItem;
@@ -1804,7 +1830,9 @@ public class MainWindow extends JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel mealSummaryPanel;
     private javax.swing.JTabbedPane mealSummaryTabbedPanel;
     private javax.swing.JMenuBar menuBar;
@@ -1849,6 +1877,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JTable selectedMealTable;
     private javax.swing.JLabel staticCaloriesSummaryMealLabel;
     private javax.swing.JLabel staticCarbsSummaryMealLabel;
+    private javax.swing.JLabel staticCateViewNoteDialogLabel;
     private javax.swing.JLabel staticCholesterolSummaryMealLabel;
     private javax.swing.JLabel staticFatSummaryMealLabel;
     private javax.swing.JLabel staticProteinSummaryMealLabel;
