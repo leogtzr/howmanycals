@@ -365,6 +365,22 @@ public class HowManyCalsDAO {
 
         return notes;
     }
+    
+    public Optional<Note> findNoteById(final int id) throws SQLException {
+        final String query = "SELECT * FROM note WHERE id = ?";
+
+        try (final PreparedStatement stmt = this.connection.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            try (final ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    final Note note = extractNote(rs);
+                    return Optional.of(note);
+                }
+            }
+        }
+
+        return Optional.empty();
+    }
 
     private Note extractNote(final ResultSet rs) throws SQLException {
         final Note note = new Note();

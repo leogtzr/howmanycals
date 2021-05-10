@@ -25,7 +25,6 @@ import javax.swing.AbstractAction;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
@@ -57,22 +56,14 @@ public class MainWindow extends JFrame {
         this.postComponentsSetup();
     }
     
-    private void createKeybindings(final JTable table, final JDialog dialog) {
-        table.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "Enter");
-            table.getActionMap().put("Enter", new AbstractAction() {
-                @Override
-                public void actionPerformed(final ActionEvent ae) {
-                    final JTable table = (JTable) ae.getSource();
-                    final int selectedRow = table.getSelectedRow();
-                    System.out.println(String.format("Enter? -> %d (%d)", table.getModel().getRowCount(), selectedRow));
-                    dialog.setVisible(true);
-                }
-            });
+    private void createKeybindings(final MainWindow window) {
+        window.notesTable.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "Enter");
+        window.notesTable.getActionMap().put("Enter", new EnterKeyTableActionImpl(this));
     }
     
     private void postComponentsSetup() {
         // ...
-        this.createKeybindings(this.notesTable, this.viewNoteDialog);
+        this.createKeybindings(this);
     }
     
     private Optional<NutritionalIngredient> findIngredientByIndex(
@@ -179,7 +170,7 @@ public class MainWindow extends JFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         notesTable = new javax.swing.JTable();
         closeNotesDialogButton = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        fileNoteMenuBar = new javax.swing.JMenuBar();
         notesFileMenu = new javax.swing.JMenu();
         notesNewMenuItem = new javax.swing.JMenuItem();
         viewNoteDialog = new javax.swing.JDialog();
@@ -187,7 +178,7 @@ public class MainWindow extends JFrame {
         staticCateViewNoteDialogLabel = new javax.swing.JLabel();
         dateViewNoteDialogLabel = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        noteViewNoteDialogTextArea = new javax.swing.JTextArea();
         viewMealsButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
@@ -1014,9 +1005,9 @@ public class MainWindow extends JFrame {
         });
         notesFileMenu.add(notesNewMenuItem);
 
-        jMenuBar1.add(notesFileMenu);
+        fileNoteMenuBar.add(notesFileMenu);
 
-        notesDialog.setJMenuBar(jMenuBar1);
+        notesDialog.setJMenuBar(fileNoteMenuBar);
 
         javax.swing.GroupLayout notesDialogLayout = new javax.swing.GroupLayout(notesDialog.getContentPane());
         notesDialog.getContentPane().setLayout(notesDialogLayout);
@@ -1058,9 +1049,20 @@ public class MainWindow extends JFrame {
         staticCateViewNoteDialogLabel.setLabelFor(dateViewNoteDialogLabel);
         staticCateViewNoteDialogLabel.setText("Date:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane8.setViewportView(jTextArea1);
+        dateViewNoteDialogLabel.setForeground(new java.awt.Color(67, 85, 193));
+
+        noteViewNoteDialogTextArea.setColumns(20);
+        noteViewNoteDialogTextArea.setFont(new java.awt.Font("Noto Sans", 1, 14)); // NOI18N
+        noteViewNoteDialogTextArea.setForeground(new java.awt.Color(5, 5, 14));
+        noteViewNoteDialogTextArea.setRows(5);
+        noteViewNoteDialogTextArea.setTabSize(4);
+        noteViewNoteDialogTextArea.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        noteViewNoteDialogTextArea.setCaretColor(new java.awt.Color(254, 254, 254));
+        noteViewNoteDialogTextArea.setDisabledTextColor(new java.awt.Color(1, 1, 1));
+        noteViewNoteDialogTextArea.setDragEnabled(true);
+        noteViewNoteDialogTextArea.setOpaque(false);
+        noteViewNoteDialogTextArea.setSelectedTextColor(new java.awt.Color(179, 7, 7));
+        jScrollPane8.setViewportView(noteViewNoteDialogTextArea);
 
         javax.swing.GroupLayout viewNoteDialogLayout = new javax.swing.GroupLayout(viewNoteDialog.getContentPane());
         viewNoteDialog.getContentPane().setLayout(viewNoteDialogLayout);
@@ -1095,7 +1097,6 @@ public class MainWindow extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HowManyCals v0.1");
-        setResizable(false);
 
         viewMealsButton.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
         viewMealsButton.setForeground(new java.awt.Color(5, 70, 254));
@@ -1812,6 +1813,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel dateViewNoteDialogLabel;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenuItem;
+    private javax.swing.JMenuBar fileNoteMenuBar;
     private javax.swing.JMenu ingredientsMenuItem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
@@ -1822,7 +1824,6 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JList<String> jList1;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1832,7 +1833,6 @@ public class MainWindow extends JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel mealSummaryPanel;
     private javax.swing.JTabbedPane mealSummaryTabbedPanel;
     private javax.swing.JMenuBar menuBar;
@@ -1857,6 +1857,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel newIngredientSodiumLabel;
     private javax.swing.JTextField newIngredientSugarField;
     private javax.swing.JLabel newIngredientSugarLabel;
+    private javax.swing.JTextArea noteViewNoteDialogTextArea;
     private javax.swing.JDialog notesDialog;
     private javax.swing.JMenu notesFileMenu;
     private javax.swing.JMenu notesMenu;
@@ -1917,5 +1918,35 @@ public class MainWindow extends JFrame {
             , meal.getNotes()
         };
         tableModel.addRow(mealRowData);
+    }
+
+    private static class EnterKeyTableActionImpl extends AbstractAction {
+        
+        private final MainWindow window;
+
+        public EnterKeyTableActionImpl(final MainWindow window) {
+            this.window = window;
+        }
+
+        @Override
+        public void actionPerformed(final ActionEvent ae) {
+            final JTable table = (JTable) ae.getSource();
+            final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+            final int selectedRow = table.getSelectedRow();
+            
+            final Integer noteID = (Integer) tableModel.getValueAt(selectedRow, 0);
+            
+            try {
+                window.dao.findNoteById(noteID).ifPresent(note -> {
+                    System.out.println(note);
+                    this.window.dateViewNoteDialogLabel.setText(note.getCreationDate().format(CREATION_TIME_FORMATTER));
+                    this.window.noteViewNoteDialogTextArea.setText(note.getNote());
+                    this.window.viewNoteDialog.setVisible(true);
+                });
+            } catch (final SQLException ex) {
+                this.window.showError("Error getting note", "Error");
+                LOGGER.error(ex.getMessage(), ex);
+            }
+        }
     }
 }
