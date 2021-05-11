@@ -1369,8 +1369,8 @@ public class MainWindow extends JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(viewMealsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(366, Short.MAX_VALUE))
+                .addComponent(viewMealsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(330, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1798,12 +1798,15 @@ public class MainWindow extends JFrame {
             return;
         }
         
+        System.out.printf("Searching for -> [%s]\n", searchText);
+        
         ((DefaultTableModel) this.viewSelectedMealTable.getModel()).setRowCount(0);
         
         this.cleanViewMealsTable(this.viewMealsTable);
         try {
             final String toSearchText = searchText.trim().toLowerCase();
             final List<Meal> mealsByFoundBySearch = this.dao.containsByName(toSearchText.trim().toLowerCase());
+            System.out.println(mealsByFoundBySearch);
             this.populateTableWithMeals(mealsByFoundBySearch, this.viewMealsTable);
         } catch (final SQLException ex) {
             LOGGER.error(ex.getMessage(), ex);

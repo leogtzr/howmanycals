@@ -146,7 +146,7 @@ public class HowManyCalsDAO {
         
         meal.setId(rs.getInt("id"));
         meal.setName(rs.getString("name"));
-        meal.setName(rs.getString("notes"));
+        meal.setNotes(rs.getString("notes"));
         meal.setCreationDate(rs.getTimestamp("creation_date").toLocalDateTime());
         
         return meal;
@@ -268,6 +268,8 @@ public class HowManyCalsDAO {
 
         try (final PreparedStatement stmt = this.connection.prepareStatement(query)) {
             stmt.setString(1, String.format("%%%s%%", name));
+            
+            LOGGER.debug(stmt.toString());
             
             try (final ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
