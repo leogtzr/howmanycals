@@ -9,6 +9,8 @@ import howmanycals.domain.Meal;
 import howmanycals.domain.MealNutritionInformation;
 import howmanycals.domain.Note;
 import howmanycals.domain.NutritionalIngredient;
+import howmanycals.utils.FormatUtils;
+import howmanycals.utils.InformationMissingAnalysisUtil;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -1361,8 +1363,8 @@ public class MainWindow extends JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(viewMealsButton)
-                .addContainerGap(379, Short.MAX_VALUE))
+                .addComponent(viewMealsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(366, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1937,14 +1939,42 @@ public class MainWindow extends JFrame {
         
     }//GEN-LAST:event_saveNewNoteButtonActionPerformed
 
-    private void dataMissingAnalysisButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataMissingAnalysisButtonActionPerformed
+    private void resetPercentageRateMissingFields() {
         this.fatPercentageMissingRateLabel.setText("");
         this.sugarPercentageMissingRateLabel.setText("");
         this.carbsPercentageMissingRateLabel.setText("");
         this.cholesterolPercentageMissingRateLabel.setText("");
         this.sodiumPercentageMissingRateLabel.setText("");
         this.proteinPercentageMissingRateLabel.setText("");
-        this.dataMissingDialog.setVisible(true);
+    }
+    
+    private void formatePercentageMissingRateLabels(final InformationMissingAnalysisUtil.MissingPercentageRates rates) {
+        this.fatPercentageMissingRateLabel.setText(formatDoubleValueForTableVisualisation(rates.fat()));
+        this.sugarPercentageMissingRateLabel.setText(formatDoubleValueForTableVisualisation(rates.sugar()));
+        this.carbsPercentageMissingRateLabel.setText(formatDoubleValueForTableVisualisation(rates.carbs()));
+        this.cholesterolPercentageMissingRateLabel.setText(formatDoubleValueForTableVisualisation(rates.cholesterol()));
+        this.sodiumPercentageMissingRateLabel.setText(formatDoubleValueForTableVisualisation(rates.sodium()));
+        this.proteinPercentageMissingRateLabel.setText(formatDoubleValueForTableVisualisation(rates.protein()));
+    }
+    
+    private void dataMissingAnalysisButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataMissingAnalysisButtonActionPerformed
+        try {
+            if (this.ingredients == null || this.ingredients.isEmpty()) {
+                this.ingredients = this.dao.ingredients();
+            }
+
+            this.resetPercentageRateMissingFields();
+
+            final InformationMissingAnalysisUtil.MissingPercentageRates missingPercentageRates = 
+                    new InformationMissingAnalysisUtil().rates(this.ingredients);
+
+            this.formatePercentageMissingRateLabels(missingPercentageRates);
+            
+            this.dataMissingDialog.setVisible(true);
+        } catch (final SQLException ex) {
+            this.showError("Error getting ingredients from the database.", "Error");
+            LOGGER.error("Error getting ingredients from the database.", ex);
+        }
     }//GEN-LAST:event_dataMissingAnalysisButtonActionPerformed
 
     private void okCloseDataMissingDialogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okCloseDataMissingDialogButtonActionPerformed
