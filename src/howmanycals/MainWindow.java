@@ -1,4 +1,4 @@
-// TODO: close DAO connection.
+// TODO: edit ingredient ... 
 package howmanycals;
 
 import static howmanycals.utils.FormatUtils.formatDoubleValueForTableVisualisation;
@@ -9,7 +9,6 @@ import howmanycals.domain.Meal;
 import howmanycals.domain.MealNutritionInformation;
 import howmanycals.domain.Note;
 import howmanycals.domain.NutritionalIngredient;
-import howmanycals.utils.FormatUtils;
 import howmanycals.utils.InformationMissingAnalysisUtil;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -1008,6 +1007,11 @@ public class MainWindow extends JFrame {
         });
         notesTable.setToolTipText("Enter to view");
         notesTable.setShowVerticalLines(false);
+        notesTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                notesTableMousePressed(evt);
+            }
+        });
         jScrollPane7.setViewportView(notesTable);
         if (notesTable.getColumnModel().getColumnCount() > 0) {
             notesTable.getColumnModel().getColumn(0).setMinWidth(40);
@@ -2002,6 +2006,28 @@ public class MainWindow extends JFrame {
         
         this.calculateSummaryFromSelectedRows();
     }//GEN-LAST:event_selectedMealTableKeyPressed
+
+    private void notesTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notesTableMousePressed
+        final JTable table = (JTable) evt.getSource();
+        
+        if (evt.getClickCount() == 2 && table.getSelectedRow() != -1) {
+            final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+            final int selectedRow = table.getSelectedRow();
+            
+            final Integer noteID = (Integer) tableModel.getValueAt(selectedRow, 0);
+            
+            try {
+                this.dao.findNoteById(noteID).ifPresent(note -> {
+                    this.dateViewNoteDialogLabel.setText(note.getCreationDate().format(CREATION_TIME_FORMATTER));
+                    this.noteViewNoteDialogTextArea.setText(note.getNote());
+                    this.viewNoteDialog.setVisible(true);
+                });
+            } catch (final SQLException ex) {
+                this.showError("Error getting note", "Error");
+                LOGGER.error(ex.getMessage(), ex);
+            }
+        }
+    }//GEN-LAST:event_notesTableMousePressed
 
     private void buildTableWithIngredients(final List<NutritionalIngredient> ingredientsToAdd, final JTable table) {
         final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
