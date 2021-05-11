@@ -197,6 +197,11 @@ INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes)
   VALUES('50g banana/platano', 50, 44.0, 9, 'From fatsecret');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
   VALUES('150g fresas/strawberries', 150, 48.0, 9, 'From fatsecret'); 
+INSERT INTO nutrition_ingredient(name, grams, calories, protein, id_category, notes) 
+  VALUES('100g Ham/Jamón Pavo Virginia Low Fat Cuida-t', 100, 100.0, 12, 4, '');
+INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
+  VALUES('50g tomate', 50, 9.0, 3, '');
+
 
 INSERT INTO meal (name, notes) VALUES('frijolitos', 'Deliciososssss'); 
 

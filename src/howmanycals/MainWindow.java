@@ -601,6 +601,11 @@ public class MainWindow extends JFrame {
                 selectedMealTableMousePressed(evt);
             }
         });
+        selectedMealTable.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                selectedMealTableKeyPressed(evt);
+            }
+        });
         jScrollPane3.setViewportView(selectedMealTable);
         if (selectedMealTable.getColumnModel().getColumnCount() > 0) {
             selectedMealTable.getColumnModel().getColumn(0).setMinWidth(30);
@@ -1980,6 +1985,20 @@ public class MainWindow extends JFrame {
     private void okCloseDataMissingDialogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okCloseDataMissingDialogButtonActionPerformed
         this.dataMissingDialog.setVisible(false);
     }//GEN-LAST:event_okCloseDataMissingDialogButtonActionPerformed
+
+    private void selectedMealTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_selectedMealTableKeyPressed
+        if (evt.getKeyCode() != KeyEvent.VK_DELETE) {
+            return;
+        }
+        final int selectedRow = this.selectedMealTable.getSelectedRow();
+        if (selectedRow < 0) {
+            return;
+        }
+        final DefaultTableModel tableModel = (DefaultTableModel) this.selectedMealTable.getModel();
+        tableModel.removeRow(selectedRow);
+        
+        this.calculateSummaryFromSelectedRows();
+    }//GEN-LAST:event_selectedMealTableKeyPressed
 
     private void buildTableWithIngredients(final List<NutritionalIngredient> ingredientsToAdd, final JTable table) {
         final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
