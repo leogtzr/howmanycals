@@ -179,6 +179,24 @@ INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes)
       VALUES('10 Fresas', 0, 40, 1, 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
       VALUES('100g Granny Smith', 100.0, 52, 9, 'From fatsecret.com');
+INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
+      VALUES('Tostadas Ligeras', 5, 16.0, 8, 'From the label');
+INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
+    VALUES('100g Frijol La Sierra Low Fat', 100, 60.0, 8, '');
+INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
+  VALUES('100g Hawaiian Papaya', 100, 39.0, 9, 'From fatsecret');
+INSERT INTO nutrition_ingredient(name, grams, calories, carbohydrates, protein, id_category, notes) 
+  VALUES('100ml Clara Huevo San Juan', 100, 42.0, 1.0, 10.0, 4, 'From the label');
+INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
+  VALUES('100g Yogur Griego Fage 0%', 100, 50.0, 4, 'From the label');
+INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
+  VALUES('18g avena Quaker', 18, 61.0, 9, 'From the label');
+INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
+  VALUES('100ml Leche Almendra', 100, 12.0, 7, 'From the label');
+INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
+  VALUES('50g banana/platano', 50, 44.0, 9, 'From fatsecret');
+INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
+  VALUES('150g fresas/strawberries', 150, 48.0, 9, 'From fatsecret'); 
 
 INSERT INTO meal (name, notes) VALUES('frijolitos', 'Deliciososssss'); 
 

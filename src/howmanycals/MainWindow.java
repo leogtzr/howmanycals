@@ -1,3 +1,4 @@
+// TODO: close DAO connection.
 package howmanycals;
 
 import static howmanycals.utils.FormatUtils.formatDoubleValueForTableVisualisation;
@@ -179,6 +180,25 @@ public class MainWindow extends JFrame {
         dateViewNoteDialogLabel = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         noteViewNoteDialogTextArea = new javax.swing.JTextArea();
+        createNoteDialog = new javax.swing.JDialog();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        newNoteTextPane = new javax.swing.JTextPane();
+        saveNewNoteButton = new javax.swing.JButton();
+        dataMissingDialog = new javax.swing.JDialog();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        fatPercentageMissingRateLabel = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        sugarPercentageMissingRateLabel = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        carbsPercentageMissingRateLabel = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        proteinPercentageMissingRateLabel = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        cholesterolPercentageMissingRateLabel = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        sodiumPercentageMissingRateLabel = new javax.swing.JLabel();
+        okCloseDataMissingDialogButton = new javax.swing.JButton();
         viewMealsButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
@@ -188,6 +208,9 @@ public class MainWindow extends JFrame {
         viewIngredientMenuItem = new javax.swing.JMenuItem();
         notesMenu = new javax.swing.JMenu();
         notesMenuItem = new javax.swing.JMenuItem();
+        createNoteMenuItem = new javax.swing.JMenuItem();
+        dataMenu = new javax.swing.JMenu();
+        dataMissingAnalysisButton = new javax.swing.JMenuItem();
         aboutMenu = new javax.swing.JMenu();
         aboutMenuItem = new javax.swing.JMenuItem();
 
@@ -299,18 +322,18 @@ public class MainWindow extends JFrame {
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
                 .addGroup(addNewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(newIngredientNotesField)
-                    .addComponent(newIngredientFatField, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(newIngredientCaloriesField, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(newIngredientGramsField, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(newIngredientNameText, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(newIngredientSugarField)
-                    .addComponent(newIngredientCarbohydratesField)
-                    .addComponent(newIngredientProteinField)
+                    .addComponent(newIngredientCategoryList, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newIngredientSodiumField, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
                     .addComponent(newIngredientCholesterolField)
-                    .addComponent(newIngredientSodiumField)
-                    .addComponent(newIngredientCategoryList, 0, 283, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(newIngredientProteinField)
+                    .addComponent(newIngredientCarbohydratesField)
+                    .addComponent(newIngredientSugarField)
+                    .addComponent(newIngredientFatField)
+                    .addComponent(newIngredientCaloriesField)
+                    .addComponent(newIngredientGramsField)
+                    .addComponent(newIngredientNameText)
+                    .addComponent(newIngredientNotesField))
+                .addGap(21, 21, 21))
         );
         addNewIngredientDialogLayout.setVerticalGroup(
             addNewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -954,7 +977,6 @@ public class MainWindow extends JFrame {
         );
 
         notesDialog.setTitle("Notes");
-        notesDialog.setMaximumSize(new java.awt.Dimension(850, 600));
         notesDialog.setMinimumSize(new java.awt.Dimension(850, 600));
         notesDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         notesDialog.setResizable(false);
@@ -1032,7 +1054,6 @@ public class MainWindow extends JFrame {
         );
 
         viewNoteDialog.setTitle("Note");
-        viewNoteDialog.setMaximumSize(new java.awt.Dimension(400, 300));
         viewNoteDialog.setMinimumSize(new java.awt.Dimension(400, 300));
         viewNoteDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         viewNoteDialog.setResizable(false);
@@ -1092,6 +1113,143 @@ public class MainWindow extends JFrame {
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(closeViewNoteDialogButton)
+                .addContainerGap())
+        );
+
+        createNoteDialog.setTitle("Create Note");
+        createNoteDialog.setMinimumSize(new java.awt.Dimension(400, 300));
+        createNoteDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        createNoteDialog.setResizable(false);
+        createNoteDialog.setSize(new java.awt.Dimension(400, 300));
+
+        newNoteTextPane.setNextFocusableComponent(saveNewNoteButton);
+        jScrollPane9.setViewportView(newNoteTextPane);
+
+        saveNewNoteButton.setMnemonic('S');
+        saveNewNoteButton.setText("Save");
+        saveNewNoteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveNewNoteButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout createNoteDialogLayout = new javax.swing.GroupLayout(createNoteDialog.getContentPane());
+        createNoteDialog.getContentPane().setLayout(createNoteDialogLayout);
+        createNoteDialogLayout.setHorizontalGroup(
+            createNoteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(createNoteDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(createNoteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane9)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createNoteDialogLayout.createSequentialGroup()
+                        .addGap(0, 337, Short.MAX_VALUE)
+                        .addComponent(saveNewNoteButton)))
+                .addContainerGap())
+        );
+        createNoteDialogLayout.setVerticalGroup(
+            createNoteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(createNoteDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(saveNewNoteButton)
+                .addContainerGap())
+        );
+
+        dataMissingDialog.setTitle("Data % missing rates");
+        dataMissingDialog.setMinimumSize(new java.awt.Dimension(403, 228));
+        dataMissingDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        dataMissingDialog.setResizable(false);
+        dataMissingDialog.setSize(new java.awt.Dimension(403, 228));
+
+        jLabel9.setText("% information missing for each category in the DB.");
+
+        jLabel10.setText("Fat %");
+
+        jLabel13.setText("Sugar %");
+
+        jLabel15.setText("Carbs %");
+
+        jLabel17.setText("Protein %");
+
+        jLabel8.setText("Cholesterol %");
+
+        jLabel20.setText("Sodium %");
+
+        okCloseDataMissingDialogButton.setMnemonic('O');
+        okCloseDataMissingDialogButton.setText("OK");
+        okCloseDataMissingDialogButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okCloseDataMissingDialogButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout dataMissingDialogLayout = new javax.swing.GroupLayout(dataMissingDialog.getContentPane());
+        dataMissingDialog.getContentPane().setLayout(dataMissingDialogLayout);
+        dataMissingDialogLayout.setHorizontalGroup(
+            dataMissingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dataMissingDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(dataMissingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addGroup(dataMissingDialogLayout.createSequentialGroup()
+                        .addGroup(dataMissingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel17))
+                        .addGap(45, 45, 45)
+                        .addGroup(dataMissingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(proteinPercentageMissingRateLabel)
+                            .addComponent(sugarPercentageMissingRateLabel)
+                            .addComponent(fatPercentageMissingRateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(carbsPercentageMissingRateLabel)))
+                    .addGroup(dataMissingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, dataMissingDialogLayout.createSequentialGroup()
+                            .addComponent(jLabel20)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(sodiumPercentageMissingRateLabel))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, dataMissingDialogLayout.createSequentialGroup()
+                            .addComponent(jLabel8)
+                            .addGap(18, 18, 18)
+                            .addComponent(cholesterolPercentageMissingRateLabel))))
+                .addContainerGap(79, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dataMissingDialogLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(okCloseDataMissingDialogButton)
+                .addContainerGap())
+        );
+        dataMissingDialogLayout.setVerticalGroup(
+            dataMissingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dataMissingDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(dataMissingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(fatPercentageMissingRateLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(dataMissingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(sugarPercentageMissingRateLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(dataMissingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(carbsPercentageMissingRateLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(dataMissingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(proteinPercentageMissingRateLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(dataMissingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(cholesterolPercentageMissingRateLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(dataMissingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(sodiumPercentageMissingRateLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(okCloseDataMissingDialogButton)
                 .addContainerGap())
         );
 
@@ -1159,7 +1317,29 @@ public class MainWindow extends JFrame {
         });
         notesMenu.add(notesMenuItem);
 
+        createNoteMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        createNoteMenuItem.setText("Create Note");
+        createNoteMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createNoteMenuItemActionPerformed(evt);
+            }
+        });
+        notesMenu.add(createNoteMenuItem);
+
         menuBar.add(notesMenu);
+
+        dataMenu.setMnemonic('D');
+        dataMenu.setText("Data");
+
+        dataMissingAnalysisButton.setText("Data Missing Analysis");
+        dataMissingAnalysisButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dataMissingAnalysisButtonActionPerformed(evt);
+            }
+        });
+        dataMenu.add(dataMissingAnalysisButton);
+
+        menuBar.add(dataMenu);
 
         aboutMenu.setText("About");
 
@@ -1196,10 +1376,18 @@ public class MainWindow extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
-        System.out.println("Bye ... ");
+        try {
+            if (this.dao != null) {
+                this.dao.tearDown();
+            }
+        } catch (final SQLException ex) {
+            LOGGER.error("error closing DB connection", ex);
+        }
+        System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void addIngredientMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIngredientMenuItemActionPerformed
+        this.clearNewIngredientDialogFields();
         this.addNewIngredientDialog.setVisible(true);
     }//GEN-LAST:event_addIngredientMenuItemActionPerformed
 
@@ -1248,6 +1436,7 @@ public class MainWindow extends JFrame {
             
             this.dao.createNutritionIngredient(newIngredient).ifPresent(dbIngredient -> {
                 this.showInfoMessage(String.format("'%s' added correctly.", dbIngredient.getName()), "Ingredient added to database.");
+                this.addNewIngredientDialog.setVisible(false);
             });
         } catch (final NumberFormatException ex) {
             LOGGER.error(ex.getMessage(), ex);
@@ -1271,7 +1460,7 @@ public class MainWindow extends JFrame {
         JOptionPane.showMessageDialog(this, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
     
-    private void clearNewIngredientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearNewIngredientButtonActionPerformed
+    private void clearNewIngredientDialogFields() {
         this.newIngredientNameText.setText("");
         this.newIngredientGramsField.setText("");
         this.newIngredientCaloriesField.setText("");
@@ -1282,6 +1471,10 @@ public class MainWindow extends JFrame {
         this.newIngredientCholesterolField.setText("");
         this.newIngredientSodiumField.setText("");
         this.newIngredientNotesField.setText("");
+    }
+    
+    private void clearNewIngredientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearNewIngredientButtonActionPerformed
+        this.clearNewIngredientDialogFields();
     }//GEN-LAST:event_clearNewIngredientButtonActionPerformed
 
     private void newIngredientCategoryListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newIngredientCategoryListActionPerformed
@@ -1720,6 +1913,44 @@ public class MainWindow extends JFrame {
         this.viewNoteDialog.setVisible(false);
     }//GEN-LAST:event_closeViewNoteDialogButtonActionPerformed
 
+    private void createNoteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNoteMenuItemActionPerformed
+        this.newNoteTextPane.setText("");
+        this.createNoteDialog.setVisible(true);
+        System.out.println("");
+    }//GEN-LAST:event_createNoteMenuItemActionPerformed
+
+    private void saveNewNoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveNewNoteButtonActionPerformed
+        if (this.newNoteTextPane.getText().isBlank()) {
+            return;
+        }
+        
+        final String noteText = this.newNoteTextPane.getText();
+        try {
+            final Optional<Note> noteSaved = this.dao.createNote(noteText);
+            if (noteSaved.isPresent()) {
+                this.createNoteDialog.setVisible(false);
+            }
+        } catch (final SQLException ex) {
+            this.showError("Error creating note", "Error");
+            LOGGER.error("error creating note", ex);
+        }
+        
+    }//GEN-LAST:event_saveNewNoteButtonActionPerformed
+
+    private void dataMissingAnalysisButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataMissingAnalysisButtonActionPerformed
+        this.fatPercentageMissingRateLabel.setText("");
+        this.sugarPercentageMissingRateLabel.setText("");
+        this.carbsPercentageMissingRateLabel.setText("");
+        this.cholesterolPercentageMissingRateLabel.setText("");
+        this.sodiumPercentageMissingRateLabel.setText("");
+        this.proteinPercentageMissingRateLabel.setText("");
+        this.dataMissingDialog.setVisible(true);
+    }//GEN-LAST:event_dataMissingAnalysisButtonActionPerformed
+
+    private void okCloseDataMissingDialogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okCloseDataMissingDialogButtonActionPerformed
+        this.dataMissingDialog.setVisible(false);
+    }//GEN-LAST:event_okCloseDataMissingDialogButtonActionPerformed
+
     private void buildTableWithIngredients(final List<NutritionalIngredient> ingredientsToAdd, final JTable table) {
         final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         tableModel.setRowCount(0);
@@ -1805,24 +2036,39 @@ public class MainWindow extends JFrame {
     private javax.swing.JCheckBox byCategorySearchIngredientsCheckBox;
     private javax.swing.JLabel caloriesSummaryMealLabel;
     private javax.swing.JButton cancelMealSaveButton;
+    private javax.swing.JLabel carbsPercentageMissingRateLabel;
     private javax.swing.JLabel carbsSummaryMealLabel;
+    private javax.swing.JLabel cholesterolPercentageMissingRateLabel;
     private javax.swing.JLabel cholesterolSummaryMealLabel;
     private javax.swing.JButton clearNewIngredientButton;
     private javax.swing.JButton closeNotesDialogButton;
     private javax.swing.JButton closeViewNoteDialogButton;
+    private javax.swing.JDialog createNoteDialog;
+    private javax.swing.JMenuItem createNoteMenuItem;
+    private javax.swing.JMenu dataMenu;
+    private javax.swing.JMenuItem dataMissingAnalysisButton;
+    private javax.swing.JDialog dataMissingDialog;
     private javax.swing.JLabel dateViewNoteDialogLabel;
     private javax.swing.JMenuItem exitMenuItem;
+    private javax.swing.JLabel fatPercentageMissingRateLabel;
     private javax.swing.JMenu fileMenuItem;
     private javax.swing.JMenuBar fileNoteMenuBar;
     private javax.swing.JMenu ingredientsMenuItem;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -1832,6 +2078,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel mealSummaryPanel;
     private javax.swing.JTabbedPane mealSummaryTabbedPanel;
@@ -1857,6 +2104,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel newIngredientSodiumLabel;
     private javax.swing.JTextField newIngredientSugarField;
     private javax.swing.JLabel newIngredientSugarLabel;
+    private javax.swing.JTextPane newNoteTextPane;
     private javax.swing.JTextArea noteViewNoteDialogTextArea;
     private javax.swing.JDialog notesDialog;
     private javax.swing.JMenu notesFileMenu;
@@ -1864,18 +2112,22 @@ public class MainWindow extends JFrame {
     private javax.swing.JMenuItem notesMenuItem;
     private javax.swing.JMenuItem notesNewMenuItem;
     private javax.swing.JTable notesTable;
+    private javax.swing.JButton okCloseDataMissingDialogButton;
     private javax.swing.JButton okViewIngredientButton;
+    private javax.swing.JLabel proteinPercentageMissingRateLabel;
     private javax.swing.JLabel proteinSummaryMealLabel;
     private javax.swing.JButton saveMealButton;
     private javax.swing.JButton saveMealButtonDialog;
     private javax.swing.JDialog saveMealDialog;
     private javax.swing.JLabel saveMealNameLabel;
     private javax.swing.JTextField saveMealTextField;
+    private javax.swing.JButton saveNewNoteButton;
     private javax.swing.JLabel saveNotesLabel;
     private javax.swing.JTextArea saveNotesTextArea;
     private javax.swing.JLabel searchViewIngredientLabel;
     private javax.swing.JTextField searchViewIngredientTextField;
     private javax.swing.JTable selectedMealTable;
+    private javax.swing.JLabel sodiumPercentageMissingRateLabel;
     private javax.swing.JLabel staticCaloriesSummaryMealLabel;
     private javax.swing.JLabel staticCarbsSummaryMealLabel;
     private javax.swing.JLabel staticCateViewNoteDialogLabel;
@@ -1883,6 +2135,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel staticFatSummaryMealLabel;
     private javax.swing.JLabel staticProteinSummaryMealLabel;
     private javax.swing.JLabel staticSugarSummaryMealLabel;
+    private javax.swing.JLabel sugarPercentageMissingRateLabel;
     private javax.swing.JLabel sugarSummaryMealLabel;
     private javax.swing.JLabel summaryCaloriesLabel;
     private javax.swing.JLabel summaryCarbsLabel;
@@ -1938,7 +2191,6 @@ public class MainWindow extends JFrame {
             
             try {
                 window.dao.findNoteById(noteID).ifPresent(note -> {
-                    System.out.println(note);
                     this.window.dateViewNoteDialogLabel.setText(note.getCreationDate().format(CREATION_TIME_FORMATTER));
                     this.window.noteViewNoteDialogTextArea.setText(note.getNote());
                     this.window.viewNoteDialog.setVisible(true);

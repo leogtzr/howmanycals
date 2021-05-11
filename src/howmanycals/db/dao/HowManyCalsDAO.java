@@ -14,8 +14,12 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HowManyCalsDAO {
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(HowManyCalsDAO.class.getSimpleName());
     
     private Connection connection;
 
@@ -92,9 +96,7 @@ public class HowManyCalsDAO {
         return new Category(rs.getInt("id"), rs.getString("name"));
     }
     
-    private NutritionalIngredient extractIngredient(final ResultSet rs) throws SQLException {
-        final NutritionalIngredient ingredient = new NutritionalIngredient();
-        
+    private void setCommonIngredientFields(final NutritionalIngredient ingredient, final ResultSet rs) throws SQLException {
         ingredient.setName(rs.getString("name"));
         ingredient.setId(rs.getInt("id"));
         ingredient.setGrams(rs.getInt("grams"));
@@ -105,6 +107,30 @@ public class HowManyCalsDAO {
         ingredient.setProtein(rs.getFloat("protein"));
         ingredient.setCholesterol(rs.getFloat("cholesterol"));
         ingredient.setSodium(rs.getFloat("sodium"));
+    }
+    
+    private NutritionalIngredient extractCreatedIngredient(final ResultSet rs) throws SQLException {
+        final NutritionalIngredient ingredient = new NutritionalIngredient();
+        
+        this.setCommonIngredientFields(ingredient, rs);
+        
+        final int catID = rs.getInt("id_category");
+        final Category category = new Category();
+        category.setId(rs.getInt("id_category"));
+        
+        this.findCategoryByCategoryID(catID).ifPresent(cat -> {
+            category.setName(cat.getName());
+        });
+                
+        ingredient.setCategory(category);
+        
+        return ingredient;
+    }
+    
+    private NutritionalIngredient extractIngredient(final ResultSet rs) throws SQLException {
+        final NutritionalIngredient ingredient = new NutritionalIngredient();
+        
+        this.setCommonIngredientFields(ingredient, rs);
         
         final Category category = new Category();
         category.setId(rs.getInt("cat_id"));
@@ -128,7 +154,7 @@ public class HowManyCalsDAO {
     
     public Optional<NutritionalIngredient> createNutritionIngredient(final NutritionalIngredient ingredient) throws SQLException {
         final String query = "INSERT INTO nutrition_ingredient" +
-                "(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, category, notes) " + 
+                "(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) " + 
                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try (final PreparedStatement stmt = this.connection.prepareStatement(query, RETURN_GENERATED_KEYS)) {
@@ -144,6 +170,8 @@ public class HowManyCalsDAO {
             stmt.setInt(10, ingredient.getCategory().getId());
             stmt.setString(11, ingredient.getNotes());
             
+            LOGGER.debug(stmt.toString());
+            
             final int affectedRows = stmt.executeUpdate();
 
             if (affectedRows == 0) {
@@ -152,7 +180,7 @@ public class HowManyCalsDAO {
 
             try (final ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
-                    return Optional.of(extractIngredient(rs));
+                    return Optional.of(extractCreatedIngredient(rs));
                 } else {
                     throw new SQLException("Data insert failed, no ID obtained.");
                 }
@@ -166,6 +194,8 @@ public class HowManyCalsDAO {
         try (final PreparedStatement stmt = this.connection.prepareStatement(query, RETURN_GENERATED_KEYS)) {
             stmt.setString(1, name);
             stmt.setString(2, notes);
+            
+            LOGGER.debug(stmt.toString());
             
             final int affectedRows = stmt.executeUpdate();
 
@@ -190,6 +220,8 @@ public class HowManyCalsDAO {
         try (final PreparedStatement stmt = this.connection.prepareStatement(query, RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, mealID);
             stmt.setInt(2, nutritionIngredientID);
+            
+            LOGGER.debug(stmt.toString());
             
             final int affectedRows = stmt.executeUpdate();
 
@@ -324,6 +356,25 @@ public class HowManyCalsDAO {
         return Optional.empty();
     }
     
+    public Optional<Category> findCategoryByCategoryID(final Integer id) throws SQLException {
+        final String query = "SELECT * FROM category WHERE id = ?";
+        
+        final List<NutritionalIngredient> ingredients = new ArrayList<>();
+
+        try (final PreparedStatement stmt = this.connection.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            
+            try (final ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    final Category category = extractCategory(rs);
+                    return Optional.of(category);
+                }
+            }
+        }
+        
+        return Optional.empty();
+    }
+    
     public List<NutritionalIngredient> findIngredientsByCategoryID(final int id) throws SQLException {
         final String query = "SELECT nut.*, cat.id AS cat_id, cat.name AS cat_name\n"
                 + "FROM nutrition_ingredient nut\n"
@@ -389,6 +440,37 @@ public class HowManyCalsDAO {
         note.setCreationDate(rs.getTimestamp("creation_date").toLocalDateTime());
         
         return note;
+    }
+    
+    public Optional<Note> createNote(final String noteText) throws SQLException {
+        final String QUERY = "INSERT INTO note (note) VALUES(?)";
+        
+        try (final PreparedStatement stmt = this.connection.prepareStatement(QUERY, RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, noteText);
+            
+            LOGGER.debug(stmt.toString());
+            
+            final int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Data insert failed, no rows affected.");
+            }
+
+            try (final ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    final Note createdNote = extractNote(rs);
+                    return Optional.of(createdNote);
+                } else {
+                    throw new SQLException("unable to create note");
+                }
+            }
+        }   
+    }
+    
+    public void tearDown() throws SQLException {
+        if (this.connection != null) {
+            this.connection.close();
+        }
     }
     
 }
