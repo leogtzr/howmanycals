@@ -29,7 +29,8 @@ fi
 
 # can be reloaded with: gunzip -c filename.gz | psql dbname
 if PGPASSWORD="${HOWMANYCALS_DB_PASSWORD}" docker-compose --file "${docker_compose_file}" \
-    exec "${HOWMANYCALS_DB}" pg_dump --data-only --username leo "${HOWMANYCALS_DB}" | gzip > "${backup_dir}/db_dump-DATA-${datetime}.sql.gz"; then
+    exec "${HOWMANYCALS_DB}" pg_dump --column-inserts --data-only --username leo "${HOWMANYCALS_DB}" | \
+        gzip > "${backup_dir}/db_dump-DATA-${datetime}.sql.gz"; then
     printf "Data backup created at: %s\n" "${backup_dir}/db_dump-DATA-${datetime}.sql.gz"
 else
     printf "error: creating (data) backup: %s\n" "${backup_dir}/db_dump-DATA-${datetime}.sql.gz"
