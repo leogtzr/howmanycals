@@ -1544,7 +1544,7 @@ public class MainWindow extends JFrame {
         final String searchText = this.searchViewIngredientTextField.getText();
         if (searchText.isEmpty()) {
             if (!this.ingredients.isEmpty()) {
-                this.resetSummaryLabels();
+                // this.resetSummaryLabels();
                 this.buildTableWithIngredients(this.ingredients, this.viewIngredientTable);
             }
             return;
