@@ -617,6 +617,7 @@ public class MainWindow extends JFrame {
             selectedMealTable.getColumnModel().getColumn(3).setMinWidth(70);
             selectedMealTable.getColumnModel().getColumn(3).setMaxWidth(70);
             selectedMealTable.getColumnModel().getColumn(4).setMinWidth(50);
+            selectedMealTable.getColumnModel().getColumn(4).setMaxWidth(50);
             selectedMealTable.getColumnModel().getColumn(5).setMinWidth(50);
             selectedMealTable.getColumnModel().getColumn(5).setMaxWidth(50);
             selectedMealTable.getColumnModel().getColumn(6).setMinWidth(102);
@@ -1987,13 +1988,12 @@ public class MainWindow extends JFrame {
     }//GEN-LAST:event_okCloseDataMissingDialogButtonActionPerformed
 
     private void selectedMealTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_selectedMealTableKeyPressed
-        if (evt.getKeyCode() != KeyEvent.VK_DELETE) {
+        if (evt.getKeyCode() != KeyEvent.VK_DELETE || this.selectedMealTable.getSelectedRow() < 0) {
             return;
         }
+        
         final int selectedRow = this.selectedMealTable.getSelectedRow();
-        if (selectedRow < 0) {
-            return;
-        }
+        
         final DefaultTableModel tableModel = (DefaultTableModel) this.selectedMealTable.getModel();
         tableModel.removeRow(selectedRow);
         
