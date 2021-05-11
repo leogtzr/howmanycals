@@ -54,7 +54,23 @@ public class HowManyCalsDAO {
             stmt.setInt(1, id);
             try (final ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    final NutritionalIngredient nutritionalIngredient = extractIngredient(rs);
+                    final NutritionalIngredient nutritionalIngredient = extractCreatedIngredient(rs);
+                    return Optional.of(nutritionalIngredient);
+                }
+            }
+        }
+
+        return Optional.empty();
+    }
+    
+    public Optional<NutritionalIngredient> findIngredientByName(final String name) throws SQLException {
+        final String query = "SELECT * FROM nutrition_ingredient WHERE LOWER(name) = ?";
+
+        try (final PreparedStatement stmt = this.connection.prepareStatement(query)) {
+            stmt.setString(1, name);
+            try (final ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    final NutritionalIngredient nutritionalIngredient = extractCreatedIngredient(rs);
                     return Optional.of(nutritionalIngredient);
                 }
             }

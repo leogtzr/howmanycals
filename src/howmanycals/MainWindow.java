@@ -1,7 +1,6 @@
 // TODO: edit ingredient ... 
 package howmanycals;
 
-import static howmanycals.utils.FormatUtils.formatDoubleValueForTableVisualisation;
 
 import howmanycals.db.dao.HowManyCalsDAO;
 import howmanycals.domain.Category;
@@ -36,6 +35,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UIManager;
+import static howmanycals.utils.FormatUtils.formatDecimal1;
 
 public class MainWindow extends JFrame {
     
@@ -46,6 +46,7 @@ public class MainWindow extends JFrame {
     private HowManyCalsDAO dao;
     private List<Category> categories;
     private List<NutritionalIngredient> ingredients;
+    private boolean editIngredientMode = false;
 
     private void initDatabase() {
         this.dao = new HowManyCalsDAO();
@@ -80,9 +81,9 @@ public class MainWindow extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        addNewIngredientDialog = new javax.swing.JDialog();
+        addEditIngredientDialog = new javax.swing.JDialog();
         newIngredientNameLabel = new javax.swing.JLabel();
-        newIngredientNameText = new javax.swing.JTextField();
+        newIngredientNameField = new javax.swing.JTextField();
         newIngredientGramsLabel = new javax.swing.JLabel();
         newIngredientGramsField = new javax.swing.JTextField();
         newIngredientCaloriesLabel = new javax.swing.JLabel();
@@ -101,7 +102,7 @@ public class MainWindow extends JFrame {
         newIngredientSodiumField = new javax.swing.JTextField();
         newIngredientCategoryLabel = new javax.swing.JLabel();
         newIngredientCategoryList = new javax.swing.JComboBox<>();
-        addNewIngredientButton = new javax.swing.JButton();
+        saveIngredientButton = new javax.swing.JButton();
         clearNewIngredientButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -137,6 +138,7 @@ public class MainWindow extends JFrame {
         saveMealButton = new javax.swing.JButton();
         byCategorySearchComboBox = new javax.swing.JComboBox<>();
         byCategorySearchIngredientsCheckBox = new javax.swing.JCheckBox();
+        editSelectedIngredientButton = new javax.swing.JButton();
         saveMealDialog = new javax.swing.JDialog();
         saveMealNameLabel = new javax.swing.JLabel();
         saveMealTextField = new javax.swing.JTextField();
@@ -215,13 +217,16 @@ public class MainWindow extends JFrame {
         aboutMenu = new javax.swing.JMenu();
         aboutMenuItem = new javax.swing.JMenuItem();
 
-        addNewIngredientDialog.setTitle("Add Ingredient");
-        addNewIngredientDialog.setMinimumSize(new java.awt.Dimension(430, 540));
-        addNewIngredientDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
-        addNewIngredientDialog.setResizable(false);
-        addNewIngredientDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+        addEditIngredientDialog.setTitle("Add Ingredient");
+        addEditIngredientDialog.setMinimumSize(new java.awt.Dimension(430, 540));
+        addEditIngredientDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        addEditIngredientDialog.setResizable(false);
+        addEditIngredientDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                addEditIngredientDialogWindowClosed(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
-                addNewIngredientDialogWindowOpened(evt);
+                addEditIngredientDialogWindowOpened(evt);
             }
         });
 
@@ -251,11 +256,11 @@ public class MainWindow extends JFrame {
             }
         });
 
-        addNewIngredientButton.setMnemonic('A');
-        addNewIngredientButton.setText("Add");
-        addNewIngredientButton.addActionListener(new java.awt.event.ActionListener() {
+        saveIngredientButton.setMnemonic('S');
+        saveIngredientButton.setText("Save");
+        saveIngredientButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addNewIngredientButtonActionPerformed(evt);
+                saveIngredientButtonActionPerformed(evt);
             }
         });
 
@@ -285,44 +290,44 @@ public class MainWindow extends JFrame {
 
         jLabel6.setText("Notes:");
 
-        javax.swing.GroupLayout addNewIngredientDialogLayout = new javax.swing.GroupLayout(addNewIngredientDialog.getContentPane());
-        addNewIngredientDialog.getContentPane().setLayout(addNewIngredientDialogLayout);
-        addNewIngredientDialogLayout.setHorizontalGroup(
-            addNewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addNewIngredientDialogLayout.createSequentialGroup()
+        javax.swing.GroupLayout addEditIngredientDialogLayout = new javax.swing.GroupLayout(addEditIngredientDialog.getContentPane());
+        addEditIngredientDialog.getContentPane().setLayout(addEditIngredientDialogLayout);
+        addEditIngredientDialogLayout.setHorizontalGroup(
+            addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addEditIngredientDialogLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(addNewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(addNewIngredientDialogLayout.createSequentialGroup()
+                .addGroup(addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(addEditIngredientDialogLayout.createSequentialGroup()
                         .addComponent(newIngredientNameLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1))
-                    .addGroup(addNewIngredientDialogLayout.createSequentialGroup()
+                    .addGroup(addEditIngredientDialogLayout.createSequentialGroup()
                         .addComponent(newIngredientGramsLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2))
-                    .addGroup(addNewIngredientDialogLayout.createSequentialGroup()
+                    .addGroup(addEditIngredientDialogLayout.createSequentialGroup()
                         .addComponent(newIngredientCaloriesLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3))
                     .addComponent(newIngredientFatLabel)
-                    .addGroup(addNewIngredientDialogLayout.createSequentialGroup()
+                    .addGroup(addEditIngredientDialogLayout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(newIngredientSugarLabel))
                     .addComponent(newIngredientCarbohydratesLabel)
                     .addComponent(newIngredientProteinLabel)
                     .addComponent(newIngredientSodiumLabel)
-                    .addGroup(addNewIngredientDialogLayout.createSequentialGroup()
+                    .addGroup(addEditIngredientDialogLayout.createSequentialGroup()
                         .addComponent(newIngredientCategoryLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4))
                     .addComponent(newIngredientCholesterolLabel)
-                    .addGroup(addNewIngredientDialogLayout.createSequentialGroup()
-                        .addComponent(addNewIngredientButton)
+                    .addGroup(addEditIngredientDialogLayout.createSequentialGroup()
+                        .addComponent(saveIngredientButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(clearNewIngredientButton))
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
-                .addGroup(addNewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(newIngredientCategoryList, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(newIngredientSodiumField, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
                     .addComponent(newIngredientCholesterolField)
@@ -332,65 +337,65 @@ public class MainWindow extends JFrame {
                     .addComponent(newIngredientFatField)
                     .addComponent(newIngredientCaloriesField)
                     .addComponent(newIngredientGramsField)
-                    .addComponent(newIngredientNameText)
+                    .addComponent(newIngredientNameField)
                     .addComponent(newIngredientNotesField))
                 .addGap(21, 21, 21))
         );
-        addNewIngredientDialogLayout.setVerticalGroup(
-            addNewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(addNewIngredientDialogLayout.createSequentialGroup()
+        addEditIngredientDialogLayout.setVerticalGroup(
+            addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addEditIngredientDialogLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(addNewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newIngredientNameLabel)
-                    .addComponent(newIngredientNameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newIngredientNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(addNewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newIngredientGramsLabel)
                     .addComponent(newIngredientGramsField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(addNewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newIngredientCaloriesLabel)
                     .addComponent(newIngredientCaloriesField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(addNewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newIngredientFatLabel)
                     .addComponent(newIngredientFatField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(addNewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newIngredientSugarLabel)
                     .addComponent(newIngredientSugarField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(addNewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newIngredientCarbohydratesLabel)
                     .addComponent(newIngredientCarbohydratesField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(addNewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newIngredientProteinLabel)
                     .addComponent(newIngredientProteinField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(addNewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newIngredientCholesterolLabel)
                     .addComponent(newIngredientCholesterolField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(addNewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newIngredientSodiumLabel)
                     .addComponent(newIngredientSodiumField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(addNewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(addNewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(newIngredientCategoryLabel)
                         .addComponent(jLabel4))
                     .addComponent(newIngredientCategoryList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(addNewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(newIngredientNotesField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addGroup(addNewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addNewIngredientButton)
+                .addGroup(addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(saveIngredientButton)
                     .addComponent(clearNewIngredientButton))
                 .addContainerGap())
         );
@@ -652,6 +657,14 @@ public class MainWindow extends JFrame {
             }
         });
 
+        editSelectedIngredientButton.setMnemonic('E');
+        editSelectedIngredientButton.setText("Edit Ingredient");
+        editSelectedIngredientButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editSelectedIngredientButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout viewIngredientDialogLayout = new javax.swing.GroupLayout(viewIngredientDialog.getContentPane());
         viewIngredientDialog.getContentPane().setLayout(viewIngredientDialogLayout);
         viewIngredientDialogLayout.setHorizontalGroup(
@@ -663,9 +676,12 @@ public class MainWindow extends JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewIngredientDialogLayout.createSequentialGroup()
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
+                        .addGap(12, 12, 12)
                         .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(okViewIngredientButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewIngredientDialogLayout.createSequentialGroup()
+                                .addComponent(editSelectedIngredientButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
+                                .addComponent(okViewIngredientButton, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(saveMealButton, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(viewIngredientDialogLayout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -700,7 +716,9 @@ public class MainWindow extends JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewIngredientDialogLayout.createSequentialGroup()
                         .addComponent(saveMealButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(okViewIngredientButton))
+                        .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(okViewIngredientButton)
+                            .addComponent(editSelectedIngredientButton)))
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -1400,10 +1418,12 @@ public class MainWindow extends JFrame {
 
     private void addIngredientMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIngredientMenuItemActionPerformed
         this.clearNewIngredientDialogFields();
-        this.addNewIngredientDialog.setVisible(true);
+        this.editIngredientMode = false;
+        this.addEditIngredientDialog.setTitle("Add Ingredient");
+        this.addEditIngredientDialog.setVisible(true);
     }//GEN-LAST:event_addIngredientMenuItemActionPerformed
 
-    private void addNewIngredientDialogWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_addNewIngredientDialogWindowOpened
+    private void addEditIngredientDialogWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_addEditIngredientDialogWindowOpened
         if (this.categories != null) {
             this.categories.clear();
         }
@@ -1413,10 +1433,10 @@ public class MainWindow extends JFrame {
             LOGGER.error("Error getting categories", ex);
             this.showError("Error retrieving information from DB", ex);
         }
-    }//GEN-LAST:event_addNewIngredientDialogWindowOpened
+    }//GEN-LAST:event_addEditIngredientDialogWindowOpened
 
-    private void addNewIngredientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewIngredientButtonActionPerformed
-        final String name = this.newIngredientNameText.getText();
+    private void saveIngredientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveIngredientButtonActionPerformed
+        final String name = this.newIngredientNameField.getText();
         final String grams = this.newIngredientGramsField.getText();
         final String calories = this.newIngredientCaloriesField.getText();
         final String fat = this.newIngredientFatField.getText();
@@ -1448,7 +1468,8 @@ public class MainWindow extends JFrame {
             
             this.dao.createNutritionIngredient(newIngredient).ifPresent(dbIngredient -> {
                 this.showInfoMessage(String.format("'%s' added correctly.", dbIngredient.getName()), "Ingredient added to database.");
-                this.addNewIngredientDialog.setVisible(false);
+                this.addEditIngredientDialog.setVisible(false);
+                this.editIngredientMode = false;
             });
         } catch (final NumberFormatException ex) {
             LOGGER.error(ex.getMessage(), ex);
@@ -1458,7 +1479,7 @@ public class MainWindow extends JFrame {
             this.showError("Error creating ingredient", ex);
         }
         
-    }//GEN-LAST:event_addNewIngredientButtonActionPerformed
+    }//GEN-LAST:event_saveIngredientButtonActionPerformed
 
     private void showError(final String message, final String title) {
         JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
@@ -1473,7 +1494,7 @@ public class MainWindow extends JFrame {
     }
     
     private void clearNewIngredientDialogFields() {
-        this.newIngredientNameText.setText("");
+        this.newIngredientNameField.setText("");
         this.newIngredientGramsField.setText("");
         this.newIngredientCaloriesField.setText("");
         this.newIngredientFatField.setText("");
@@ -1657,12 +1678,12 @@ public class MainWindow extends JFrame {
         
         if (summary.isPresent()) {
             final MealNutritionInformation mealNutritionFacts = summary.get();
-            this.summaryCaloriesLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getCalories()));
-            this.summaryProteinLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getProtein()));
-            this.summarySugarLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getSugar()));
-            this.summaryCarbsLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getCarbohydrates()));
-            this.summaryFatLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getFat()));
-            this.summaryCholesterolLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getCholesterol()));
+            this.summaryCaloriesLabel.setText(formatDecimal1(mealNutritionFacts.getCalories()));
+            this.summaryProteinLabel.setText(formatDecimal1(mealNutritionFacts.getProtein()));
+            this.summarySugarLabel.setText(formatDecimal1(mealNutritionFacts.getSugar()));
+            this.summaryCarbsLabel.setText(formatDecimal1(mealNutritionFacts.getCarbohydrates()));
+            this.summaryFatLabel.setText(formatDecimal1(mealNutritionFacts.getFat()));
+            this.summaryCholesterolLabel.setText(formatDecimal1(mealNutritionFacts.getCholesterol()));
         }
     }
     
@@ -1841,12 +1862,12 @@ public class MainWindow extends JFrame {
                 final DefaultTableModel tableModel = (DefaultTableModel) this.viewSelectedMealTable.getModel();
                 mealIngredients.forEach(ingredient -> tableModel.addRow(this.sanitizeIngredientRowDataForTable(ingredient)));
                 this.calculateSummaryFromIngredients(mealIngredients).ifPresent(mealNutritionFacts -> {
-                    this.caloriesSummaryMealLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getCalories()));
-                    this.proteinSummaryMealLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getProtein()));
-                    this.sugarSummaryMealLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getSugar()));
-                    this.carbsSummaryMealLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getCarbohydrates()));
-                    this.staticFatSummaryMealLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getFat()));
-                    this.cholesterolSummaryMealLabel.setText(formatDoubleValueForTableVisualisation(mealNutritionFacts.getCholesterol()));
+                    this.caloriesSummaryMealLabel.setText(formatDecimal1(mealNutritionFacts.getCalories()));
+                    this.proteinSummaryMealLabel.setText(formatDecimal1(mealNutritionFacts.getProtein()));
+                    this.sugarSummaryMealLabel.setText(formatDecimal1(mealNutritionFacts.getSugar()));
+                    this.carbsSummaryMealLabel.setText(formatDecimal1(mealNutritionFacts.getCarbohydrates()));
+                    this.staticFatSummaryMealLabel.setText(formatDecimal1(mealNutritionFacts.getFat()));
+                    this.cholesterolSummaryMealLabel.setText(formatDecimal1(mealNutritionFacts.getCholesterol()));
                 });
             }
         } catch (final SQLException ex) {
@@ -1890,7 +1911,6 @@ public class MainWindow extends JFrame {
             } else {
                 this.resetViewIngredientTable();
                 this.buildTableWithIngredients(this.ingredients, this.viewIngredientTable);
-                System.out.println("Simply bye ...");
             }
         } catch (final SQLException ex) {
             this.showError("Error connecting to the database", "ERROR");
@@ -1962,12 +1982,12 @@ public class MainWindow extends JFrame {
     }
     
     private void formatePercentageMissingRateLabels(final InformationMissingAnalysisUtil.MissingPercentageRates rates) {
-        this.fatPercentageMissingRateLabel.setText(formatDoubleValueForTableVisualisation(rates.fat()));
-        this.sugarPercentageMissingRateLabel.setText(formatDoubleValueForTableVisualisation(rates.sugar()));
-        this.carbsPercentageMissingRateLabel.setText(formatDoubleValueForTableVisualisation(rates.carbs()));
-        this.cholesterolPercentageMissingRateLabel.setText(formatDoubleValueForTableVisualisation(rates.cholesterol()));
-        this.sodiumPercentageMissingRateLabel.setText(formatDoubleValueForTableVisualisation(rates.sodium()));
-        this.proteinPercentageMissingRateLabel.setText(formatDoubleValueForTableVisualisation(rates.protein()));
+        this.fatPercentageMissingRateLabel.setText(formatDecimal1(rates.fat()));
+        this.sugarPercentageMissingRateLabel.setText(formatDecimal1(rates.sugar()));
+        this.carbsPercentageMissingRateLabel.setText(formatDecimal1(rates.carbs()));
+        this.cholesterolPercentageMissingRateLabel.setText(formatDecimal1(rates.cholesterol()));
+        this.sodiumPercentageMissingRateLabel.setText(formatDecimal1(rates.sodium()));
+        this.proteinPercentageMissingRateLabel.setText(formatDecimal1(rates.protein()));
     }
     
     private void dataMissingAnalysisButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataMissingAnalysisButtonActionPerformed
@@ -2029,6 +2049,64 @@ public class MainWindow extends JFrame {
         }
     }//GEN-LAST:event_notesTableMousePressed
 
+    private void setEditAddIngredientFields(final NutritionalIngredient ingredient) {
+        this.newIngredientNameField.setText(ingredient.getName());
+        this.newIngredientGramsField.setText(ingredient.getGrams() + "");
+        
+        final String cals = ingredient.getCalories() != -1d ? formatDecimal1(ingredient.getCalories()) : "";
+        this.newIngredientCaloriesField.setText(cals);
+        
+        final String fat = ingredient.getFat() != -1d ? formatDecimal1(ingredient.getFat()) : "";
+        this.newIngredientFatField.setText(fat);
+        
+        final String sugar = ingredient.getSugar() != -1d ? formatDecimal1(ingredient.getSugar()) : "";
+        this.newIngredientSugarField.setText(sugar);
+        
+        final String carbs = ingredient.getCarbohydrates() != -1d ? formatDecimal1(ingredient.getCarbohydrates()) : "";
+        this.newIngredientCarbohydratesField.setText(carbs);
+        
+        final String protein = ingredient.getProtein() != -1d ? formatDecimal1(ingredient.getProtein()) : "";
+        this.newIngredientProteinField.setText(protein);
+        
+        final String cholesterol = ingredient.getCholesterol() != -1d ? formatDecimal1(ingredient.getCholesterol()) : "";
+        this.newIngredientCholesterolField.setText(cholesterol);
+        
+        final String sodium = ingredient.getSodium() != -1d ? formatDecimal1(ingredient.getSodium()) : "";
+        this.newIngredientSodiumField.setText(sodium);
+        
+        // TODO: Category...
+        this.newIngredientNotesField.setText(ingredient.getNotes());
+    }
+    
+    private void editSelectedIngredientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editSelectedIngredientButtonActionPerformed
+        final int selectedRow = this.viewIngredientTable.getSelectedRow();
+        if (selectedRow < 0) {
+            return;
+        }
+        
+        // grab the ID:
+        final DefaultTableModel tableModel = (DefaultTableModel) this.viewIngredientTable.getModel();
+        final int ingredientID = (Integer) tableModel.getValueAt(selectedRow, 0);
+        
+        try {
+            final Optional<NutritionalIngredient> ingredientToEdit = this.dao.findById(ingredientID);
+            if (ingredientToEdit.isPresent()) {
+                this.addEditIngredientDialog.setTitle("Edit Ingredient");
+                this.setEditAddIngredientFields(ingredientToEdit.get());
+                this.editIngredientMode = true;
+                this.addEditIngredientDialog.setVisible(true);
+            }
+        } catch (final SQLException ex) {
+            this.showError("Error getting ingredient to edit.", "Error");
+            LOGGER.error("Error getting ingredient to edit.", ex);
+        }
+        
+    }//GEN-LAST:event_editSelectedIngredientButtonActionPerformed
+
+    private void addEditIngredientDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_addEditIngredientDialogWindowClosed
+        this.editIngredientMode = false;
+    }//GEN-LAST:event_addEditIngredientDialogWindowClosed
+
     private void buildTableWithIngredients(final List<NutritionalIngredient> ingredientsToAdd, final JTable table) {
         final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         tableModel.setRowCount(0);
@@ -2053,12 +2131,12 @@ public class MainWindow extends JFrame {
               ingredient.getId()
             , ingredient.getName()
             , ingredient.getGrams()
-            , ingredient.getCalories() == -1d ? "" : formatDoubleValueForTableVisualisation(ingredient.getCalories())
-            , ingredient.getSugar() == -1d ? "" : formatDoubleValueForTableVisualisation(ingredient.getSugar())
-            , ingredient.getCarbohydrates() == -1d ? "" : formatDoubleValueForTableVisualisation(ingredient.getCarbohydrates())
-            , ingredient.getProtein() == -1d ? "" : formatDoubleValueForTableVisualisation(ingredient.getProtein())
-            , ingredient.getCholesterol() == -1d ? "" : formatDoubleValueForTableVisualisation(ingredient.getCholesterol())
-            , ingredient.getSodium() == -1d ? "" : formatDoubleValueForTableVisualisation(ingredient.getSodium())
+            , ingredient.getCalories() == -1d ? "" : formatDecimal1(ingredient.getCalories())
+            , ingredient.getSugar() == -1d ? "" : formatDecimal1(ingredient.getSugar())
+            , ingredient.getCarbohydrates() == -1d ? "" : formatDecimal1(ingredient.getCarbohydrates())
+            , ingredient.getProtein() == -1d ? "" : formatDecimal1(ingredient.getProtein())
+            , ingredient.getCholesterol() == -1d ? "" : formatDecimal1(ingredient.getCholesterol())
+            , ingredient.getSodium() == -1d ? "" : formatDecimal1(ingredient.getSodium())
             , ingredient.getCategory().getName()
             , ingredient.getNotes()
         };
@@ -2107,9 +2185,8 @@ public class MainWindow extends JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu aboutMenu;
     private javax.swing.JMenuItem aboutMenuItem;
+    private javax.swing.JDialog addEditIngredientDialog;
     private javax.swing.JMenuItem addIngredientMenuItem;
-    private javax.swing.JButton addNewIngredientButton;
-    private javax.swing.JDialog addNewIngredientDialog;
     private javax.swing.JComboBox<String> byCategorySearchComboBox;
     private javax.swing.JCheckBox byCategorySearchIngredientsCheckBox;
     private javax.swing.JLabel caloriesSummaryMealLabel;
@@ -2127,6 +2204,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JMenuItem dataMissingAnalysisButton;
     private javax.swing.JDialog dataMissingDialog;
     private javax.swing.JLabel dateViewNoteDialogLabel;
+    private javax.swing.JButton editSelectedIngredientButton;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JLabel fatPercentageMissingRateLabel;
     private javax.swing.JMenu fileMenuItem;
@@ -2173,8 +2251,8 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel newIngredientFatLabel;
     private javax.swing.JTextField newIngredientGramsField;
     private javax.swing.JLabel newIngredientGramsLabel;
+    private javax.swing.JTextField newIngredientNameField;
     private javax.swing.JLabel newIngredientNameLabel;
-    private javax.swing.JTextField newIngredientNameText;
     private javax.swing.JTextField newIngredientNotesField;
     private javax.swing.JTextField newIngredientProteinField;
     private javax.swing.JLabel newIngredientProteinLabel;
@@ -2194,6 +2272,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JButton okViewIngredientButton;
     private javax.swing.JLabel proteinPercentageMissingRateLabel;
     private javax.swing.JLabel proteinSummaryMealLabel;
+    private javax.swing.JButton saveIngredientButton;
     private javax.swing.JButton saveMealButton;
     private javax.swing.JButton saveMealButtonDialog;
     private javax.swing.JDialog saveMealDialog;
