@@ -1,3 +1,6 @@
+// TODO: finish update stmt.
+// TODO: link or reference field.
+// TODO: send by email.
 package howmanycals.db.dao;
 
 import howmanycals.db.DBConnection;

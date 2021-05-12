@@ -199,6 +199,8 @@ INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes)
 INSERT INTO nutrition_ingredient(name, grams, calories, protein, id_category, notes) 
     VALUES('100g Ham/Jamón Pavo Virginia Low Fat Cuida-t', 100, 100.0, 12, 4, 'Parece que cada rebanada ~ 20g');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
+    VALUES('Rebanada Ham/Jam Pavo Virginia LowFat Cuida-t', 20, 20, 4, 'Parece que cada rebanada ~ 20g');
+INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
     VALUES('3 rebnds Ham/Jam Pavo Virginia LowFat Cuida-t', 60, 60, 4, 'Parece que cada rebanada ~ 20g');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
     VALUES('50g tomate', 50, 9.0, 3, '');
