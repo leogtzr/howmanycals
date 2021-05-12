@@ -87,7 +87,6 @@ CREATE TABLE IF NOT EXISTS meal (
 CREATE UNIQUE INDEX IF NOT EXISTS index_id_meal ON meal(id);
 CREATE UNIQUE INDEX IF NOT EXISTS index_name_meal ON meal(name);
 
--- notes:
 CREATE SEQUENCE IF NOT EXISTS note_id_seq
   START WITH 1
   INCREMENT BY 1
@@ -116,101 +115,109 @@ INSERT INTO category (name) VALUES('Carbs');
 INSERT INTO category (name) VALUES('Fibra');
 
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-  VALUES('100g pechuga pollo hervida', 100, 107, 4, 'From "cuantas calorias tiene una pechuga hervida"');
+    VALUES('100g pechuga pollo hervida', 100, 107, 4, 'From "cuantas calorias tiene una pechuga hervida"');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-  VALUES('200g pechuga pollo hervida', 200, 214, 4, 'From "cuantas calorias tiene una pechuga hervida"');
+    VALUES('200g pechuga pollo hervida', 200, 214, 4, 'From "cuantas calorias tiene una pechuga hervida"');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, protein, notes) 
-  VALUES('2 huevos (110g)', 110, 160, 4, 22.42 * 2, '~');
+    VALUES('2 huevos (110g)', 110, 160, 4, 22.42 * 2, '~');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-  VALUES('Queso Panela Zwan (3)', 90, 216, 6, 'From the label');
+    VALUES('Queso Panela Zwan (3)', 90, 216, 6, 'From the label');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-  VALUES('Queso Panela Zwan (1)', 30, 72, 6, 'From the label');
+    VALUES('Queso Panela Zwan (1)', 30, 72, 6, 'From the label');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-  VALUES('1 scoop ISOPURE Fresa', 31, 103.6, 4, 'From the label');
+    VALUES('1 scoop ISOPURE Fresa', 31, 103.6, 4, 'From the label');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-  VALUES('1 scoop ISOPURE Unflavored', 29, 100, 4, 'From the label');
+    VALUES('1 scoop ISOPURE Unflavored', 29, 100, 4, 'From the label');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-  VALUES('2 scoop ISOPURE Unflavored', 58, 200, 4, 'From the label');
+    VALUES('2 scoop ISOPURE Unflavored', 58, 200, 4, 'From the label');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-  VALUES('1 1/2 scoop ISOPURE Unflavored', 43.5, 150, 4, 'From the label');
+    VALUES('1 1/2 scoop ISOPURE Unflavored', 43.5, 150, 4, 'From the label');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-  VALUES('1 1/2 scoop ISOPURE', 46.5, 155.4, 4, 'From the label');
+    VALUES('1 1/2 scoop ISOPURE', 46.5, 155.4, 4, 'From the label');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-  VALUES('2 scoop ISOPURE', 62, 207.2, 4, 'From the label');
+    VALUES('2 scoop ISOPURE', 62, 207.2, 4, 'From the label');
 INSERT INTO nutrition_ingredient (name, grams, calories, protein, id_category, notes) 
-  VALUES('1 tuna Tuny', 100, 93, 21, 4, 'From the label');
+    VALUES('1 tuna Tuny', 100, 93, 21, 4, 'From the label');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-  VALUES('1 Tostada Susalia', 12, 32.0, 8, 'From the label');
+    VALUES('1 Tostada Susalia', 12, 32.0, 8, 'From the label');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-  VALUES('50g Aguacate Hass', 50, 80.0, 7, 'From the mypalfitness/fatsecret');
+    VALUES('50g Aguacate Hass', 50, 80.0, 7, 'From the mypalfitness/fatsecret');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-        VALUES('100g esparragos/asparagus', 100, 20.0, 3, 'From fatsecret.cl');
+    VALUES('100g esparragos/asparagus', 100, 20.0, 3, 'From fatsecret.cl');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-        VALUES('100g champiñones', 100, 22.0, 3, 'From fatsecret.cl');
+    VALUES('100g champiñones', 100, 22.0, 3, 'From fatsecret.cl');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-        VALUES('150g champiñones', 100, 33.0, 3, 'From fatsecret.cl');
+    VALUES('150g champiñones', 100, 33.0, 3, 'From fatsecret.cl');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-      VALUES('100g chile morrón', 100, 24.0, 3, 'From fatsecret.cl');
+    VALUES('100g chile morrón', 100, 24.0, 3, 'From fatsecret.cl');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-        VALUES('30g chile morrón', 30, 7.2, 3, 'From fatsecret.cl');
+    VALUES('30g chile morrón', 30, 7.2, 3, 'From fatsecret.cl');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-      VALUES('50g chile morrón', 50, 12.0, 3, 'From fatsecret.cl');
+    VALUES('50g chile morrón', 50, 12.0, 3, 'From fatsecret.cl');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-      VALUES('100g Broccoli', 100, 34.0, 3, 'From fatsecret.cl');
+    VALUES('100g Broccoli', 100, 34.0, 3, 'From fatsecret.cl');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-      VALUES('30g Broccoli', 30, 10.0, 3, 'From fatsecret.cl');
+    VALUES('30g Broccoli', 30, 10.0, 3, 'From fatsecret.cl');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-      VALUES('50g Broccoli', 50, 17.0, 3, 'From fatsecret.cl');
+    VALUES('50g Broccoli', 50, 17.0, 3, 'From fatsecret.cl');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-      VALUES('2 Jalapeños', 28, 8.0, 3, 'From Google');
+    VALUES('2 Jalapeños', 28, 8.0, 3, 'From Google');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-      VALUES('100g Pepino', 100, 12.0, 3, 'From fatsecret.com');
+    VALUES('100g Pepino', 100, 12.0, 3, 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-      VALUES('200g Pepino', 200, 24.0, 3, 'From fatsecret.com');      
+    VALUES('200g Pepino', 200, 24.0, 3, 'From fatsecret.com');      
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-      VALUES('250g Watermelon', 250, 75, 3, 'From fatsecret.com');
+    VALUES('250g Watermelon', 250, 75, 3, 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-      VALUES('150g manzana roja', 150, 79, 9, 'From fatsecret.com');
+    VALUES('150g manzana roja', 150, 79, 9, 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-      VALUES('150g manzana roja', 150, 79, 9, 'From fatsecret.com');
+    VALUES('150g manzana roja', 150, 79, 9, 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-      VALUES('20 Fresas', 0, 100, 1, 'From fatsecret.com');
+    VALUES('20 Fresas', 0, 100, 1, 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-      VALUES('10 Fresas', 0, 40, 1, 'From fatsecret.com');
+    VALUES('10 Fresas', 0, 40, 1, 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-      VALUES('100g Granny Smith', 100.0, 52, 9, 'From fatsecret.com');
+    VALUES('100g Granny Smith', 100.0, 52, 9, 'From fatsecret.com');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
-      VALUES('Tostadas Ligeras', 5, 16.0, 8, 'From the label');
+    VALUES('Tostadas Ligeras', 5, 16.0, 8, 'From the label');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
     VALUES('100g Frijol La Sierra Low Fat', 100, 60.0, 8, '');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
-  VALUES('100g Hawaiian Papaya', 100, 39.0, 9, 'From fatsecret');
+    VALUES('100g Hawaiian Papaya', 100, 39.0, 9, 'From fatsecret');
 INSERT INTO nutrition_ingredient(name, grams, calories, carbohydrates, protein, id_category, notes) 
-  VALUES('100ml Clara Huevo San Juan', 100, 42.0, 1.0, 10.0, 4, 'From the label');
+    VALUES('100ml Clara Huevo San Juan', 100, 42.0, 1.0, 10.0, 4, 'From the label');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
-  VALUES('100g Yogur Griego Fage 0%', 100, 50.0, 4, 'From the label');
+    VALUES('100g Yogur Griego Fage 0%', 100, 50.0, 4, 'From the label');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
-  VALUES('18g avena Quaker', 18, 61.0, 9, 'From the label');
+    VALUES('18g avena Quaker', 18, 61.0, 9, 'From the label');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
-  VALUES('100ml Leche Almendra', 100, 12.0, 7, 'From the label');
+    VALUES('100ml Leche Almendra', 100, 12.0, 7, 'From the label');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
-  VALUES('50g banana/platano', 50, 44.0, 9, 'From fatsecret');
+    VALUES('50g banana/platano', 50, 44.0, 9, 'From fatsecret');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
-  VALUES('150g fresas/strawberries', 150, 48.0, 9, 'From fatsecret'); 
+    VALUES('150g fresas/strawberries', 150, 48.0, 9, 'From fatsecret'); 
 INSERT INTO nutrition_ingredient(name, grams, calories, protein, id_category, notes) 
-  VALUES('100g Ham/Jamón Pavo Virginia Low Fat Cuida-t', 100, 100.0, 12, 4, '');
+    VALUES('100g Ham/Jamón Pavo Virginia Low Fat Cuida-t', 100, 100.0, 12, 4, 'Parece que cada rebanada ~ 20g');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
-  VALUES('50g tomate', 50, 9.0, 3, '');
-
-
-INSERT INTO meal (name, notes) VALUES('frijolitos', 'Deliciososssss'); 
-
-INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 1);
-INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 2);
-INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 3);
+    VALUES('3 rebnds Ham/Jam Pavo Virginia LowFat Cuida-t', 60, 60, 4, 'Parece que cada rebanada ~ 20g');
+INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
+    VALUES('50g tomate', 50, 9.0, 3, '');
 
 INSERT INTO note (note) VALUES('The note 1');
 INSERT INTO note (note) VALUES('The note 2');
 INSERT INTO note (note) VALUES('The note 3');
 INSERT INTO note (note) VALUES('The note 4');
 INSERT INTO note (note) VALUES('The note 5');
+
+INSERT INTO meal (name, notes) VALUES('600 cals - ham-egg-frijol', 'Parece que tiene algo de proteina.');
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 34);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 2);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 36);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 36);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 41);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 21);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 16);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 24);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 44);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 19);
