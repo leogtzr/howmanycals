@@ -183,6 +183,8 @@ INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes)
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
     VALUES('100g Frijol La Sierra Low Fat', 100, 60.0, 8, '');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
+    VALUES('50g Frijol La Sierra Low Fat', 50, 30.0, 8, '');
+INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
     VALUES('100g Hawaiian Papaya', 100, 39.0, 9, 'From fatsecret');
 INSERT INTO nutrition_ingredient(name, grams, calories, carbohydrates, protein, id_category, notes) 
     VALUES('100ml Clara Huevo San Juan', 100, 42.0, 1.0, 10.0, 4, 'From the label');
@@ -208,6 +210,8 @@ INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes)
     VALUES('100g fresa', 100, 33.0, 1, '');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
     VALUES('100g eggplant/berenjena', 100, 25, 8, '');
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g baby carrots', 100, 35.0, -1.0, -1.0, 8.2, -1.0, -1.0, -1.0, 8, '');
 
 -- Test data:
 INSERT INTO note (note) VALUES('The note 1');
