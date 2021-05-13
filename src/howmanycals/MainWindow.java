@@ -1,8 +1,6 @@
 // TODO: edit ingredient ... 
 package howmanycals;
 
-import com.sendgrid.*;
-
 import howmanycals.db.dao.HowManyCalsDAO;
 import howmanycals.domain.Category;
 import howmanycals.domain.Meal;
@@ -41,6 +39,7 @@ import javax.swing.UIManager;
 import static howmanycals.utils.FormatUtils.formatDecimal1;
 import howmanycals.utils.MealEmailHTMLFormatter;
 import howmanycals.utils.SummaryUtil;
+import java.io.IOException;
 
 public class MainWindow extends JFrame {
     
@@ -152,6 +151,7 @@ public class MainWindow extends JFrame {
         saveNotesLabel = new javax.swing.JLabel();
         saveMealButtonDialog = new javax.swing.JButton();
         cancelMealSaveButton = new javax.swing.JButton();
+        saveAndSendByEmailButton = new javax.swing.JButton();
         viewMealsDialog = new javax.swing.JDialog();
         viewMealSearchLabel = new javax.swing.JLabel();
         viewMealsSearchMealTextField = new javax.swing.JTextField();
@@ -208,7 +208,6 @@ public class MainWindow extends JFrame {
         sodiumPercentageMissingRateLabel = new javax.swing.JLabel();
         okCloseDataMissingDialogButton = new javax.swing.JButton();
         viewMealsButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
@@ -762,6 +761,14 @@ public class MainWindow extends JFrame {
             }
         });
 
+        saveAndSendByEmailButton.setMnemonic('E');
+        saveAndSendByEmailButton.setText("Save and send by Email");
+        saveAndSendByEmailButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveAndSendByEmailButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout saveMealDialogLayout = new javax.swing.GroupLayout(saveMealDialog.getContentPane());
         saveMealDialog.getContentPane().setLayout(saveMealDialogLayout);
         saveMealDialogLayout.setHorizontalGroup(
@@ -781,7 +788,9 @@ public class MainWindow extends JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(cancelMealSaveButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(saveMealButtonDialog)))
+                        .addComponent(saveMealButtonDialog)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saveAndSendByEmailButton)))
                 .addContainerGap())
         );
         saveMealDialogLayout.setVerticalGroup(
@@ -802,7 +811,8 @@ public class MainWindow extends JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(saveMealDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cancelMealSaveButton)
-                            .addComponent(saveMealButtonDialog))
+                            .addComponent(saveMealButtonDialog)
+                            .addComponent(saveAndSendByEmailButton))
                         .addContainerGap())))
         );
 
@@ -1303,13 +1313,6 @@ public class MainWindow extends JFrame {
             }
         });
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         fileMenuItem.setMnemonic('F');
         fileMenuItem.setText("File");
 
@@ -1403,13 +1406,8 @@ public class MainWindow extends JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(viewMealsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(jButton1)))
+                .addContainerGap()
+                .addComponent(viewMealsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(330, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -1417,9 +1415,7 @@ public class MainWindow extends JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(viewMealsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(101, 101, 101))
+                .addContainerGap(237, Short.MAX_VALUE))
         );
 
         pack();
@@ -1729,51 +1725,45 @@ public class MainWindow extends JFrame {
         this.saveMealDialog.setVisible(false);
     }//GEN-LAST:event_cancelMealSaveButtonActionPerformed
 
-    private void saveMealButtonDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMealButtonDialogActionPerformed
+    private void validateFieldsMealSavingDialog() throws SQLException {
         final String mealName = this.saveMealTextField.getText().trim();
         if (mealName.isBlank()) {
-            JOptionPane.showMessageDialog(this, "Error, enter a name", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            throw new IllegalArgumentException("meal name empty");
         }
         
+        final Optional<Meal> mealInDB = this.dao.findMealByName(mealName.toLowerCase());
+        if (mealInDB.isPresent()) {
+            throw new IllegalArgumentException(String.format("Meal '%s' already exists.", mealName));
+        }
+        
+        final DefaultTableModel tableModel = (DefaultTableModel) this.selectedMealTable.getModel();
+        if (tableModel.getRowCount() == 0) {
+            throw new IllegalArgumentException("No ingredients selected for meal");
+        }
+    }
+    
+    private void saveMealButtonDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMealButtonDialogActionPerformed
         try {
-            // Check if meal name already exists:
-            final Optional<Meal> mealInDB = this.dao.findMealByName(mealName.toLowerCase());
-            if (mealInDB.isPresent()) {
-                this.showError(String.format("Meal '%s' already exists.", mealName), "ERROR");
-                return;
-            }
-
-            // Grab all the IDs.
+            this.validateFieldsMealSavingDialog();
+            
+            final String mealName = this.saveMealTextField.getText().trim();
             final DefaultTableModel tableModel = (DefaultTableModel) this.selectedMealTable.getModel();
-            if (tableModel.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(this, "No ingredients selected for meal", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
             final List<Integer> ids = new ArrayList<>();
 
             for (int row = 0; row < tableModel.getRowCount(); row++) {
-                final int id = (Integer) tableModel.getValueAt(row, 0);
-                ids.add(id);
+                ids.add((Integer) tableModel.getValueAt(row, 0));
             }
 
-            final int[] selectedIds = new int[ids.size()];
-            for (int i = 0; i < ids.size(); i++) {
-                selectedIds[i] = ids.get(i);
-            }
-        
-            this.dao.saveMeal(mealName, this.saveNotesTextArea.getText(), selectedIds).ifPresent(
-                    meal -> {
-                        this.showInfoMessage(String.format("'%s' saved", mealName), "Meal saved");
-                        this.saveMealDialog.setVisible(false);
-                        this.cleanMealSaveDialogFields();
-                    }
+            this.dao.saveMeal(mealName, this.saveNotesTextArea.getText(), ids).ifPresent(meal -> {
+                    this.showInfoMessage(String.format("'%s' saved", mealName), "Meal saved");
+                    this.saveMealDialog.setVisible(false);
+                    this.cleanMealSaveDialogFields();
+                }
             );
-        } catch (final SQLException ex) {
+        } catch (SQLException | IllegalArgumentException ex) {
+            this.showError("Error saving meal", ex);
             LOGGER.error(ex.getMessage(), ex);
-            this.showError(String.format("Error saving meal '%s'", mealName), ex);
         }
-        
     }//GEN-LAST:event_saveMealButtonDialogActionPerformed
 
     private void viewMealsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMealsButtonActionPerformed
@@ -2095,76 +2085,40 @@ public class MainWindow extends JFrame {
         this.editIngredientMode = false;
     }//GEN-LAST:event_addEditIngredientDialogWindowClosed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        final int mealID = 1;
-        
+    private void saveAndSendByEmailButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAndSendByEmailButtonActionPerformed
         try {
-            final Optional<Meal> meal = this.dao.findMealByID(mealID);
-            if (meal.isPresent()) {
-                System.out.println(meal);
-                
-                final String emailBody = MealEmailHTMLFormatter.format(meal.get());
-                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>");
-                System.out.println(emailBody);
-                System.out.println("</~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>");
-            }
-        } catch (final SQLException ex) {
-            ex.printStackTrace();;
-            LOGGER.error("error...", ex);
-        }
-        
-//        final MealEmail email = new MealEmail.Builder()
-//                .from("leogutierrezramirez@gmail.com")
-//                .to("leogutierrezramirez@gmail.com")
-//                .subject("this is a test, alv")
-//                .content("text/html", "<h1>Oks</h1><h2>abc</h2>")
-//                .build();
-//        
-//        try {
-//            final Response response = EmailSenderUtil.send(email);
-//            LOGGER.debug(response.getStatusCode() + "");
-//            LOGGER.debug(response.getBody() + "");
-//            LOGGER.debug(response.getHeaders() + "");
-//        } catch (final IOException ex) {
-//            this.showError("Error sending meal to the specified email", "Error sending email");
-//            LOGGER.error("Error sending email with meal.", ex);
-//        }
-        
-//        Email from = new Email("leogutierrezramirez@gmail.com");
-//        String subject = "Sending with Twilio SendGrid is Fun";
-//        Email to = new Email("leogutierrezramirez@gmail.com");
-//        Content content = new Content("text/html", "<h1>abc</h1>");
-//        Mail mail = new Mail(from, subject, to, content);
-//
-//        SendGrid sg = new SendGrid("alv");
-//        Request request = new Request();
-//        try {
-//          request.setMethod(Method.POST);
-//          request.setEndpoint("mail/send");
-//          request.setBody(mail.build());
-//          Response response = sg.api(request);
-//          System.out.println(response.getStatusCode());
-//          System.out.println(response.getBody());
-//          System.out.println(response.getHeaders());
-//        } catch (java.io.IOException ex) {
-//            ex.printStackTrace();
-//            LOGGER.error("error", ex);
-//        }
+            this.validateFieldsMealSavingDialog();
+            
+            final String mealName = this.saveMealTextField.getText().trim();
+            final DefaultTableModel tableModel = (DefaultTableModel) this.selectedMealTable.getModel();
+            final List<Integer> ids = new ArrayList<>();
 
-//    try {
-//        SendGrid sg = new SendGrid("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");
-//        Request request = new Request();
-//        request.setMethod(Method.POST);
-//        request.setEndpoint("mail/send");
-//        request.setBody("{\"personalizations\":[{\"to\":[{\"email\":\"leogutierrezramirez@gmail.com\"}],\"subject\":\"Sending with Twilio SendGrid is Fun\"}],\"from\":{\"email\":\"leogutierrezramirez@gmail.com\"},\"content\":[{\"type\":\"text/plain\",\"value\": \"and easy to do anywhere, even with Java\"}]}");
-//        Response response = sg.api(request);
-//        System.out.println(response.getStatusCode());
-//        System.out.println(response.getBody());
-//        System.out.println(response.getHeaders());
-//      } catch (IOException ex) {
-//        ex.printStackTrace();
-//      }
-    }//GEN-LAST:event_jButton1ActionPerformed
+            for (int row = 0; row < tableModel.getRowCount(); row++) {
+                ids.add((Integer) tableModel.getValueAt(row, 0));
+            }
+
+            final Optional<Meal> meal = this.dao.saveMeal(mealName, this.saveNotesTextArea.getText(), ids);
+            if (meal.isPresent()) {
+                this.showInfoMessage(String.format("'%s' saved", mealName), "Meal saved");
+                final Optional<Meal> mealDB = this.dao.findMealByID(meal.get().getId());
+                if (mealDB.isPresent()) {
+                    final String mealEmailBody = MealEmailHTMLFormatter.format(mealDB.get());
+                    final MealEmail mealEmail = new MealEmail.Builder()
+                            .from("leogutierrezramirez@gmail.com")
+                            .to("leogutierrezramirez@gmail.com")
+                            .subject(String.format("😋🤤 %s, delicious! 🤤😋", mealName))
+                            .content("text/html", mealEmailBody)
+                            .build();
+                        final var x = EmailSenderUtil.send(mealEmail);
+                    this.saveMealDialog.setVisible(false);
+                    this.cleanMealSaveDialogFields();
+                }
+            }
+        } catch (SQLException | IllegalArgumentException | IOException ex) {
+            this.showError("Error saving meal", ex);
+            LOGGER.error(ex.getMessage(), ex);
+        }
+    }//GEN-LAST:event_saveAndSendByEmailButtonActionPerformed
 
     private void buildTableWithIngredients(final List<NutritionalIngredient> ingredientsToAdd, final JTable table) {
         final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
@@ -2269,7 +2223,6 @@ public class MainWindow extends JFrame {
     private javax.swing.JMenu fileMenuItem;
     private javax.swing.JMenuBar fileNoteMenuBar;
     private javax.swing.JMenu ingredientsMenuItem;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -2332,6 +2285,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JButton okViewIngredientButton;
     private javax.swing.JLabel proteinPercentageMissingRateLabel;
     private javax.swing.JLabel proteinSummaryMealLabel;
+    private javax.swing.JButton saveAndSendByEmailButton;
     private javax.swing.JButton saveIngredientButton;
     private javax.swing.JButton saveMealButton;
     private javax.swing.JButton saveMealButtonDialog;

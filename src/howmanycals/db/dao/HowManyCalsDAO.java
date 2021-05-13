@@ -1,6 +1,5 @@
 // TODO: finish update stmt.
 // TODO: link or reference field.
-// TODO: send by email.
 package howmanycals.db.dao;
 
 import howmanycals.db.DBConnection;
@@ -45,7 +44,7 @@ public class HowManyCalsDAO {
         try {
             this.connection = DBConnection.INSTANCE.getConnection(dbJDBCURL, dbUserName, dbPassword);
         } catch (final SQLException ex) {
-            ex.printStackTrace();
+            LOGGER.error("Error getting database connection.", ex);
             throw new RuntimeException(ex.getMessage(), ex);
         }
     }
@@ -96,11 +95,13 @@ public class HowManyCalsDAO {
     }
     
     public List<NutritionalIngredient> ingredients() throws SQLException {
+        final String query = """
+                             SELECT nut.*, cat.id AS cat_id, cat.name AS cat_name
+                             FROM nutrition_ingredient nut
+                             INNER JOIN category cat
+                             ON cat.id = nut.id_category""";
+        
         final List<NutritionalIngredient> ingredients = new ArrayList<>();
-        final String query = "SELECT nut.*, cat.id AS cat_id, cat.name AS cat_name\n" +
-            "FROM nutrition_ingredient nut\n" +
-            "INNER JOIN category cat\n" +
-            "ON cat.id = nut.id_category";
 
         try (final ResultSet rs = this.connection.createStatement().executeQuery(query)) {
             while (rs.next()) {
@@ -109,66 +110,6 @@ public class HowManyCalsDAO {
         }
         
         return ingredients;
-    }
-    
-    private Category extractCategory(final ResultSet rs) throws SQLException {
-        return new Category(rs.getInt("id"), rs.getString("name"));
-    }
-    
-    private void setCommonIngredientFields(final NutritionalIngredient ingredient, final ResultSet rs) throws SQLException {
-        ingredient.setName(rs.getString("name"));
-        ingredient.setId(rs.getInt("id"));
-        ingredient.setGrams(rs.getInt("grams"));
-        ingredient.setCalories(rs.getFloat("calories"));
-        ingredient.setFat(rs.getFloat("fat"));
-        ingredient.setSugar(rs.getFloat("sugar"));
-        ingredient.setCarbohydrates(rs.getFloat("carbohydrates"));
-        ingredient.setProtein(rs.getFloat("protein"));
-        ingredient.setCholesterol(rs.getFloat("cholesterol"));
-        ingredient.setSodium(rs.getFloat("sodium"));
-    }
-    
-    private NutritionalIngredient extractCreatedIngredient(final ResultSet rs) throws SQLException {
-        final NutritionalIngredient ingredient = new NutritionalIngredient();
-        
-        this.setCommonIngredientFields(ingredient, rs);
-        
-        final int catID = rs.getInt("id_category");
-        final Category category = new Category();
-        category.setId(rs.getInt("id_category"));
-        
-        this.findCategoryByCategoryID(catID).ifPresent(cat -> {
-            category.setName(cat.getName());
-        });
-                
-        ingredient.setCategory(category);
-        
-        return ingredient;
-    }
-    
-    private NutritionalIngredient extractIngredient(final ResultSet rs) throws SQLException {
-        final NutritionalIngredient ingredient = new NutritionalIngredient();
-        
-        this.setCommonIngredientFields(ingredient, rs);
-        
-        final Category category = new Category();
-        category.setId(rs.getInt("cat_id"));
-        category.setName(rs.getString("cat_name"));
-        
-        ingredient.setCategory(category);
-        
-        return ingredient;
-    }
-    
-    private Meal extractMeal(final ResultSet rs) throws SQLException {
-        final Meal meal = new Meal();
-        
-        meal.setId(rs.getInt("id"));
-        meal.setName(rs.getString("name"));
-        meal.setNotes(rs.getString("notes"));
-        meal.setCreationDate(rs.getTimestamp("creation_date").toLocalDateTime());
-        
-        return meal;
     }
     
     public Optional<NutritionalIngredient> createNutritionIngredient(final NutritionalIngredient ingredient) throws SQLException {
@@ -199,7 +140,7 @@ public class HowManyCalsDAO {
 
             try (final ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
-                    return Optional.of(extractCreatedIngredient(rs));
+                    return Optional.of(this.extractCreatedIngredient(rs));
                 } else {
                     throw new SQLException("Data insert failed, no ID obtained.");
                 }
@@ -258,8 +199,8 @@ public class HowManyCalsDAO {
         }
     }
     
-    public Optional<Meal> saveMeal(final String mealName, final String notes, final int[] indexes) throws SQLException {
-        if (indexes == null || indexes.length == 0) {
+    public Optional<Meal> saveMeal(final String mealName, final String notes, final List<Integer> indexes) throws SQLException {
+        if (indexes == null || indexes.isEmpty()) {
             throw new SQLException("indexes for ingredients are missing");
         }
         
@@ -267,8 +208,8 @@ public class HowManyCalsDAO {
         if (insertedMeal.isPresent()) {
             final Meal mealDB = insertedMeal.get();
             boolean ok = true;
-            for (int idx = 0; idx < indexes.length; idx++) {
-                final Optional<Integer> insertedNutritionIngredient = insertIngredient(mealDB.getId(), indexes[idx]);
+            for (final int id : indexes) {
+                final Optional<Integer> insertedNutritionIngredient = this.insertIngredient(mealDB.getId(), id);
                 if (insertedNutritionIngredient.isEmpty()) {
                     ok = false;
                     break;
@@ -351,16 +292,17 @@ public class HowManyCalsDAO {
     }
     
     public List<NutritionalIngredient> findIngredientsByMealID(final int id) throws SQLException {
-        final String query = "SELECT \n" +
-"    nut.*, cat.id AS cat_id, cat.name AS cat_name\n" +
-"    FROM meal m\n" +
-"    INNER JOIN ingredients ing \n" +
-"        ON m.id = ing.id_meal\n" +
-"    INNER JOIN nutrition_ingredient nut\n" +
-"        ON nut.id = ing.id_nutrition_ingredient\n" +
-"    INNER JOIN category cat\n" +
-"        ON cat.id = nut.id_category\n" +
-"    WHERE m.id = ?";
+        final String query = """
+                             SELECT 
+                                 nut.*, cat.id AS cat_id, cat.name AS cat_name
+                                 FROM meal m
+                                 INNER JOIN ingredients ing 
+                                     ON m.id = ing.id_meal
+                                 INNER JOIN nutrition_ingredient nut
+                                     ON nut.id = ing.id_nutrition_ingredient
+                                 INNER JOIN category cat
+                                     ON cat.id = nut.id_category
+                                 WHERE m.id = ?""";
         
         final List<NutritionalIngredient> ingredients = new ArrayList<>();
 
@@ -417,11 +359,12 @@ public class HowManyCalsDAO {
     }
     
     public List<NutritionalIngredient> findIngredientsByCategoryID(final int id) throws SQLException {
-        final String query = "SELECT nut.*, cat.id AS cat_id, cat.name AS cat_name\n"
-                + "FROM nutrition_ingredient nut\n"
-                + "INNER JOIN category cat\n"
-                + "ON cat.id = nut.id_category\n"
-                + "WHERE nut.id_category = ?";
+        final String query = """
+                             SELECT nut.*, cat.id AS cat_id, cat.name AS cat_name
+                             FROM nutrition_ingredient nut
+                             INNER JOIN category cat
+                             ON cat.id = nut.id_category
+                             WHERE nut.id_category = ?""";
         
         final List<NutritionalIngredient> ingredients = new ArrayList<>();
 
@@ -465,7 +408,7 @@ public class HowManyCalsDAO {
             stmt.setInt(1, id);
             try (final ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    final Note note = extractNote(rs);
+                    final Note note = this.extractNote(rs);
                     return Optional.of(note);
                 }
             }
@@ -499,13 +442,72 @@ public class HowManyCalsDAO {
 
             try (final ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
-                    final Note createdNote = extractNote(rs);
+                    final Note createdNote = this.extractNote(rs);
                     return Optional.of(createdNote);
                 } else {
                     throw new SQLException("unable to create note");
                 }
             }
         }   
+    }
+    
+     private Category extractCategory(final ResultSet rs) throws SQLException {
+        return new Category(rs.getInt("id"), rs.getString("name"));
+    }
+     
+     private void setCommonIngredientFields(final NutritionalIngredient ingredient, final ResultSet rs) throws SQLException {
+        ingredient.setName(rs.getString("name"));
+        ingredient.setId(rs.getInt("id"));
+        ingredient.setGrams(rs.getInt("grams"));
+        ingredient.setCalories(rs.getFloat("calories"));
+        ingredient.setFat(rs.getFloat("fat"));
+        ingredient.setSugar(rs.getFloat("sugar"));
+        ingredient.setCarbohydrates(rs.getFloat("carbohydrates"));
+        ingredient.setProtein(rs.getFloat("protein"));
+        ingredient.setCholesterol(rs.getFloat("cholesterol"));
+        ingredient.setSodium(rs.getFloat("sodium"));
+    }
+    
+    private NutritionalIngredient extractCreatedIngredient(final ResultSet rs) throws SQLException {
+        final NutritionalIngredient ingredient = new NutritionalIngredient();
+        
+        this.setCommonIngredientFields(ingredient, rs);
+        
+        final int catID = rs.getInt("id_category");
+        
+        final Category category = new Category();
+        category.setId(rs.getInt("id_category"));
+        
+        this.findCategoryByCategoryID(catID).ifPresent(cat -> category.setName(cat.getName()));
+                
+        ingredient.setCategory(category);
+        
+        return ingredient;
+    }
+    
+    private NutritionalIngredient extractIngredient(final ResultSet rs) throws SQLException {
+        final NutritionalIngredient ingredient = new NutritionalIngredient();
+        
+        this.setCommonIngredientFields(ingredient, rs);
+        
+        final Category category = new Category();
+        category.setId(rs.getInt("cat_id"));
+        category.setName(rs.getString("cat_name"));
+        
+        ingredient.setCategory(category);
+        
+        return ingredient;
+    }
+    
+    private Meal extractMeal(final ResultSet rs) throws SQLException {
+        final Meal meal = new Meal();
+        
+        meal.setId(rs.getInt("id"));
+        meal.setName(rs.getString("name"));
+        meal.setNotes(rs.getString("notes"));
+        meal.setCreationDate(rs.getTimestamp("creation_date").toLocalDateTime());
+        
+        return meal;
     }
     
     public void tearDown() throws SQLException {

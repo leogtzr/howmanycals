@@ -204,12 +204,14 @@ INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes)
     VALUES('3 rebnds Ham/Jam Pavo Virginia LowFat Cuida-t', 60, 60, 4, 'Parece que cada rebanada ~ 20g');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
     VALUES('50g tomate', 50, 9.0, 3, '');
+INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
+    VALUES('100g fresa', 100, 33.0, 1, '');
+INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
+    VALUES('100g eggplant/berenjena', 100, 25, 8, '');
 
+-- Test data:
 INSERT INTO note (note) VALUES('The note 1');
 INSERT INTO note (note) VALUES('The note 2');
-INSERT INTO note (note) VALUES('The note 3');
-INSERT INTO note (note) VALUES('The note 4');
-INSERT INTO note (note) VALUES('The note 5');
 
 INSERT INTO meal (name, notes) VALUES('600 cals - ham-egg-frijol', 'Parece que tiene algo de proteina.');
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 43);
@@ -227,7 +229,7 @@ INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 19);
 
 INSERT INTO meal (name, notes) VALUES('~350 cal - huevos/frijol/avena/yogur/papaya', 'Un poco de todo, sabe bien.');
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(2, 36);
-INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(2, 36)
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(2, 36);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(2, 34);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(2, 38);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(2, 35);

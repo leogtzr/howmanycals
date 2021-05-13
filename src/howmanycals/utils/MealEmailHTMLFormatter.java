@@ -107,11 +107,11 @@ public final class MealEmailHTMLFormatter {
         final StringBuilder sb = new StringBuilder();
         
         sb.append(htmlTemplate.replace("@calories@", formatDecimal1(info.getCalories()))
-                .replace("@protein@", formatDecimal1(info.getProtein()))
-                .replace("@sugar@", formatDecimal1(info.getSugar()))
-                .replace("@carbs@", formatDecimal1(info.getCarbohydrates()))
-                .replace("@fat@", formatDecimal1(info.getFat()))
-                .replace("@cholesterol@", formatDecimal1(info.getCholesterol())));
+            .replace("@protein@", formatDecimal1(info.getProtein()))
+            .replace("@sugar@", formatDecimal1(info.getSugar()))
+            .replace("@carbs@", formatDecimal1(info.getCarbohydrates()))
+            .replace("@fat@", formatDecimal1(info.getFat()))
+            .replace("@cholesterol@", formatDecimal1(info.getCholesterol())));
         
         return sb.toString();
     }

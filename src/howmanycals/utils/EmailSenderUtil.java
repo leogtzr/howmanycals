@@ -1,10 +1,6 @@
 package howmanycals.utils;
 
-import com.sendgrid.Mail;
-import com.sendgrid.Method;
-import com.sendgrid.Request;
-import com.sendgrid.Response;
-import com.sendgrid.SendGrid;
+import com.sendgrid.*;
 import howmanycals.domain.email.MealEmail;
 import java.io.IOException;
 
