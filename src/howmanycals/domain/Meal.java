@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class Meal {
-    
     private Integer id;
     private String name;
     private String notes;

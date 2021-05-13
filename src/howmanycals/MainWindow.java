@@ -1,6 +1,7 @@
 // TODO: edit ingredient ... 
 package howmanycals;
 
+import com.sendgrid.*;
 
 import howmanycals.db.dao.HowManyCalsDAO;
 import howmanycals.domain.Category;
@@ -8,6 +9,8 @@ import howmanycals.domain.Meal;
 import howmanycals.domain.MealNutritionInformation;
 import howmanycals.domain.Note;
 import howmanycals.domain.NutritionalIngredient;
+import howmanycals.domain.email.MealEmail;
+import howmanycals.utils.EmailSenderUtil;
 import howmanycals.utils.InformationMissingAnalysisUtil;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -36,6 +39,8 @@ import org.slf4j.LoggerFactory;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UIManager;
 import static howmanycals.utils.FormatUtils.formatDecimal1;
+import howmanycals.utils.MealEmailHTMLFormatter;
+import java.io.IOException;
 
 public class MainWindow extends JFrame {
     
@@ -203,6 +208,7 @@ public class MainWindow extends JFrame {
         sodiumPercentageMissingRateLabel = new javax.swing.JLabel();
         okCloseDataMissingDialogButton = new javax.swing.JButton();
         viewMealsButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
@@ -1297,6 +1303,13 @@ public class MainWindow extends JFrame {
             }
         });
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         fileMenuItem.setMnemonic('F');
         fileMenuItem.setText("File");
 
@@ -1390,8 +1403,13 @@ public class MainWindow extends JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(viewMealsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(viewMealsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(jButton1)))
                 .addContainerGap(330, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -1399,7 +1417,9 @@ public class MainWindow extends JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(viewMealsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(101, 101, 101))
         );
 
         pack();
@@ -2107,6 +2127,75 @@ public class MainWindow extends JFrame {
         this.editIngredientMode = false;
     }//GEN-LAST:event_addEditIngredientDialogWindowClosed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        final int mealID = 1;
+        
+        try {
+            final Optional<Meal> meal = this.dao.findMealByID(mealID);
+            if (meal.isPresent()) {
+                System.out.println(meal);
+                
+                final String emailBody = MealEmailHTMLFormatter.format(meal.get());
+                System.out.println(emailBody);
+            }
+        } catch (final SQLException ex) {
+            ex.printStackTrace();;
+            LOGGER.error("error...", ex);
+        }
+        
+//        final MealEmail email = new MealEmail.Builder()
+//                .from("leogutierrezramirez@gmail.com")
+//                .to("leogutierrezramirez@gmail.com")
+//                .subject("this is a test, alv")
+//                .content("text/html", "<h1>Oks</h1><h2>abc</h2>")
+//                .build();
+//        
+//        try {
+//            final Response response = EmailSenderUtil.send(email);
+//            LOGGER.debug(response.getStatusCode() + "");
+//            LOGGER.debug(response.getBody() + "");
+//            LOGGER.debug(response.getHeaders() + "");
+//        } catch (final IOException ex) {
+//            this.showError("Error sending meal to the specified email", "Error sending email");
+//            LOGGER.error("Error sending email with meal.", ex);
+//        }
+        
+//        Email from = new Email("leogutierrezramirez@gmail.com");
+//        String subject = "Sending with Twilio SendGrid is Fun";
+//        Email to = new Email("leogutierrezramirez@gmail.com");
+//        Content content = new Content("text/html", "<h1>abc</h1>");
+//        Mail mail = new Mail(from, subject, to, content);
+//
+//        SendGrid sg = new SendGrid("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");
+//        Request request = new Request();
+//        try {
+//          request.setMethod(Method.POST);
+//          request.setEndpoint("mail/send");
+//          request.setBody(mail.build());
+//          Response response = sg.api(request);
+//          System.out.println(response.getStatusCode());
+//          System.out.println(response.getBody());
+//          System.out.println(response.getHeaders());
+//        } catch (java.io.IOException ex) {
+//            ex.printStackTrace();
+//            LOGGER.error("error", ex);
+//        }
+
+//    try {
+//        SendGrid sg = new SendGrid("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");
+//        Request request = new Request();
+//        request.setMethod(Method.POST);
+//        request.setEndpoint("mail/send");
+//        request.setBody("{\"personalizations\":[{\"to\":[{\"email\":\"leogutierrezramirez@gmail.com\"}],\"subject\":\"Sending with Twilio SendGrid is Fun\"}],\"from\":{\"email\":\"leogutierrezramirez@gmail.com\"},\"content\":[{\"type\":\"text/plain\",\"value\": \"and easy to do anywhere, even with Java\"}]}");
+//        Response response = sg.api(request);
+//        System.out.println(response.getStatusCode());
+//        System.out.println(response.getBody());
+//        System.out.println(response.getHeaders());
+//      } catch (IOException ex) {
+//        ex.printStackTrace();
+//      }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void buildTableWithIngredients(final List<NutritionalIngredient> ingredientsToAdd, final JTable table) {
         final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         tableModel.setRowCount(0);
@@ -2210,6 +2299,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JMenu fileMenuItem;
     private javax.swing.JMenuBar fileNoteMenuBar;
     private javax.swing.JMenu ingredientsMenuItem;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;

@@ -30,3 +30,4 @@ db/backups/
 
 # Logs:
 logs/
+tmp/

@@ -316,12 +316,32 @@ public class HowManyCalsDAO {
     public Optional<Meal> findMealByName(final String name) throws SQLException {
         final String query = "SELECT * FROM meal WHERE LOWER(name) = ?";
 
-        try (final PreparedStatement preparedStatement = this.connection.prepareStatement(query)) {
-            preparedStatement.setString(1, name);
+        try (final PreparedStatement stmt = this.connection.prepareStatement(query)) {
+            stmt.setString(1, name);
             
-            try (final ResultSet rs = preparedStatement.executeQuery()) {
+            try (final ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    final Meal meal = extractMeal(rs);
+                    final Meal meal = this.extractMeal(rs);
+                    return Optional.of(meal);
+                }
+            }
+        }
+
+        return Optional.empty();
+    }
+    
+    public Optional<Meal> findMealByID(final int mealID) throws SQLException {
+        final String query = "SELECT * FROM meal WHERE id = ?";
+
+        try (final PreparedStatement stmt = this.connection.prepareStatement(query)) {
+            stmt.setInt(1, mealID);
+            
+            try (final ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    final Meal meal = this.extractMeal(rs);
+                    final List<NutritionalIngredient> ingredients = this.findIngredientsByMealID(mealID);
+                    meal.setIngredients(ingredients);
+                    
                     return Optional.of(meal);
                 }
             }
@@ -349,7 +369,7 @@ public class HowManyCalsDAO {
             
             try (final ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    final NutritionalIngredient ingredient = extractIngredient(rs);
+                    final NutritionalIngredient ingredient = this.extractIngredient(rs);
                     ingredients.add(ingredient);
                 }
             }
@@ -368,7 +388,7 @@ public class HowManyCalsDAO {
             
             try (final ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    final Category category = extractCategory(rs);
+                    final Category category = this.extractCategory(rs);
                     return Optional.of(category);
                 }
             }
@@ -387,7 +407,7 @@ public class HowManyCalsDAO {
             
             try (final ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    final Category category = extractCategory(rs);
+                    final Category category = this.extractCategory(rs);
                     return Optional.of(category);
                 }
             }

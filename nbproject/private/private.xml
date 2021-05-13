@@ -6,8 +6,10 @@
             <file>file:/home/leo/code/java/howmanycals/src/howmanycals/domain/Category.java</file>
             <file>file:/home/leo/code/java/howmanycals/src/howmanycals/domain/Note.java</file>
             <file>file:/home/leo/code/java/howmanycals/src/howmanycals/domain/Meal.java</file>
+            <file>file:/home/leo/code/java/howmanycals/src/howmanycals/utils/MealEmailHTMLFormatter.java</file>
             <file>file:/home/leo/code/java/howmanycals/src/howmanycals/MainWindow.java</file>
             <file>file:/home/leo/code/java/howmanycals/src/howmanycals/db/dao/HowManyCalsDAO.java</file>
+            <file>file:/home/leo/code/java/howmanycals/src/howmanycals/utils/EmailSenderUtil.java</file>
         </group>
     </open-files>
 </project-private>
