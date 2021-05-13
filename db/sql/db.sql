@@ -223,3 +223,16 @@ INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 16);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 24);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 44);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 19);
+
+
+INSERT INTO meal (name, notes) VALUES('~350 cal - huevos/frijol/avena/yogur/papaya', 'Un poco de todo, sabe bien.');
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(2, 36);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(2, 36)
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(2, 34);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(2, 38);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(2, 35);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(2, 37);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(2, 21);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(2, 24);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(2, 20);
+

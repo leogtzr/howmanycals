@@ -40,7 +40,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UIManager;
 import static howmanycals.utils.FormatUtils.formatDecimal1;
 import howmanycals.utils.MealEmailHTMLFormatter;
-import java.io.IOException;
+import howmanycals.utils.SummaryUtil;
 
 public class MainWindow extends JFrame {
     
@@ -1660,38 +1660,6 @@ public class MainWindow extends JFrame {
         return Optional.of(mealNutritionInformation);
     }
     
-    private Optional<MealNutritionInformation> calculateSummaryFromIngredients(final List<NutritionalIngredient> nutIngredients) {
-        if (nutIngredients.isEmpty()) {
-            return Optional.empty();
-        }
-        
-        double calories = 0d;
-        double protein = 0d;
-        double sugar = 0d;
-        double carbs = 0d;
-        double fat = 0d;
-        double cholesterol = 0d;
-        
-        for (final NutritionalIngredient ingredient : nutIngredients) {
-            calories += (ingredient.getCalories() == -1d) ? 0d : ingredient.getCalories();
-            protein += (ingredient.getProtein() == -1d) ? 0d : ingredient.getProtein();
-            sugar += (ingredient.getSugar() == -1d) ? 0d : ingredient.getSugar();
-            carbs += (ingredient.getCarbohydrates() == -1d) ? 0d : ingredient.getCarbohydrates();
-            fat += (ingredient.getFat() == -1d) ? 0d : ingredient.getFat();
-            cholesterol += (ingredient.getCholesterol() == -1d) ? 0d : ingredient.getCholesterol();
-        }
-        
-        final MealNutritionInformation mealNutritionInformation = new MealNutritionInformation();
-        mealNutritionInformation.setCalories(calories);
-        mealNutritionInformation.setProtein(protein);
-        mealNutritionInformation.setSugar(sugar);
-        mealNutritionInformation.setCarbohydrates(carbs);
-        mealNutritionInformation.setFat(fat);
-        mealNutritionInformation.setCholesterol(cholesterol);
-        
-        return Optional.of(mealNutritionInformation);
-    }
-    
     private void calculateSummaryFromSelectedRows() {
         final Optional<MealNutritionInformation> summary = 
                 this.calculateSummaryFromTable(this.selectedMealTable, this.ingredients);
@@ -1881,7 +1849,7 @@ public class MainWindow extends JFrame {
             if (!mealIngredients.isEmpty()) {
                 final DefaultTableModel tableModel = (DefaultTableModel) this.viewSelectedMealTable.getModel();
                 mealIngredients.forEach(ingredient -> tableModel.addRow(this.sanitizeIngredientRowDataForTable(ingredient)));
-                this.calculateSummaryFromIngredients(mealIngredients).ifPresent(mealNutritionFacts -> {
+                SummaryUtil.calculateSummaryFromIngredients(mealIngredients).ifPresent(mealNutritionFacts -> {
                     this.caloriesSummaryMealLabel.setText(formatDecimal1(mealNutritionFacts.getCalories()));
                     this.proteinSummaryMealLabel.setText(formatDecimal1(mealNutritionFacts.getProtein()));
                     this.sugarSummaryMealLabel.setText(formatDecimal1(mealNutritionFacts.getSugar()));
@@ -2136,7 +2104,9 @@ public class MainWindow extends JFrame {
                 System.out.println(meal);
                 
                 final String emailBody = MealEmailHTMLFormatter.format(meal.get());
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>");
                 System.out.println(emailBody);
+                System.out.println("</~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>");
             }
         } catch (final SQLException ex) {
             ex.printStackTrace();;
@@ -2166,7 +2136,7 @@ public class MainWindow extends JFrame {
 //        Content content = new Content("text/html", "<h1>abc</h1>");
 //        Mail mail = new Mail(from, subject, to, content);
 //
-//        SendGrid sg = new SendGrid("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");
+//        SendGrid sg = new SendGrid("alv");
 //        Request request = new Request();
 //        try {
 //          request.setMethod(Method.POST);
