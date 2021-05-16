@@ -451,6 +451,56 @@ public class HowManyCalsDAO {
         }   
     }
     
+    public Optional<NutritionalIngredient> updateIngredient(final NutritionalIngredient ingredient) throws SQLException {
+        final String QUERY = """
+            UPDATE nutrition_ingredient
+            SET name = ?
+            , grams = ?
+            , calories = ?
+            , fat = ?
+            , sugar = ?
+            , carbohydrates = ?
+            , protein = ?
+            , cholesterol = ?
+            , sodium = ?
+            , id_category = ?
+            , notes = ?
+            WHERE id = ?
+            """;
+        
+        try (final PreparedStatement stmt = this.connection.prepareStatement(QUERY, RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, ingredient.getName());
+            stmt.setInt(2, ingredient.getGrams());
+            stmt.setDouble(3, ingredient.getCalories());
+            stmt.setDouble(4, ingredient.getFat());
+            stmt.setDouble(5, ingredient.getSugar());
+            stmt.setDouble(6, ingredient.getCarbohydrates());
+            stmt.setDouble(7, ingredient.getProtein());
+            stmt.setDouble(8, ingredient.getCholesterol());
+            stmt.setDouble(9, ingredient.getSodium());
+            stmt.setInt(10, ingredient.getCategory().getId());
+            stmt.setString(11, ingredient.getNotes());
+            stmt.setInt(12, ingredient.getId());
+            
+            LOGGER.debug(stmt.toString());
+            
+            final int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Data insert failed, no rows affected.");
+            }
+
+            try (final ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    final NutritionalIngredient updatedIngredient = this.extractCreatedIngredient(rs);
+                    return Optional.of(updatedIngredient);
+                } else {
+                    throw new SQLException("unable to update ingredient");
+                }
+            }
+        }   
+    }
+    
      private Category extractCategory(final ResultSet rs) throws SQLException {
         return new Category(rs.getInt("id"), rs.getString("name"));
     }

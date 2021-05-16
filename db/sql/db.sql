@@ -145,7 +145,11 @@ INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes)
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
     VALUES('100g esparragos/asparagus', 100, 20.0, 3, 'From fatsecret.cl');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-    VALUES('100g champiñones', 100, 22.0, 3, 'From fatsecret.cl');
+    VALUES('100g champiñones/mushrooms', 100, 22.0, 3, 'From fatsecret.cl');
+INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
+    VALUES('50g champiñones/mushrooms', 50, 11.0, 3, 'From fatsecret.cl');
+INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
+    VALUES('30g champiñones/mushrooms', 30, 7.0, 3, 'From fatsecret.cl');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
     VALUES('150g champiñones', 100, 33.0, 3, 'From fatsecret.cl');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
@@ -165,13 +169,19 @@ INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes)
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
     VALUES('100g Pepino', 100, 12.0, 3, 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
+    VALUES('50g Pepino', 50, 6.0, 3, 'From fatsecret.com');
+INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
     VALUES('200g Pepino', 200, 24.0, 3, 'From fatsecret.com');      
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
     VALUES('250g Watermelon', 250, 75, 3, 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
+    VALUES('100g Watermelon', 100, 30, 3, 'From fatsecret.com');
+INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
     VALUES('150g manzana roja', 150, 79, 9, 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
     VALUES('150g manzana roja', 150, 79, 9, 'From fatsecret.com');
+INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
+    VALUES('100g golden delicious apple/manzana', 100, 52, 9, 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
     VALUES('20 Fresas', 0, 100, 1, 'From fatsecret.com');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
@@ -210,8 +220,28 @@ INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes)
     VALUES('100g fresa', 100, 33.0, 1, '');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
     VALUES('100g eggplant/berenjena', 100, 25, 8, '');
+INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
+    VALUES('50g eggplant/berenjena', 50, 12, 8, '');
+INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
+    VALUES('25g Onion/Cebolla', 25, 10, 3, '');
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('100g baby carrots', 100, 35.0, -1.0, -1.0, 8.2, -1.0, -1.0, -1.0, 8, '');
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g coliflor', 100, 25.0, -1.0, -1.0, 8.2, -1.0, -1.0, -1.0, 3, '');
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('1 Pieza pan Thin', 42, 94.0, -1.0, -1.0, 17.0, -1.0, -1.0, -1.0, 8, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g pollo bachoco', 100, 103.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g repollo/cabagge', 100, 24.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g pechuga california', 100, 98.0, -1.0, -1.0, -1.0, 20.0, -1.0, -1.0, 4, '');
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g manzana Peron Golden', 100, 52.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 9, '');
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g Guarnición Verduras', 100, 24.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
+
 
 -- Test data:
 INSERT INTO note (note) VALUES('The note 1');
