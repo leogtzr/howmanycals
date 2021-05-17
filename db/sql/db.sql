@@ -242,6 +242,12 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('100g Guarnición Verduras', 100, 24.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
 
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('Tortilla Susalia', 16, 33.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 8, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('50g asparagus/espárragos', 50, 10.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
+
 
 -- Test data:
 INSERT INTO note (note) VALUES('The note 1');

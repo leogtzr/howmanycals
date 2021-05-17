@@ -1,4 +1,3 @@
-// TODO: edit ingredient ... 
 package howmanycals;
 
 import howmanycals.db.dao.HowManyCalsDAO;
