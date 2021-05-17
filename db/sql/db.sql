@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS nutrition_ingredient (
   sodium REAL NOT NULL DEFAULT -1.0,
   id_category INTEGER NOT NULL,
   notes VARCHAR(150) NOT NULL,
+  ref_link TEXT,
   
   PRIMARY KEY (id),
   CONSTRAINT id_category_fkey FOREIGN KEY (id_category)
@@ -291,3 +292,16 @@ INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(3, 42);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(3, 42);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(3, 52);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(3, 66);
+
+INSERT INTO meal (name, notes) VALUES('~560cal burguer', '');
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(4, 1);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(4, 1);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(4, 15);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(4, 53);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(4, 42);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(4, 42);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(4, 26);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(4, 24);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(4, 58);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(4, 60);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(4, 52);

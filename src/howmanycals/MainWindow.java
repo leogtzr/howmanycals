@@ -2156,12 +2156,17 @@ public class MainWindow extends JFrame {
                 if (mealDB.isPresent()) {
                     final String mealEmailBody = MealEmailHTMLFormatter.format(mealDB.get());
                     final MealEmail mealEmail = new MealEmail.Builder()
-                            .from("leogutierrezramirez@gmail.com")
+                            .from("leoroot@gmail.com")
                             .to("leogutierrezramirez@gmail.com")
                             .subject(String.format("😋🤤 %s, delicious! 🤤😋", mealName))
                             .content("text/html", mealEmailBody)
                             .build();
-                        final var x = EmailSenderUtil.send(mealEmail);
+
+                    final var x = EmailSenderUtil.send(mealEmail);
+
+                    LOGGER.debug(String.format("Response code: %d", x.getStatusCode()));
+                    LOGGER.debug(String.format("Response body: %s", x.getBody()));
+                    
                     this.saveMealDialog.setVisible(false);
                     this.cleanMealSaveDialogFields();
                 }
