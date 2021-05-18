@@ -325,3 +325,17 @@ INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(5, 16);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(5, 26);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(5, 52);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(5, 42);
+
+
+INSERT INTO meal (name, notes) VALUES('< 400cals breakfast', '');
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(6, 44);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(6, 45);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(6, 41);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(6, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(6, 52);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(6, 46);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(6, 66);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(6, 42);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(6, 42);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(6, 26);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(6, 68);
