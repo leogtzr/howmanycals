@@ -252,6 +252,11 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('100g Frijoles Negros Enteros La Costena', 100, 45.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 9, '');
 
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g pollo Bachoco Mezquite', 100, 108.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('50g cherry tomato calories', 50, 9.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
 
 -- Test data:
 INSERT INTO note (note) VALUES('The note 1');
