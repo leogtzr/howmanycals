@@ -312,7 +312,7 @@ INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(4, 60);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(4, 52);
 
 
-INSERT INTO meal (name, notes) VALUES('~500cal Cena de todo', '')
+INSERT INTO meal (name, notes) VALUES('~500cal Cena de todo', '');
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(5, 67);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(5, 67);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(5, 54);
