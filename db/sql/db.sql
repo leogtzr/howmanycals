@@ -190,7 +190,7 @@ INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes)
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
     VALUES('100g Granny Smith', 100.0, 52, 9, 'From fatsecret.com');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
-    VALUES('Tostadas Ligeras', 5, 16.0, 8, 'From the label');
+    VALUES('Tostadas Ligeras DIET', 5, 16.0, 8, 'From the label');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
     VALUES('100g Frijol La Sierra Low Fat', 100, 60.0, 8, '');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
@@ -199,6 +199,8 @@ INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes)
     VALUES('100g Hawaiian Papaya', 100, 39.0, 9, 'From fatsecret');
 INSERT INTO nutrition_ingredient(name, grams, calories, carbohydrates, protein, id_category, notes) 
     VALUES('100ml Clara Huevo San Juan', 100, 42.0, 1.0, 10.0, 4, 'From the label');
+INSERT INTO nutrition_ingredient(name, grams, calories, carbohydrates, protein, id_category, notes) 
+    VALUES('50ml Clara Huevo San Juan', 50, 21.0, 1.0, 10.0, 4, 'From the label');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
     VALUES('100g Yogur Griego Fage 0%', 100, 50.0, 4, 'From the label');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
@@ -257,6 +259,12 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
 
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('50g cherry tomato calories', 50, 9.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g lechuga romana orejona', 100, 17.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
+
+INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
+    VALUES('250g pechuga pollo hervida', 250, 267, 4, 'From "cuantas calorias tiene una pechuga hervida"');
 
 -- Test data:
 INSERT INTO note (note) VALUES('The note 1');
