@@ -347,3 +347,15 @@ INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(6, 42);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(6, 42);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(6, 26);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(6, 68);
+
+INSERT INTO meal (name, notes) VALUES('~430 cals - super SALADs', '');
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(7, 70);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(7, 71);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(7, 69);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(7, 16);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(7, 15);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(7, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(7, 26);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(7, 67);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(7, 38);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(7, 38);
