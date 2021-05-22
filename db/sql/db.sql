@@ -203,6 +203,8 @@ INSERT INTO nutrition_ingredient(name, grams, calories, carbohydrates, protein, 
     VALUES('50ml Clara Huevo San Juan', 50, 21.0, 1.0, 10.0, 4, 'From the label');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
     VALUES('100g Yogur Griego Fage 0%', 100, 50.0, 4, 'From the label');
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g yogur griego Chobani', 100, 56.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
     VALUES('18g avena Quaker', 18, 61.0, 9, 'From the label');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
@@ -265,6 +267,9 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
 
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
     VALUES('250g pechuga pollo hervida', 250, 267, 4, 'From "cuantas calorias tiene una pechuga hervida"');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g calabacitas zucchini', 100, 17.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
 
 -- Test data:
 INSERT INTO note (note) VALUES('The note 1');
