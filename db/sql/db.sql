@@ -271,6 +271,9 @@ INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes)
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('100g calabacitas zucchini', 100, 17.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
 
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('10g cebolla', 10, 4.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
+
 -- Test data:
 INSERT INTO note (note) VALUES('The note 1');
 INSERT INTO note (note) VALUES('The note 2');
