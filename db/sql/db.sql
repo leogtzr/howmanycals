@@ -274,6 +274,15 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('10g cebolla', 10, 4.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
 
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('50g mandarina/tangerine', 50, 27.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('1 pieza / Magic Pop', 5, 15.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 8, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('Noodles Konjac', 200, 11.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
+
 -- Test data:
 INSERT INTO note (note) VALUES('The note 1');
 INSERT INTO note (note) VALUES('The note 2');
