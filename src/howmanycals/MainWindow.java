@@ -40,6 +40,7 @@ import howmanycals.utils.SummaryUtil;
 import java.io.IOException;
 
 import static howmanycals.utils.FormatUtils.formatDecimal1;
+import javax.swing.JSlider;
 
 public class MainWindow extends JFrame {
     
@@ -52,6 +53,7 @@ public class MainWindow extends JFrame {
     private List<NutritionalIngredient> ingredients;
     private boolean editIngredientMode = false;
     private int editIngredientID = -1;
+    private NutritionalIngredient ingredientForAnalysisWithSlider = null;
 
     private void initDatabase() {
         this.dao = new HowManyCalsDAO();
@@ -209,6 +211,14 @@ public class MainWindow extends JFrame {
         jLabel20 = new javax.swing.JLabel();
         sodiumPercentageMissingRateLabel = new javax.swing.JLabel();
         okCloseDataMissingDialogButton = new javax.swing.JButton();
+        ingredientSlideAnalysis = new javax.swing.JDialog();
+        ingredientSlider = new javax.swing.JSlider();
+        gramsAnalysisStaticLabel = new javax.swing.JLabel();
+        gramsSliderStaticLabel = new javax.swing.JLabel();
+        gramsSliderDynamicLabel = new javax.swing.JLabel();
+        caloriesSliderStaticLabel = new javax.swing.JLabel();
+        caloriesSliderDynamicLabel = new javax.swing.JLabel();
+        closeSliderAnalysisButton = new javax.swing.JButton();
         viewMealsButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
@@ -1315,6 +1325,87 @@ public class MainWindow extends JFrame {
                 .addContainerGap())
         );
 
+        ingredientSlideAnalysis.setTitle("But, what if ...");
+        ingredientSlideAnalysis.setMaximumSize(new java.awt.Dimension(450, 300));
+        ingredientSlideAnalysis.setMinimumSize(new java.awt.Dimension(450, 300));
+        ingredientSlideAnalysis.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        ingredientSlideAnalysis.setResizable(false);
+
+        ingredientSlider.setMaximum(350);
+        ingredientSlider.setPaintLabels(true);
+        ingredientSlider.setPaintTicks(true);
+        ingredientSlider.setNextFocusableComponent(closeSliderAnalysisButton);
+        ingredientSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                ingredientSliderStateChanged(evt);
+            }
+        });
+
+        gramsAnalysisStaticLabel.setFont(new java.awt.Font("Noto Sans", 1, 13)); // NOI18N
+        gramsAnalysisStaticLabel.setText("Grams / calorie analysis");
+        gramsAnalysisStaticLabel.setNextFocusableComponent(ingredientSlider);
+
+        gramsSliderStaticLabel.setText("Grams:");
+
+        gramsSliderDynamicLabel.setText("-");
+
+        caloriesSliderStaticLabel.setText("Calories:");
+
+        caloriesSliderDynamicLabel.setText("-");
+
+        closeSliderAnalysisButton.setMnemonic('c');
+        closeSliderAnalysisButton.setText("Close");
+        closeSliderAnalysisButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeSliderAnalysisButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ingredientSlideAnalysisLayout = new javax.swing.GroupLayout(ingredientSlideAnalysis.getContentPane());
+        ingredientSlideAnalysis.getContentPane().setLayout(ingredientSlideAnalysisLayout);
+        ingredientSlideAnalysisLayout.setHorizontalGroup(
+            ingredientSlideAnalysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ingredientSlideAnalysisLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ingredientSlideAnalysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ingredientSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+                    .addGroup(ingredientSlideAnalysisLayout.createSequentialGroup()
+                        .addGroup(ingredientSlideAnalysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(gramsAnalysisStaticLabel)
+                            .addGroup(ingredientSlideAnalysisLayout.createSequentialGroup()
+                                .addComponent(gramsSliderStaticLabel)
+                                .addGap(90, 90, 90)
+                                .addComponent(gramsSliderDynamicLabel))
+                            .addGroup(ingredientSlideAnalysisLayout.createSequentialGroup()
+                                .addComponent(caloriesSliderStaticLabel)
+                                .addGap(82, 82, 82)
+                                .addComponent(caloriesSliderDynamicLabel)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ingredientSlideAnalysisLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(closeSliderAnalysisButton)))
+                .addContainerGap())
+        );
+        ingredientSlideAnalysisLayout.setVerticalGroup(
+            ingredientSlideAnalysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ingredientSlideAnalysisLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(gramsAnalysisStaticLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ingredientSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ingredientSlideAnalysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(gramsSliderStaticLabel)
+                    .addComponent(gramsSliderDynamicLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ingredientSlideAnalysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(caloriesSliderStaticLabel)
+                    .addComponent(caloriesSliderDynamicLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addComponent(closeSliderAnalysisButton)
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HowManyCals v0.1");
 
@@ -1576,7 +1667,6 @@ public class MainWindow extends JFrame {
     }//GEN-LAST:event_clearNewIngredientButtonActionPerformed
 
     private void newIngredientCategoryListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newIngredientCategoryListActionPerformed
-        // TODO: need to be removed:
         final int selectedIndex = this.newIngredientCategoryList.getSelectedIndex();
         final Category selectedCateory = this.categories.get(selectedIndex);
         System.out.println(selectedCateory);
@@ -1722,12 +1812,49 @@ public class MainWindow extends JFrame {
     }
     
     private void viewIngredientTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_viewIngredientTableKeyReleased
-        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            this.viewIngredientTable.clearSelection();
-            this.resetSummaryLabels();
+        final int code = evt.getKeyCode();
+        switch (code) {
+            case KeyEvent.VK_ESCAPE -> {
+                this.viewIngredientTable.clearSelection();
+                this.resetSummaryLabels();
+            }
+            case KeyEvent.VK_S -> {
+                // Clean the slider if present:
+                this.ingredientForAnalysisWithSlider = null;
+                
+                final JTable table = (JTable) evt.getSource();
+                final int selectedRow = table.getSelectedRow();
+                
+                if (selectedRow == -1) {
+                    return;
+                }
+                
+                final DefaultTableModel model = (DefaultTableModel) table.getModel();
+                final int ingredientID = (Integer) model.getValueAt(selectedRow, 0);
+                
+                try {
+                    final Optional<NutritionalIngredient> ingredientInDB = this.dao.findById(ingredientID);
+                    if (ingredientInDB.isPresent()) {
+                        System.out.println("Ingredient found ... ");
+                        this.ingredientForAnalysisWithSlider = null;
+                        this.ingredientForAnalysisWithSlider = ingredientInDB.get();
+                        this.ingredientSlideAnalysis.setTitle(this.ingredientForAnalysisWithSlider.getName());
+                        this.prepareValuesForSlider(this.ingredientForAnalysisWithSlider, this.ingredientSlider);
+                        this.ingredientSlideAnalysis.setVisible(true);
+                    } else {
+                        // TODO: do something here...
+                    }
+                } catch (final SQLException ex) {
+                    // TODO: fix this:
+                    ex.printStackTrace();
+                }
+        
+                
+                System.out.println("The S key ...");
+            }
         }
     }//GEN-LAST:event_viewIngredientTableKeyReleased
-
+    
     private void viewIngredientTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewIngredientTableMousePressed
         final JTable table = (JTable) evt.getSource();
         
@@ -2162,10 +2289,10 @@ public class MainWindow extends JFrame {
                             .content("text/html", mealEmailBody)
                             .build();
 
-                    final var x = EmailSenderUtil.send(mealEmail);
+                    final var emailResponse = EmailSenderUtil.send(mealEmail);
 
-                    LOGGER.debug(String.format("Response code: %d", x.getStatusCode()));
-                    LOGGER.debug(String.format("Response body: %s", x.getBody()));
+                    LOGGER.debug(String.format("Response code: %d", emailResponse.getStatusCode()));
+                    LOGGER.debug(String.format("Response body: %s", emailResponse.getBody()));
                     
                     this.saveMealDialog.setVisible(false);
                     this.cleanMealSaveDialogFields();
@@ -2183,6 +2310,30 @@ public class MainWindow extends JFrame {
         ((DefaultTableModel) this.viewIngredientTable.getModel()).setRowCount(0);
         ((DefaultTableModel) this.selectedMealTable.getModel()).setRowCount(0);
     }//GEN-LAST:event_clearViewIngredientTableButtonActionPerformed
+
+    private void prepareValuesForSlider(final NutritionalIngredient ingredient, final JSlider slider) {
+        // Note: it might need some adjustments ...
+        slider.setMaximum(ingredient.getGrams() * 2);
+        slider.setValue(ingredient.getGrams());
+        this.gramsSliderDynamicLabel.setText(ingredient.getGrams() + "  g");
+        this.caloriesSliderDynamicLabel.setText((int) ingredient.getCalories() + " kcal");
+    }
+    
+    private void ingredientSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ingredientSliderStateChanged
+        if (!this.ingredientSlider.getValueIsAdjusting() && (this.ingredientForAnalysisWithSlider != null)) {
+            final int baseGrams = this.ingredientForAnalysisWithSlider.getGrams();
+            final int baseCals = (int) this.ingredientForAnalysisWithSlider.getCalories();
+            
+            final int newCals = (this.ingredientSlider.getValue() * baseCals) / (int)baseGrams;
+            this.caloriesSliderDynamicLabel.setText(newCals + " kcal");
+            this.gramsSliderDynamicLabel.setText(this.ingredientSlider.getValue() + " g");
+        }
+    }//GEN-LAST:event_ingredientSliderStateChanged
+
+    private void closeSliderAnalysisButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeSliderAnalysisButtonActionPerformed
+        this.ingredientSlideAnalysis.setVisible(false);
+        this.ingredientForAnalysisWithSlider = null;
+    }//GEN-LAST:event_closeSliderAnalysisButtonActionPerformed
 
     private void buildTableWithIngredients(final List<NutritionalIngredient> ingredientsToAdd, final JTable table) {
         final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
@@ -2266,6 +2417,8 @@ public class MainWindow extends JFrame {
     private javax.swing.JMenuItem addIngredientMenuItem;
     private javax.swing.JComboBox<String> byCategorySearchComboBox;
     private javax.swing.JCheckBox byCategorySearchIngredientsCheckBox;
+    private javax.swing.JLabel caloriesSliderDynamicLabel;
+    private javax.swing.JLabel caloriesSliderStaticLabel;
     private javax.swing.JLabel caloriesSummaryMealLabel;
     private javax.swing.JButton cancelMealSaveButton;
     private javax.swing.JLabel carbsPercentageMissingRateLabel;
@@ -2275,6 +2428,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JButton clearNewIngredientButton;
     private javax.swing.JButton clearViewIngredientTableButton;
     private javax.swing.JButton closeNotesDialogButton;
+    private javax.swing.JButton closeSliderAnalysisButton;
     private javax.swing.JButton closeViewNoteDialogButton;
     private javax.swing.JDialog createNoteDialog;
     private javax.swing.JMenuItem createNoteMenuItem;
@@ -2287,6 +2441,11 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel fatPercentageMissingRateLabel;
     private javax.swing.JMenu fileMenuItem;
     private javax.swing.JMenuBar fileNoteMenuBar;
+    private javax.swing.JLabel gramsAnalysisStaticLabel;
+    private javax.swing.JLabel gramsSliderDynamicLabel;
+    private javax.swing.JLabel gramsSliderStaticLabel;
+    private javax.swing.JDialog ingredientSlideAnalysis;
+    private javax.swing.JSlider ingredientSlider;
     private javax.swing.JMenu ingredientsMenuItem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
