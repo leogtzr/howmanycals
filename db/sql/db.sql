@@ -201,6 +201,8 @@ INSERT INTO nutrition_ingredient(name, grams, calories, carbohydrates, protein, 
     VALUES('100ml Clara Huevo San Juan', 100, 42.0, 1.0, 10.0, 4, 'From the label');
 INSERT INTO nutrition_ingredient(name, grams, calories, carbohydrates, protein, id_category, notes) 
     VALUES('50ml Clara Huevo San Juan', 50, 21.0, 1.0, 10.0, 4, 'From the label');
+INSERT INTO nutrition_ingredient(name, grams, calories, carbohydrates, protein, id_category, notes) 
+    VALUES('25ml Clara Huevo San Juan', 25, 21.0 / 2.0, 1.0, 10.0, 4, 'From the label');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
     VALUES('100g Yogur Griego Fage 0%', 100, 50.0, 4, 'From the label');
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
@@ -282,6 +284,12 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
 
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('Noodles Konjac', 200, 11.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g blackberries/zarzamora', 100, 44.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('50g brocoli y coliflor miniflakes', 50, 20.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
 
 -- Test data:
 INSERT INTO note (note) VALUES('The note 1');
@@ -376,3 +384,19 @@ INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(7, 26);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(7, 67);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(7, 38);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(7, 38);
+
+-- Another salad:
+INSERT INTO meal (name, notes) VALUES('< 520cal con TODO', 'En realidad son 490 cals, pongo 520 por las salsas y demás.');
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(8, 44);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(8, 57);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(8, 74);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(8, 26);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(8, 54);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(8, 73);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(8, 75);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(8, 72);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(8, 16);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(8, 69);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(8, 77);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(8, 77);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(8, 50);
