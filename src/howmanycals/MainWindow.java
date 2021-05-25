@@ -54,6 +54,7 @@ public class MainWindow extends JFrame {
     private boolean editIngredientMode = false;
     private int editIngredientID = -1;
     private NutritionalIngredient ingredientForAnalysisWithSlider = null;
+    private boolean debugEnabled = false;
 
     private void initDatabase() {
         this.dao = new HowManyCalsDAO();
@@ -64,6 +65,15 @@ public class MainWindow extends JFrame {
         this.initDatabase();
         this.initComponents();
         this.postComponentsSetup();
+        this.initConfig();
+    }
+    
+    private void initConfig() {
+        final String debugEnvVariable = System.getenv("DEBUG_CALS");
+        if (debugEnvVariable != null) {
+            this.debugEnabled = Boolean.valueOf(debugEnvVariable);
+            System.out.println("Value is: " + debugEnabled);
+        }
     }
     
     private void createKeybindings(final MainWindow window) {
@@ -1768,6 +1778,10 @@ public class MainWindow extends JFrame {
         
         final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         
+        if (this.debugEnabled) {
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>");
+        }
+        
         final int rowCount = tableModel.getRowCount();
         for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
             final int dbIdx = (Integer) tableModel.getValueAt(rowIndex, 0);
@@ -1782,7 +1796,14 @@ public class MainWindow extends JFrame {
                 carbs += (ingredient.getCarbohydrates() == -1d) ? 0d : ingredient.getCarbohydrates();
                 fat += (ingredient.getFat() == -1d) ? 0d : ingredient.getFat();
                 cholesterol += (ingredient.getCholesterol() == -1d) ? 0d : ingredient.getCholesterol();
+                if (this.debugEnabled) {
+                    System.out.printf("%50s - %.3f\n", ingredient.getName(), ingredient.getCalories());
+                }
             }
+        }
+        
+        if (this.debugEnabled) {
+            System.out.printf("%50s ~ [%.2f]\n", "TOTAL", calories);
         }
         
         final MealNutritionInformation mealNutritionInformation = new MealNutritionInformation();
@@ -2283,14 +2304,14 @@ public class MainWindow extends JFrame {
                 if (mealDB.isPresent()) {
                     final String mealEmailBody = MealEmailHTMLFormatter.format(mealDB.get());
                     final MealEmail mealEmail = new MealEmail.Builder()
-                            .from("leoroot@gmail.com")
+                            .from("leogutierrezramirez@gmail.com")
                             .to("leogutierrezramirez@gmail.com")
                             .subject(String.format("😋🤤 %s, delicious! 🤤😋", mealName))
                             .content("text/html", mealEmailBody)
                             .build();
 
                     final var emailResponse = EmailSenderUtil.send(mealEmail);
-
+                    
                     LOGGER.debug(String.format("Response code: %d", emailResponse.getStatusCode()));
                     LOGGER.debug(String.format("Response body: %s", emailResponse.getBody()));
                     

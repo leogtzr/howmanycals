@@ -291,6 +291,12 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('50g brocoli y coliflor miniflakes', 50, 20.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
 
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g melón/Cantaloupe/melon', 100, 34.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('500ml gelatina', 500, 36.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 5, '');
+
 -- Test data:
 INSERT INTO note (note) VALUES('The note 1');
 INSERT INTO note (note) VALUES('The note 2');
