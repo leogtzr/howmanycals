@@ -301,6 +301,12 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('500ml gelatina', 500, 36.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 5, '');
 
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100ml leche almendra Great Value', 100, 11.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 6, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('50g zucchini calabacin calaba', 50, 8.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
+
 -- Test data:
 INSERT INTO note (note) VALUES('The note 1');
 INSERT INTO note (note) VALUES('The note 2');
