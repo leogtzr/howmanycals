@@ -233,6 +233,10 @@ INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes)
     VALUES('25g Onion/Cebolla', 25, 10, 3, '');
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('100g baby carrots', 100, 35.0, -1.0, -1.0, 8.2, -1.0, -1.0, -1.0, 8, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('50g baby carrots', 50, 18.0, -1.0, -1.0, 8.2, -1.0, -1.0, -1.0, 8, '');
+
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('100g coliflor', 100, 25.0, -1.0, -1.0, 8.2, -1.0, -1.0, -1.0, 3, '');
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
