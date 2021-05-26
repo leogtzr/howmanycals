@@ -157,6 +157,7 @@ public class MainWindow extends JFrame {
         byCategorySearchIngredientsCheckBox = new javax.swing.JCheckBox();
         editSelectedIngredientButton = new javax.swing.JButton();
         clearViewIngredientTableButton = new javax.swing.JButton();
+        actionStatusLabel = new javax.swing.JLabel();
         saveMealDialog = new javax.swing.JDialog();
         saveMealNameLabel = new javax.swing.JLabel();
         saveMealTextField = new javax.swing.JTextField();
@@ -701,6 +702,8 @@ public class MainWindow extends JFrame {
             }
         });
 
+        actionStatusLabel.setText(":");
+
         javax.swing.GroupLayout viewIngredientDialogLayout = new javax.swing.GroupLayout(viewIngredientDialog.getContentPane());
         viewIngredientDialog.getContentPane().setLayout(viewIngredientDialogLayout);
         viewIngredientDialogLayout.setHorizontalGroup(
@@ -723,16 +726,18 @@ public class MainWindow extends JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(saveMealButton))))
                     .addGroup(viewIngredientDialogLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(viewIngredientDialogLayout.createSequentialGroup()
                         .addComponent(searchViewIngredientLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(searchViewIngredientTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(byCategorySearchIngredientsCheckBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(byCategorySearchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(byCategorySearchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(viewIngredientDialogLayout.createSequentialGroup()
+                        .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(actionStatusLabel))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         viewIngredientDialogLayout.setVerticalGroup(
@@ -748,8 +753,10 @@ public class MainWindow extends JFrame {
                     .addComponent(byCategorySearchIngredientsCheckBox))
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(actionStatusLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewIngredientDialogLayout.createSequentialGroup()
@@ -1855,22 +1862,15 @@ public class MainWindow extends JFrame {
                 try {
                     final Optional<NutritionalIngredient> ingredientInDB = this.dao.findById(ingredientID);
                     if (ingredientInDB.isPresent()) {
-                        System.out.println("Ingredient found ... ");
                         this.ingredientForAnalysisWithSlider = null;
                         this.ingredientForAnalysisWithSlider = ingredientInDB.get();
                         this.ingredientSlideAnalysis.setTitle(this.ingredientForAnalysisWithSlider.getName());
                         this.prepareValuesForSlider(this.ingredientForAnalysisWithSlider, this.ingredientSlider);
                         this.ingredientSlideAnalysis.setVisible(true);
-                    } else {
-                        // TODO: do something here...
                     }
                 } catch (final SQLException ex) {
-                    // TODO: fix this:
-                    ex.printStackTrace();
+                    LOGGER.error("error getting ingredient from database", ex);
                 }
-        
-                
-                System.out.println("The S key ...");
             }
         }
     }//GEN-LAST:event_viewIngredientTableKeyReleased
@@ -1885,8 +1885,10 @@ public class MainWindow extends JFrame {
             
             final Optional<NutritionalIngredient> ingredient = this.findIngredientByIndex(nutritionIngredientIdx, this.ingredients);
             if (ingredient.isPresent()) {
-                this.addIngredientToSelectedMeals(ingredient.get());
+                final var ing = ingredient.get();
+                this.addIngredientToSelectedMeals(ing);
                 this.calculateSummaryFromSelectedRows();
+                this.actionStatusLabel.setText(String.format("'%s' has been added", ing.getName()));
             }
         }
     }//GEN-LAST:event_viewIngredientTableMousePressed
@@ -2194,10 +2196,18 @@ public class MainWindow extends JFrame {
             return;
         }
         
-        final int selectedRow = this.selectedMealTable.getSelectedRow();
-        
+        final int selectedRow = this.selectedMealTable.getSelectedRow();        
         final DefaultTableModel tableModel = (DefaultTableModel) this.selectedMealTable.getModel();
-        tableModel.removeRow(selectedRow);
+        
+        final int ingredientID = (Integer) tableModel.getValueAt(selectedRow, 0);
+
+        try {
+            this.dao.findById(ingredientID).ifPresent(ing -> 
+                    this.actionStatusLabel.setText(String.format("'%s' has been removed from selected ingredients.", ing.getName())));
+            tableModel.removeRow(selectedRow);
+        } catch (final SQLException ex) {
+            LOGGER.error("error getting ingredient from database", ex);
+        }
         
         this.calculateSummaryFromSelectedRows();
     }//GEN-LAST:event_selectedMealTableKeyPressed
@@ -2433,6 +2443,7 @@ public class MainWindow extends JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu aboutMenu;
     private javax.swing.JMenuItem aboutMenuItem;
+    private javax.swing.JLabel actionStatusLabel;
     private javax.swing.JDialog addEditIngredientDialog;
     private javax.swing.JMenuItem addIngredientMenuItem;
     private javax.swing.JComboBox<String> byCategorySearchComboBox;
