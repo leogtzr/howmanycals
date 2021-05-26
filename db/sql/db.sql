@@ -246,6 +246,9 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
     VALUES('100g pollo bachoco', 100, 103.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('100g repollo/cabagge', 100, 24.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('50g repollo/cabagge', 50, 12.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('100g pechuga california', 100, 98.0, -1.0, -1.0, -1.0, 20.0, -1.0, -1.0, 4, '');
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
@@ -307,9 +310,8 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('50g zucchini calabacin calaba', 50, 8.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
 
--- Test data:
-INSERT INTO note (note) VALUES('The note 1');
-INSERT INTO note (note) VALUES('The note 2');
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('50g manzana golden', 50, 25.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1, '');
 
 INSERT INTO meal (name, notes) VALUES('600 cals - ham-egg-frijol', 'Parece que tiene algo de proteina.');
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 43);

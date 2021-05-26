@@ -747,9 +747,9 @@ public class MainWindow extends JFrame {
                     .addComponent(byCategorySearchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(byCategorySearchIngredientsCheckBox))
                 .addGap(12, 12, 12)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewIngredientDialogLayout.createSequentialGroup()
@@ -1336,7 +1336,6 @@ public class MainWindow extends JFrame {
         );
 
         ingredientSlideAnalysis.setTitle("But, what if ...");
-        ingredientSlideAnalysis.setMaximumSize(new java.awt.Dimension(450, 300));
         ingredientSlideAnalysis.setMinimumSize(new java.awt.Dimension(450, 300));
         ingredientSlideAnalysis.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         ingredientSlideAnalysis.setResizable(false);
