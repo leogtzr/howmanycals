@@ -446,3 +446,17 @@ INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(9, 89);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(9, 81);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(9, 44);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(9, 79);
+
+INSERT INTO meal (name, notes) VALUES('~520 meal con arroz de Coliflor/Broocoli', '');
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(10, 2);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(10, 73);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(10, 81);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(10, 81);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(10, 86);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(10, 56);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(10, 58);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(10, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(10, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(10, 91);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(10, 27);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(10, 55);

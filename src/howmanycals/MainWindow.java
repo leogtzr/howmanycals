@@ -1613,6 +1613,7 @@ public class MainWindow extends JFrame {
             throw new SQLException("There is an ingredient with that name already.");
         }
         
+        ingredient.setId(this.editIngredientID);
         System.out.println(String.format("Updating: %d, [%s]", this.editIngredientID, ingredient));
         
         return this.dao.updateIngredient(ingredient);
@@ -1656,6 +1657,8 @@ public class MainWindow extends JFrame {
                 }
                 this.editIngredientMode = false;
                 this.editIngredientID = -1;
+                
+                this.addEditIngredientDialog.setVisible(false);
                 
                 return;
             }
