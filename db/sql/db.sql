@@ -119,6 +119,8 @@ INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes)
     VALUES('100g pechuga pollo hervida', 100, 107, 4, 'From "cuantas calorias tiene una pechuga hervida"');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
     VALUES('200g pechuga pollo hervida', 200, 214, 4, 'From "cuantas calorias tiene una pechuga hervida"');
+INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
+    VALUES('150g pechuga pollo hervida', 150, 160, 4, 'From "cuantas calorias tiene una pechuga hervida"');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, protein, notes) 
     VALUES('2 huevos (110g)', 110, 160, 4, 22.42 * 2, '~');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
@@ -226,6 +228,8 @@ INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes)
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
     VALUES('100g fresa', 100, 33.0, 1, '');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
+    VALUES('50g fresa', 100, 33.0 / 2.0, 1, '');
+INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
     VALUES('100g eggplant/berenjena', 100, 25, 8, '');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
     VALUES('50g eggplant/berenjena', 50, 12, 8, '');
@@ -317,7 +321,7 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
     VALUES('Kalipai Snack Xoconostle', 80, 17.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 9, '');
 
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
-    VALUES('Bolsa Arroz de Coliflor', 241, 35.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
+    VALUES('Bolsa Arroz de Coliflor San Miguel', 241, 35.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
 
 INSERT INTO meal (name, notes) VALUES('600 cals - ham-egg-frijol', 'Parece que tiene algo de proteina.');
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 43);
@@ -424,3 +428,21 @@ INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(8, 69);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(8, 77);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(8, 77);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(8, 50);
+
+INSERT INTO meal (name, notes) 
+    VALUES('Breakfast - ~41X cals', 'Tiene un poco de todo, el problema es que por los champiñones se tarda un poco en hacer.');
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(9, 57);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(9, 73);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(9, 55);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(9, 27);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(9, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(9, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(9, 17);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(9, 42);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(9, 47);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(9, 48);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(9, 87);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(9, 89);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(9, 81);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(9, 44);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(9, 79);
