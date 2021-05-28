@@ -61,18 +61,21 @@
                       <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="174" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="newIngredientCategoryList" alignment="0" min="-2" pref="261" max="-2" attributes="0"/>
-                      <Component id="newIngredientSodiumField" alignment="0" pref="274" max="32767" attributes="0"/>
-                      <Component id="newIngredientCholesterolField" alignment="0" max="32767" attributes="0"/>
-                      <Component id="newIngredientProteinField" alignment="0" max="32767" attributes="0"/>
-                      <Component id="newIngredientCarbohydratesField" alignment="0" max="32767" attributes="0"/>
-                      <Component id="newIngredientSugarField" alignment="0" max="32767" attributes="0"/>
-                      <Component id="newIngredientFatField" alignment="0" max="32767" attributes="0"/>
-                      <Component id="newIngredientCaloriesField" alignment="0" max="32767" attributes="0"/>
-                      <Component id="newIngredientGramsField" alignment="0" max="32767" attributes="0"/>
-                      <Component id="newIngredientNameField" alignment="0" max="32767" attributes="0"/>
-                      <Component id="newIngredientNotesField" alignment="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="newIngredientCategoryList" alignment="0" min="-2" pref="261" max="-2" attributes="0"/>
+                          <Component id="newIngredientSodiumField" alignment="0" pref="274" max="32767" attributes="0"/>
+                          <Component id="newIngredientCholesterolField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="newIngredientProteinField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="newIngredientCarbohydratesField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="newIngredientSugarField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="newIngredientFatField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="newIngredientCaloriesField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="newIngredientGramsField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="newIngredientNameField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="newIngredientNotesField" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="ingredientReferenceLinkURL" min="-2" pref="259" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               </Group>
@@ -146,6 +149,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="saveIngredientButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="clearNewIngredientButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ingredientReferenceLinkURL" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -302,6 +306,22 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Notes:"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="ingredientReferenceLinkURL">
+          <Properties>
+            <Property name="displayedMnemonic" type="int" value="104"/>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="64" red="0" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="jLabel11"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ingredientReferenceLinkURLMouseClicked"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ingredientReferenceLinkURLMouseEntered"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -871,7 +891,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="editSelectedIngredientButton">
           <Properties>
-            <Property name="mnemonic" type="int" value="69"/>
+            <Property name="mnemonic" type="int" value="100"/>
             <Property name="text" type="java.lang.String" value="Edit Ingredient"/>
           </Properties>
           <Events>

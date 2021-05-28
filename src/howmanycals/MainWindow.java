@@ -40,6 +40,11 @@ import howmanycals.utils.SummaryUtil;
 import java.io.IOException;
 
 import static howmanycals.utils.FormatUtils.formatDecimal1;
+import java.awt.Desktop;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import javax.swing.JLabel;
 import javax.swing.JSlider;
 
 public class MainWindow extends JFrame {
@@ -127,6 +132,7 @@ public class MainWindow extends JFrame {
         jLabel4 = new javax.swing.JLabel();
         newIngredientNotesField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        ingredientReferenceLinkURL = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         viewIngredientDialog = new javax.swing.JDialog();
@@ -318,6 +324,19 @@ public class MainWindow extends JFrame {
 
         jLabel6.setText("Notes:");
 
+        ingredientReferenceLinkURL.setDisplayedMnemonic('h');
+        ingredientReferenceLinkURL.setForeground(new java.awt.Color(0, 100, 255));
+        ingredientReferenceLinkURL.setText("jLabel11");
+        ingredientReferenceLinkURL.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ingredientReferenceLinkURL.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ingredientReferenceLinkURLMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ingredientReferenceLinkURLMouseEntered(evt);
+            }
+        });
+
         javax.swing.GroupLayout addEditIngredientDialogLayout = new javax.swing.GroupLayout(addEditIngredientDialog.getContentPane());
         addEditIngredientDialog.getContentPane().setLayout(addEditIngredientDialogLayout);
         addEditIngredientDialogLayout.setHorizontalGroup(
@@ -355,18 +374,20 @@ public class MainWindow extends JFrame {
                         .addComponent(clearNewIngredientButton))
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
-                .addGroup(addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(newIngredientCategoryList, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(newIngredientSodiumField, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
-                    .addComponent(newIngredientCholesterolField)
-                    .addComponent(newIngredientProteinField)
-                    .addComponent(newIngredientCarbohydratesField)
-                    .addComponent(newIngredientSugarField)
-                    .addComponent(newIngredientFatField)
-                    .addComponent(newIngredientCaloriesField)
-                    .addComponent(newIngredientGramsField)
-                    .addComponent(newIngredientNameField)
-                    .addComponent(newIngredientNotesField))
+                .addGroup(addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(newIngredientCategoryList, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(newIngredientSodiumField, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+                        .addComponent(newIngredientCholesterolField)
+                        .addComponent(newIngredientProteinField)
+                        .addComponent(newIngredientCarbohydratesField)
+                        .addComponent(newIngredientSugarField)
+                        .addComponent(newIngredientFatField)
+                        .addComponent(newIngredientCaloriesField)
+                        .addComponent(newIngredientGramsField)
+                        .addComponent(newIngredientNameField)
+                        .addComponent(newIngredientNotesField))
+                    .addComponent(ingredientReferenceLinkURL, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
         addEditIngredientDialogLayout.setVerticalGroup(
@@ -424,7 +445,8 @@ public class MainWindow extends JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(addEditIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveIngredientButton)
-                    .addComponent(clearNewIngredientButton))
+                    .addComponent(clearNewIngredientButton)
+                    .addComponent(ingredientReferenceLinkURL))
                 .addContainerGap())
         );
 
@@ -686,7 +708,7 @@ public class MainWindow extends JFrame {
             }
         });
 
-        editSelectedIngredientButton.setMnemonic('E');
+        editSelectedIngredientButton.setMnemonic('d');
         editSelectedIngredientButton.setText("Edit Ingredient");
         editSelectedIngredientButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2261,6 +2283,9 @@ public class MainWindow extends JFrame {
         
         // TODO: Category...
         this.newIngredientNotesField.setText(ingredient.getNotes());
+        
+        this.ingredientReferenceLinkURL.setText(ingredient.getReferenceLink());
+        this.ingredientReferenceLinkURL.setToolTipText(ingredient.getReferenceLink());
     }
     
     private void editSelectedIngredientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editSelectedIngredientButtonActionPerformed
@@ -2277,6 +2302,7 @@ public class MainWindow extends JFrame {
             final Optional<NutritionalIngredient> ingredientToEdit = this.dao.findById(ingredientID);
             if (ingredientToEdit.isPresent()) {
                 this.addEditIngredientDialog.setTitle("Edit Ingredient");
+                this.ingredientReferenceLinkURL.setText("");
                 this.setEditAddIngredientFields(ingredientToEdit.get());
                 this.editIngredientMode = true;
                 this.editIngredientID = ingredientID;
@@ -2364,6 +2390,21 @@ public class MainWindow extends JFrame {
         this.ingredientSlideAnalysis.setVisible(false);
         this.ingredientForAnalysisWithSlider = null;
     }//GEN-LAST:event_closeSliderAnalysisButtonActionPerformed
+
+    private void ingredientReferenceLinkURLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingredientReferenceLinkURLMouseClicked
+        try {
+            final JLabel link = (JLabel) evt.getSource();
+            final String hyperLinkText = link.getToolTipText();
+            Desktop.getDesktop().browse(new URI(hyperLinkText));
+        } catch (IOException | URISyntaxException ex) {
+            LOGGER.error("Error opening reference link", ex);
+            this.showError("Error opening reference link", "Error :(");
+        }
+    }//GEN-LAST:event_ingredientReferenceLinkURLMouseClicked
+
+    private void ingredientReferenceLinkURLMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingredientReferenceLinkURLMouseEntered
+         this.ingredientReferenceLinkURL.setText("<html><a href=''>" + "http://www.codejava.net" + "</a></html>");
+    }//GEN-LAST:event_ingredientReferenceLinkURLMouseEntered
 
     private void buildTableWithIngredients(final List<NutritionalIngredient> ingredientsToAdd, final JTable table) {
         final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
@@ -2475,6 +2516,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel gramsAnalysisStaticLabel;
     private javax.swing.JLabel gramsSliderDynamicLabel;
     private javax.swing.JLabel gramsSliderStaticLabel;
+    private javax.swing.JLabel ingredientReferenceLinkURL;
     private javax.swing.JDialog ingredientSlideAnalysis;
     private javax.swing.JSlider ingredientSlider;
     private javax.swing.JMenu ingredientsMenuItem;

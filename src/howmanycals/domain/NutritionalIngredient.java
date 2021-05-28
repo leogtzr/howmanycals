@@ -16,6 +16,7 @@ public class NutritionalIngredient {
     private double sodium = -1d;
     private Category category;
     private String notes = "";
+    private String referenceLink = "";
     
     public NutritionalIngredient() {}
     
@@ -32,6 +33,7 @@ public class NutritionalIngredient {
         this.sodium = builder.sodium;
         this.category = builder.category;
         this.notes = builder.notes;
+        this.referenceLink = builder.referenceLink;
     }
     
     public static class FormBuilder {
@@ -47,6 +49,7 @@ public class NutritionalIngredient {
         private double sodium = -1d;
         private Category category;
         private String notes = "";
+        private String referenceLink = "";
 
         public FormBuilder(final String name, final String grams) {
             if (name == null || name.isBlank()) {
@@ -106,6 +109,11 @@ public class NutritionalIngredient {
         
         public FormBuilder notes(final String notes) {
             this.notes = notes;
+            return this;
+        }
+        
+        public FormBuilder referenceLink(final String linkURL) {
+            this.referenceLink = linkURL;
             return this;
         }
         
@@ -210,12 +218,20 @@ public class NutritionalIngredient {
         this.notes = notes;
     }
 
+    public String getReferenceLink() {
+        return referenceLink;
+    }
+
+    public void setReferenceLink(final String referenceLink) {
+        this.referenceLink = referenceLink;
+    }
+
     @Override
     public String toString() {
-        return "NutritionalIngredient{" + "id=" + id + ", name=" + name + ", grams=" + 
-                grams + ", calories=" + calories + ", fat=" + fat + ", sugar=" + sugar + ", carbohydrates=" + 
-                carbohydrates + ", protein=" + protein + ", cholesterol=" + cholesterol + ", sodium=" + 
-                sodium + ", category=" + category + ", notes=" + notes + '}';
+        return "NutritionalIngredient{" + "id=" + id + ", name=" + name + ", grams=" + grams + 
+                ", calories=" + calories + ", fat=" + fat + ", sugar=" + sugar + ", carbohydrates=" + carbohydrates + 
+                ", protein=" + protein + ", cholesterol=" + cholesterol + ", sodium=" + sodium + ", category=" + 
+                category + ", notes=" + notes + ", referenceLink=" + referenceLink + '}';
     }
     
 }

@@ -1,5 +1,4 @@
 // TODO: finish update stmt.
-// TODO: link or reference field.
 package howmanycals.db.dao;
 
 import howmanycals.db.DBConnection;
@@ -516,6 +515,7 @@ public class HowManyCalsDAO {
         ingredient.setProtein(rs.getFloat("protein"));
         ingredient.setCholesterol(rs.getFloat("cholesterol"));
         ingredient.setSodium(rs.getFloat("sodium"));
+        ingredient.setReferenceLink(rs.getString("ref_link"));
     }
     
     private NutritionalIngredient extractCreatedIngredient(final ResultSet rs) throws SQLException {
