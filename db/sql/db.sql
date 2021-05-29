@@ -115,14 +115,20 @@ INSERT INTO category (name) VALUES('Fat');
 INSERT INTO category (name) VALUES('Carbs');
 INSERT INTO category (name) VALUES('Fibra');
 
-INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-    VALUES('100g pechuga pollo hervida', 100, 107, 4, 'From "cuantas calorias tiene una pechuga hervida"');
-INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
-    VALUES('200g pechuga pollo hervida', 200, 214, 4, 'From "cuantas calorias tiene una pechuga hervida"');
+INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes, ref_link) 
+    VALUES('100g pechuga pollo hervida', 100, 107, 4, 'From "cuantas calorias tiene una pechuga hervida"', 
+        'https://www.fatsecret.com.mx/calor%C3%ADas-nutrici%C3%B3n/gen%C3%A9rico/pechuga-de-pollo-hervida'
+    );
+INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes, ref_link) 
+    VALUES('200g pechuga pollo hervida', 200, 214, 4, 'From "cuantas calorias tiene una pechuga hervida"',
+        'https://www.fatsecret.com.mx/calor%C3%ADas-nutrici%C3%B3n/gen%C3%A9rico/pechuga-de-pollo-hervida'
+    );
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
     VALUES('150g pechuga pollo hervida', 150, 160, 4, 'From "cuantas calorias tiene una pechuga hervida"');
-INSERT INTO nutrition_ingredient (name, grams, calories, id_category, protein, notes) 
-    VALUES('2 huevos (110g)', 110, 160, 4, 22.42 * 2, '~');
+INSERT INTO nutrition_ingredient (name, grams, calories, id_category, protein, notes, ref_link) 
+    VALUES('2 huevos (110g)', 110, 160, 4, 22.42 * 2, '~', 
+    'https://www.fatsecret.com.mx/calor%C3%ADas-nutrici%C3%B3n/gen%C3%A9rico/pechuga-de-pollo-hervida'
+    );
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
     VALUES('Queso Panela Zwan (3)', 90, 216, 6, 'From the label');
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes) 
