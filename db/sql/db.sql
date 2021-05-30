@@ -342,6 +342,11 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('Chips zanahoria Isla Blanca', 50, 45.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1, '');
 
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g Floretes de Coliflor Mr. Lucky', 100, 28.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('50g Floretes Coliflor Mr. Lucky', 50, 14.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
 
 INSERT INTO meal (name, notes) VALUES('600 cals - ham-egg-frijol', 'Parece que tiene algo de proteina.');
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 43);
