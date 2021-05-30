@@ -348,6 +348,19 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('50g Floretes Coliflor Mr. Lucky', 50, 14.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
 
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g Camarón/Shrimp pelado Selecta', 100, 98.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('50g Camarón/Shrimp pelado Selecta', 50, 98.0 / 2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g Yogur Skyr Griego', 100, 60.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('50g Yogur Skyr Griego', 50, 60.0 / 2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
+
+
 INSERT INTO meal (name, notes) VALUES('600 cals - ham-egg-frijol', 'Parece que tiene algo de proteina.');
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 43);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 34);
