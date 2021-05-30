@@ -511,3 +511,21 @@ INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(12, 60);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(12, 95);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(12, 46);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(12, 57);
+
+
+INSERT INTO meal (name, notes) VALUES('~ 420 cal - breakfast - papaya+yogur+fresa', '');
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(13, 83);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(13, 49);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(13, 89);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(13, 46);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(13, 42);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(13, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(13, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(13, 91);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(13, 57);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(13, 60);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(13, 27);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(13, 44);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(13, 75);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(13, 77);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(13, 19);
