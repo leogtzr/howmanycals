@@ -213,6 +213,8 @@ INSERT INTO nutrition_ingredient(name, grams, calories, carbohydrates, protein, 
     VALUES('25ml Clara Huevo San Juan', 25, 21.0 / 2.0, 1.0, 10.0, 4, 'From the label');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
     VALUES('100g Yogur Griego Fage 0%', 100, 50.0, 4, 'From the label');
+INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
+    VALUES('50g Yogur Griego Fage 0%', 50, 50.0 / 2.0, 4, 'From the label');
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('100g yogur griego Chobani', 100, 56.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
@@ -261,6 +263,8 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
     VALUES('50g repollo/cabagge', 50, 12.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('100g pechuga california', 100, 98.0, -1.0, -1.0, -1.0, 20.0, -1.0, -1.0, 4, '');
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('50g pechuga california', 50, 98.0 / 2.0, -1.0, -1.0, -1.0, 20.0, -1.0, -1.0, 4, '');
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('100g manzana Peron Golden', 100, 52.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 9, '');
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
@@ -492,3 +496,18 @@ INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(11, 89);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(11, 86);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(11, 18);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(11, 88);
+
+INSERT INTO meal (name, notes) VALUES('< 550 ~ yogur y fresa <3', '');
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(12, 69);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(12, 69);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(12, 70);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(12, 75);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(12, 83);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(12, 83);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(12, 93);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(12, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(12, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(12, 60);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(12, 95);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(12, 46);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(12, 57);
