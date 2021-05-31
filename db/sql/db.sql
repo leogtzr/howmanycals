@@ -243,6 +243,10 @@ INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes)
     VALUES('50g eggplant/berenjena', 50, 12, 8, '');
 INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
     VALUES('25g Onion/Cebolla', 25, 10, 3, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, id_category, notes) 
+    VALUES('10g Onion/Cebolla', 10, 4, 3, '');
+
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('100g baby carrots', 100, 35.0, -1.0, -1.0, 8.2, -1.0, -1.0, -1.0, 8, '');
 
@@ -280,6 +284,9 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
 
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('100g Frijoles Negros Enteros La Costena', 100, 45.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 9, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('50g Frijoles Negros Enteros La Costena', 50, 45.0 / 2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 9, '');
 
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('100g pollo Bachoco Mezquite', 100, 108.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
@@ -565,3 +572,14 @@ INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 92);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 61);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 44);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 96);
+
+INSERT INTO meal (name, notes) VALUES('Casi 500 - austero pero cumplidor', '');
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(15, 82);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(15, 77);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(15, 86);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(15, 86);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(15, 96);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(15, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(15, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(15, 17);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(15, 60);
