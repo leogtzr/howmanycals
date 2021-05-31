@@ -1034,7 +1034,7 @@ public class MainWindow extends JFrame {
                 .addGroup(mealSummaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(staticCholesterolSummaryMealLabel)
                     .addComponent(cholesterolSummaryMealLabel))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         mealSummaryTabbedPanel.addTab("Summary", mealSummaryPanel);
@@ -1048,6 +1048,7 @@ public class MainWindow extends JFrame {
                 .addGroup(viewMealsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane5)
                     .addComponent(jScrollPane6)
+                    .addComponent(mealSummaryTabbedPanel)
                     .addGroup(viewMealsDialogLayout.createSequentialGroup()
                         .addGroup(viewMealsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(viewMealsDialogLayout.createSequentialGroup()
@@ -1055,11 +1056,10 @@ public class MainWindow extends JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(viewMealsSearchMealTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(viewMealsDialogLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(viewMealsFoundLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(mealSummaryTabbedPanel))
+                                .addGap(83, 83, 83)
+                                .addComponent(viewMealsFoundLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel7))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         viewMealsDialogLayout.setVerticalGroup(
@@ -1070,13 +1070,13 @@ public class MainWindow extends JFrame {
                     .addComponent(viewMealSearchLabel)
                     .addComponent(viewMealsSearchMealTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addGroup(viewMealsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(viewMealsFoundLabel))
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel7)
+                .addGap(27, 27, 27)
+                .addComponent(viewMealsFoundLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(mealSummaryTabbedPanel)
                 .addContainerGap())
@@ -2033,7 +2033,9 @@ public class MainWindow extends JFrame {
         try {
             final String toSearchText = searchText.trim().toLowerCase();
             final List<Meal> mealsByFoundBySearch = this.dao.containsByName(toSearchText.trim().toLowerCase());
-            System.out.println(mealsByFoundBySearch);
+            System.out.println("~~~~~~~~~~~~~~~~~~ MEALS FOUND ~~~~~~~~~~~~~~~~~~~~~");
+            mealsByFoundBySearch.forEach(System.out::println);
+            System.out.println("/~~~~~~~~~~~~~~~~~ MEALS FOUND ~~~~~~~~~~~~~~~~~~~~~");
             this.populateTableWithMeals(mealsByFoundBySearch, this.viewMealsTable);
         } catch (final SQLException ex) {
             LOGGER.error(ex.getMessage(), ex);

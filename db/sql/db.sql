@@ -362,22 +362,6 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('50g Yogur Skyr Griego', 50, 60.0 / 2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
 
-INSERT INTO meal (name, notes) VALUES('404 not found - breakfast...', '');
-INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 46);
-INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 57);
-INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 42);
-INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 76);
-INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 43);
-INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 43);
-INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 27);
-INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 18);
-INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 49);
-INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 90);
-INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 92);
-INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 61);
-INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 44);
-INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 96);
-
 
 INSERT INTO meal (name, notes) VALUES('600 cals - ham-egg-frijol', 'Parece que tiene algo de proteina.');
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 43);
@@ -565,3 +549,19 @@ INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(13, 44);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(13, 75);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(13, 77);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(13, 19);
+
+INSERT INTO meal (name, notes) VALUES('404 not found - breakfast...', '');
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 46);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 57);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 42);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 76);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 27);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 18);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 49);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 90);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 92);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 61);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 44);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(14, 96);
