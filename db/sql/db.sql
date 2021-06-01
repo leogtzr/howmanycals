@@ -583,3 +583,16 @@ INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(15, 43);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(15, 43);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(15, 17);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(15, 60);
+
+INSERT INTO meal (name, notes) VALUES('500 cal dinner - high protein', '');
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 3);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 86);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 86);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 77);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 102);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 17);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 60);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 98);

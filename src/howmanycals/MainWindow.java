@@ -1,3 +1,5 @@
+// TODO: edit meals
+// TODO: update ingredients with references.
 package howmanycals;
 
 import howmanycals.db.dao.HowManyCalsDAO;
@@ -43,7 +45,6 @@ import static howmanycals.utils.FormatUtils.formatDecimal1;
 import java.awt.Desktop;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.logging.Level;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 
