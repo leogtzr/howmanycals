@@ -596,3 +596,19 @@ INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 43);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 43);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 43);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 98);
+
+
+INSERT INTO meal (name, notes) VALUES('~550 yogur nocturno', '');
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(17, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(17, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(17, 77);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(17, 86);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(17, 86);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(17, 71);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(17, 71);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(17, 17);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(17, 59);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(17, 80);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(17, 72);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(17, 48);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(17, 57);

@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -148,11 +151,12 @@ public class HowManyCalsDAO {
     }
     
     private Optional<Meal> createMeal(final String name, final String notes) throws SQLException {
-        final String query = "INSERT INTO meal (name, notes) VALUES(?, ?)";
+        final String query = "INSERT INTO meal (name, notes, creation_date) VALUES(?, ?, ?)";
         
         try (final PreparedStatement stmt = this.connection.prepareStatement(query, RETURN_GENERATED_KEYS)) {
             stmt.setString(1, name);
             stmt.setString(2, notes);
+            stmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
             
             LOGGER.debug(stmt.toString());
             
