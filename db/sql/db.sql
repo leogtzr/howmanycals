@@ -594,6 +594,7 @@ INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 17);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 60);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 43);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 43);
+
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 43);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(16, 98);
 
@@ -612,3 +613,21 @@ INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(17, 80);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(17, 72);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(17, 48);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(17, 57);
+
+
+INSERT INTO meal (name, notes, creation_date) VALUES('Dinner < 500 cals', '', '2021-06-02 18:40:47.172216-06');
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 71);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 71);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 59);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 17);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 77);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 86);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 86);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 44);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 93);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 72);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 80);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 62);
+
