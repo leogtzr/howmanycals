@@ -269,6 +269,10 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
     VALUES('157g pechuga california', 157, 153.0, -1.0, -1.0, -1.0, 20.0, -1.0, -1.0, 4, 'Temporal');
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('100g pechuga california', 100, 98.0, -1.0, -1.0, -1.0, 20.0, -1.0, -1.0, 4, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('186g pechuga california', 186, 182.0, -1.0, -1.0, -1.0, 20.0, -1.0, -1.0, 4, '');
+
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('50g pechuga california', 50, 98.0 / 2.0, -1.0, -1.0, -1.0, 20.0, -1.0, -1.0, 4, '');
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
@@ -290,6 +294,12 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
 
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('100g pollo Bachoco Mezquite', 100, 108.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('50g pollo Bachoco Mezquite', 50.0, 108.0 / 2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('25g pollo Bachoco Mezquite', 25.0, (108.0 / 2.0) / 2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
 
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('50g cherry tomato calories', 50, 9.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
