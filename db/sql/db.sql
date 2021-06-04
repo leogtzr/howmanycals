@@ -369,6 +369,9 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('50g Yogur Skyr Griego', 50, 60.0 / 2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
 
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('Clara/dura huevo', 17, 17.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
+
 
 INSERT INTO meal (name, notes) VALUES('600 cals - ham-egg-frijol', 'Parece que tiene algo de proteina.');
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 43);
