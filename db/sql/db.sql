@@ -295,6 +295,10 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('100g pollo Bachoco Mezquite', 100, 108.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
 
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('278g pollo Bachoco Mezquite', 278, 300.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
+
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('50g pollo Bachoco Mezquite', 50.0, 108.0 / 2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
 
