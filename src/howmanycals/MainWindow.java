@@ -165,6 +165,7 @@ public class MainWindow extends JFrame {
         editSelectedIngredientButton = new javax.swing.JButton();
         clearViewIngredientTableButton = new javax.swing.JButton();
         actionStatusLabel = new javax.swing.JLabel();
+        refreshButton = new javax.swing.JButton();
         saveMealDialog = new javax.swing.JDialog();
         saveMealNameLabel = new javax.swing.JLabel();
         saveMealTextField = new javax.swing.JTextField();
@@ -727,6 +728,14 @@ public class MainWindow extends JFrame {
 
         actionStatusLabel.setText(":");
 
+        refreshButton.setMnemonic('R');
+        refreshButton.setText("Refresh");
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout viewIngredientDialogLayout = new javax.swing.GroupLayout(viewIngredientDialog.getContentPane());
         viewIngredientDialog.getContentPane().setLayout(viewIngredientDialogLayout);
         viewIngredientDialogLayout.setHorizontalGroup(
@@ -746,6 +755,8 @@ public class MainWindow extends JFrame {
                                 .addComponent(okViewIngredientButton, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(viewIngredientDialogLayout.createSequentialGroup()
                                 .addComponent(clearViewIngredientTableButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(refreshButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(saveMealButton))))
                     .addGroup(viewIngredientDialogLayout.createSequentialGroup()
@@ -785,7 +796,8 @@ public class MainWindow extends JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewIngredientDialogLayout.createSequentialGroup()
                         .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(saveMealButton)
-                            .addComponent(clearViewIngredientTableButton))
+                            .addComponent(clearViewIngredientTableButton)
+                            .addComponent(refreshButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(okViewIngredientButton)
@@ -2412,6 +2424,15 @@ public class MainWindow extends JFrame {
          this.ingredientReferenceLinkURL.setText("<html><a href=''>" + "http://www.codejava.net" + "</a></html>");
     }//GEN-LAST:event_ingredientReferenceLinkURLMouseEntered
 
+    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+        try {
+            this.ingredients = this.dao.ingredients();
+        } catch (final SQLException ex) {
+            LOGGER.error("Error getting ingredients", ex);
+            this.showError("Error getting ingredients", "Error");
+        }
+    }//GEN-LAST:event_refreshButtonActionPerformed
+
     private void buildTableWithIngredients(final List<NutritionalIngredient> ingredientsToAdd, final JTable table) {
         final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         tableModel.setRowCount(0);
@@ -2588,6 +2609,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JButton okViewIngredientButton;
     private javax.swing.JLabel proteinPercentageMissingRateLabel;
     private javax.swing.JLabel proteinSummaryMealLabel;
+    private javax.swing.JButton refreshButton;
     private javax.swing.JButton saveAndSendByEmailButton;
     private javax.swing.JButton saveIngredientButton;
     private javax.swing.JButton saveMealButton;
