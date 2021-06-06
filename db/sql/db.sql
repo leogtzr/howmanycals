@@ -386,6 +386,8 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('Clara/dura huevo', 17, 17.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
 
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('50g kiwi', 50, 30.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1, 'https://www.fatsecret.com/calories-nutrition/generic/kiwi-fruit-raw?portionid=54111&portionamount=50.000');
 
 INSERT INTO meal (name, notes) VALUES('600 cals - ham-egg-frijol', 'Parece que tiene algo de proteina.');
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 43);
@@ -647,4 +649,3 @@ INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 93);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 72);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 80);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 62);
-
