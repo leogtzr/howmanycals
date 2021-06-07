@@ -1930,7 +1930,8 @@
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="createIngredientFromCurrentValuesBtn" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="closeSliderAnalysisButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1956,7 +1957,10 @@
                       <Component id="caloriesSliderDynamicLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="110" max="32767" attributes="0"/>
-                  <Component id="closeSliderAnalysisButton" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="closeSliderAnalysisButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="createIngredientFromCurrentValuesBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -2014,6 +2018,16 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="closeSliderAnalysisButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="createIngredientFromCurrentValuesBtn">
+          <Properties>
+            <Property name="mnemonic" type="int" value="116"/>
+            <Property name="text" type="java.lang.String" value="Create Ingredient From Current Values"/>
+            <Property name="toolTipText" type="java.lang.String" value="Only calories &amp; grams will be taken into consideration"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createIngredientFromCurrentValuesBtnActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

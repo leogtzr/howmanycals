@@ -238,6 +238,7 @@ public class MainWindow extends JFrame {
         caloriesSliderStaticLabel = new javax.swing.JLabel();
         caloriesSliderDynamicLabel = new javax.swing.JLabel();
         closeSliderAnalysisButton = new javax.swing.JButton();
+        createIngredientFromCurrentValuesBtn = new javax.swing.JButton();
         viewMealsButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
@@ -1412,6 +1413,15 @@ public class MainWindow extends JFrame {
             }
         });
 
+        createIngredientFromCurrentValuesBtn.setMnemonic('t');
+        createIngredientFromCurrentValuesBtn.setText("Create Ingredient From Current Values");
+        createIngredientFromCurrentValuesBtn.setToolTipText("Only calories & grams will be taken into consideration");
+        createIngredientFromCurrentValuesBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createIngredientFromCurrentValuesBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ingredientSlideAnalysisLayout = new javax.swing.GroupLayout(ingredientSlideAnalysis.getContentPane());
         ingredientSlideAnalysis.getContentPane().setLayout(ingredientSlideAnalysisLayout);
         ingredientSlideAnalysisLayout.setHorizontalGroup(
@@ -1433,7 +1443,8 @@ public class MainWindow extends JFrame {
                                 .addComponent(caloriesSliderDynamicLabel)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ingredientSlideAnalysisLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(createIngredientFromCurrentValuesBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(closeSliderAnalysisButton)))
                 .addContainerGap())
         );
@@ -1453,7 +1464,9 @@ public class MainWindow extends JFrame {
                     .addComponent(caloriesSliderStaticLabel)
                     .addComponent(caloriesSliderDynamicLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
-                .addComponent(closeSliderAnalysisButton)
+                .addGroup(ingredientSlideAnalysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(closeSliderAnalysisButton)
+                    .addComponent(createIngredientFromCurrentValuesBtn))
                 .addContainerGap())
         );
 
@@ -2433,6 +2446,39 @@ public class MainWindow extends JFrame {
         }
     }//GEN-LAST:event_refreshButtonActionPerformed
 
+    private void createIngredientFromCurrentValuesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createIngredientFromCurrentValuesBtnActionPerformed
+        if (this.ingredientForAnalysisWithSlider == null) {
+            LOGGER.debug("Base ingredient is null");
+            return;
+        }
+        
+        try {
+            final int baseGrams = this.ingredientForAnalysisWithSlider.getGrams();
+            final int baseCals = (int) this.ingredientForAnalysisWithSlider.getCalories();
+
+            final int newCals = (this.ingredientSlider.getValue() * baseCals) / (int)baseGrams;
+            System.out.printf("%d kcal\n", newCals);
+            System.out.printf("%d g\n", this.ingredientSlider.getValue());
+
+            final String newName = 
+                    String.format("%dg (from) %s", this.ingredientSlider.getValue(), this.ingredientForAnalysisWithSlider.getName());
+            final NutritionalIngredient newIngredient = new NutritionalIngredient();
+            newIngredient.setName(newName);
+            newIngredient.setCalories(newCals);
+            newIngredient.setGrams(this.ingredientSlider.getValue());
+            newIngredient.setReferenceLink(this.ingredientForAnalysisWithSlider.getReferenceLink());
+            newIngredient.setNotes(this.ingredientForAnalysisWithSlider.getNotes());
+            newIngredient.setCategory(this.ingredientForAnalysisWithSlider.getCategory());
+            
+            this.dao.createNutritionIngredient(newIngredient).ifPresent(newDBIngredient -> 
+                    this.showInfoMessage(String.format("'%s' created", newDBIngredient.getName()), "Ingredient created"));
+            this.ingredients = this.dao.ingredients();
+        } catch (final SQLException ex) {
+            this.showError("Error creating ingredient.", "Error creating ingredient.");
+            LOGGER.error(ex.getMessage(), ex);
+        }
+    }//GEN-LAST:event_createIngredientFromCurrentValuesBtnActionPerformed
+
     private void buildTableWithIngredients(final List<NutritionalIngredient> ingredientsToAdd, final JTable table) {
         final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         tableModel.setRowCount(0);
@@ -2529,6 +2575,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JButton closeNotesDialogButton;
     private javax.swing.JButton closeSliderAnalysisButton;
     private javax.swing.JButton closeViewNoteDialogButton;
+    private javax.swing.JButton createIngredientFromCurrentValuesBtn;
     private javax.swing.JDialog createNoteDialog;
     private javax.swing.JMenuItem createNoteMenuItem;
     private javax.swing.JMenu dataMenu;

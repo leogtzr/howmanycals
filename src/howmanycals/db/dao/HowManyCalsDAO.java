@@ -17,7 +17,6 @@ import java.util.Optional;
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -133,6 +132,7 @@ public class HowManyCalsDAO {
             stmt.setString(11, ingredient.getNotes());
             
             LOGGER.debug(stmt.toString());
+            System.out.println(stmt.toString());
             
             final int affectedRows = stmt.executeUpdate();
 
@@ -159,6 +159,7 @@ public class HowManyCalsDAO {
             stmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
             
             LOGGER.debug(stmt.toString());
+            System.out.println(stmt.toString());
             
             final int affectedRows = stmt.executeUpdate();
 
@@ -185,6 +186,7 @@ public class HowManyCalsDAO {
             stmt.setInt(2, nutritionIngredientID);
             
             LOGGER.debug(stmt.toString());
+            System.out.println(stmt.toString());
             
             final int affectedRows = stmt.executeUpdate();
 
@@ -233,6 +235,7 @@ public class HowManyCalsDAO {
             stmt.setString(1, String.format("%%%s%%", name));
             
             LOGGER.debug(stmt.toString());
+            System.out.println(stmt.toString());
             
             try (final ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
@@ -436,6 +439,7 @@ public class HowManyCalsDAO {
             stmt.setString(1, noteText);
             
             LOGGER.debug(stmt.toString());
+            System.out.println(stmt.toString());
             
             final int affectedRows = stmt.executeUpdate();
 
@@ -486,6 +490,7 @@ public class HowManyCalsDAO {
             stmt.setInt(12, ingredient.getId());
             
             LOGGER.debug(stmt.toString());
+            System.out.println(stmt.toString());
             
             final int affectedRows = stmt.executeUpdate();
 
