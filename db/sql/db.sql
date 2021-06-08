@@ -389,6 +389,13 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('50g kiwi', 50, 30.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1, 'https://www.fatsecret.com/calories-nutrition/generic/kiwi-fruit-raw?portionid=54111&portionamount=50.000');
 
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g Yogur Doble Cero Yoplait', 100, 42.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('50g Yogur Doble Cero Yoplait', 50, 42.0 / 2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1, '');
+
+
 INSERT INTO meal (name, notes) VALUES('600 cals - ham-egg-frijol', 'Parece que tiene algo de proteina.');
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 43);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 34);
