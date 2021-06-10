@@ -57,10 +57,10 @@ public class MainWindow extends JFrame {
     private HowManyCalsDAO dao;
     private List<Category> categories;
     private List<NutritionalIngredient> ingredients;
-    private boolean editIngredientMode = false;
+    private boolean editIngredientMode;
     private int editIngredientID = -1;
     private NutritionalIngredient ingredientForAnalysisWithSlider = null;
-    private boolean debugEnabled = false;
+    private boolean debugEnabled;
 
     private void initDatabase() {
         this.dao = new HowManyCalsDAO();
@@ -78,7 +78,6 @@ public class MainWindow extends JFrame {
         final String debugEnvVariable = System.getenv("DEBUG_CALS");
         if (debugEnvVariable != null) {
             this.debugEnabled = Boolean.valueOf(debugEnvVariable);
-            System.out.println("Value is: " + debugEnabled);
         }
     }
     
@@ -93,8 +92,7 @@ public class MainWindow extends JFrame {
     }
     
     private Optional<NutritionalIngredient> findIngredientByIndex(
-            final int index
-            , final List<NutritionalIngredient> nutritionIngredients) {
+            final int index, final List<NutritionalIngredient> nutritionIngredients) {
         return nutritionIngredients.stream()
                 .filter(ing -> ing.getId() == index)
                 .findFirst();
@@ -1600,6 +1598,7 @@ public class MainWindow extends JFrame {
         } catch (final SQLException ex) {
             LOGGER.error("error closing DB connection", ex);
         }
+        
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
@@ -1614,6 +1613,7 @@ public class MainWindow extends JFrame {
         if (this.categories != null) {
             this.categories.clear();
         }
+        
         try {
             this.fillUpCategories();
         } catch (final SQLException ex) {
@@ -1622,10 +1622,6 @@ public class MainWindow extends JFrame {
         }
     }//GEN-LAST:event_addEditIngredientDialogWindowOpened
 
-    private void createIngredient(final NutritionalIngredient ingredient) throws SQLException {
-        
-    }
-    
     private Optional<NutritionalIngredient> updateIngredient(final NutritionalIngredient ingredient) throws SQLException {
         if (this.editIngredientID == -1) {
             throw new RuntimeException("missing ID to edit.");
