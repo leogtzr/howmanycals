@@ -348,8 +348,6 @@ public class HowManyCalsDAO {
     public Optional<Category> findCategoryByCategoryID(final Integer id) throws SQLException {
         final String query = "SELECT * FROM category WHERE id = ?";
         
-        final List<NutritionalIngredient> ingredients = new ArrayList<>();
-
         try (final PreparedStatement stmt = this.connection.prepareStatement(query)) {
             stmt.setInt(1, id);
             
