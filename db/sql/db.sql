@@ -372,6 +372,9 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
     VALUES('50g Floretes Coliflor Mr. Lucky', 50, 14.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
 
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g Mezcla Mr. Lucky', 100, 35, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('100g Camarón/Shrimp pelado Selecta', 100, 98.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
 
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
@@ -402,8 +405,13 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
     VALUES('100g bachoco tiras pechuga grill', 100, 118.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
 
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g bachoco tiras pechuga grill', 100, 116.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('50g bachoco tiras pechuga grill', 50, 118.0 / 2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
 
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g Eva Simple Veggies', 100, 20.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
 
 
 INSERT INTO meal (name, notes) VALUES('600 cals - ham-egg-frijol', 'Parece que tiene algo de proteina.');
@@ -666,3 +674,20 @@ INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 93);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 72);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 80);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(18, 62);
+
+INSERT INTO meal (name, notes, creation_date) VALUES('Breakfast sin magic - 405', '', '2021-06-28 00:14:48.284545-06');
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(19, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(19, 43);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(19, 78);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(19, 17);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(19, 26);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(19, 56);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(19, 88);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(19, 27);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(19, 46);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(19, 57);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(19, 42);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(19, 49);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(19, 50);
+INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(19, 44);
+
