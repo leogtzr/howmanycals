@@ -25,7 +25,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS index_id_category ON category(id);
 CREATE TABLE IF NOT EXISTS nutrition_ingredient (
   id INT NOT NULL DEFAULT nextval('nutrition_ingredient_id_seq'::regclass),
   name VARCHAR(250) NOT NULL,
-  grams INTEGER NOT NULL,
+  grams INTEGER NOT NULL DEFAULT 0.0,
   calories REAL NOT NULL DEFAULT -1.0,
   fat REAL NOT NULL DEFAULT -1.0,
   sugar REAL NOT NULL DEFAULT -1.0,
@@ -114,6 +114,7 @@ INSERT INTO category (name) VALUES('Lacteal');
 INSERT INTO category (name) VALUES('Fat');
 INSERT INTO category (name) VALUES('Carbs');
 INSERT INTO category (name) VALUES('Fibra');
+INSERT INTO category (name) VALUES('Other');
 
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes, ref_link) 
     VALUES('100g pechuga pollo hervida', 100, 107, 4, 'From "cuantas calorias tiene una pechuga hervida"', 

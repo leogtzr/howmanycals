@@ -9,6 +9,7 @@ import howmanycals.domain.MealNutritionInformation;
 import howmanycals.domain.Note;
 import howmanycals.domain.NutritionalIngredient;
 import howmanycals.domain.email.MealEmail;
+import howmanycals.utils.Constants;
 import howmanycals.utils.EmailSenderUtil;
 import howmanycals.utils.InformationMissingAnalysisUtil;
 import java.awt.Point;
@@ -164,7 +165,7 @@ public class MainWindow extends JFrame {
         clearViewIngredientTableButton = new javax.swing.JButton();
         actionStatusLabel = new javax.swing.JLabel();
         refreshButton = new javax.swing.JButton();
-        addCalorieButton = new javax.swing.JButton();
+        openCalorieToAddDialogButton = new javax.swing.JButton();
         saveMealDialog = new javax.swing.JDialog();
         saveMealNameLabel = new javax.swing.JLabel();
         saveMealTextField = new javax.swing.JTextField();
@@ -238,6 +239,12 @@ public class MainWindow extends JFrame {
         caloriesSliderDynamicLabel = new javax.swing.JLabel();
         closeSliderAnalysisButton = new javax.swing.JButton();
         createIngredientFromCurrentValuesBtn = new javax.swing.JButton();
+        addCaloriesDialog = new javax.swing.JDialog();
+        jLabel11 = new javax.swing.JLabel();
+        calorieNameToAddTextField = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        calorieValueToAddTextField = new javax.swing.JTextField();
+        addCalorieToTableButton = new javax.swing.JButton();
         viewMealsButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
@@ -736,7 +743,13 @@ public class MainWindow extends JFrame {
             }
         });
 
-        addCalorieButton.setText("Add");
+        openCalorieToAddDialogButton.setMnemonic('A');
+        openCalorieToAddDialogButton.setText("Add");
+        openCalorieToAddDialogButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openCalorieToAddDialogButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout viewIngredientDialogLayout = new javax.swing.GroupLayout(viewIngredientDialog.getContentPane());
         viewIngredientDialog.getContentPane().setLayout(viewIngredientDialogLayout);
@@ -761,7 +774,7 @@ public class MainWindow extends JFrame {
                                 .addComponent(refreshButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(addCalorieButton)
+                                    .addComponent(openCalorieToAddDialogButton)
                                     .addComponent(saveMealButton)))))
                     .addGroup(viewIngredientDialogLayout.createSequentialGroup()
                         .addComponent(searchViewIngredientLabel)
@@ -801,7 +814,7 @@ public class MainWindow extends JFrame {
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(viewIngredientDialogLayout.createSequentialGroup()
                         .addGap(41, 41, 41)
-                        .addComponent(addCalorieButton)
+                        .addComponent(openCalorieToAddDialogButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(saveMealButton)
@@ -1475,6 +1488,62 @@ public class MainWindow extends JFrame {
                     .addComponent(closeSliderAnalysisButton)
                     .addComponent(createIngredientFromCurrentValuesBtn))
                 .addContainerGap())
+        );
+
+        addCaloriesDialog.setTitle("Add Calorie");
+        addCaloriesDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        addCaloriesDialog.setResizable(false);
+        addCaloriesDialog.setSize(new java.awt.Dimension(448, 108));
+
+        jLabel11.setDisplayedMnemonic('N');
+        jLabel11.setLabelFor(calorieNameToAddTextField);
+        jLabel11.setText("Name (optional)");
+
+        jLabel14.setDisplayedMnemonic('C');
+        jLabel14.setLabelFor(calorieValueToAddTextField);
+        jLabel14.setText("Calories");
+
+        addCalorieToTableButton.setMnemonic('A');
+        addCalorieToTableButton.setText("Add");
+        addCalorieToTableButton.setMaximumSize(new java.awt.Dimension(448, 108));
+        addCalorieToTableButton.setMinimumSize(new java.awt.Dimension(448, 108));
+        addCalorieToTableButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addCalorieToTableButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout addCaloriesDialogLayout = new javax.swing.GroupLayout(addCaloriesDialog.getContentPane());
+        addCaloriesDialog.getContentPane().setLayout(addCaloriesDialogLayout);
+        addCaloriesDialogLayout.setHorizontalGroup(
+            addCaloriesDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addCaloriesDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(addCaloriesDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(addCaloriesDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(calorieNameToAddTextField)
+                    .addGroup(addCaloriesDialogLayout.createSequentialGroup()
+                        .addComponent(calorieValueToAddTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                        .addComponent(addCalorieToTableButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        addCaloriesDialogLayout.setVerticalGroup(
+            addCaloriesDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addCaloriesDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(addCaloriesDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(calorieNameToAddTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(addCaloriesDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(calorieValueToAddTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addCalorieToTableButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -2484,6 +2553,45 @@ public class MainWindow extends JFrame {
         }
     }//GEN-LAST:event_createIngredientFromCurrentValuesBtnActionPerformed
 
+    private void openCalorieToAddDialogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openCalorieToAddDialogButtonActionPerformed
+        // Open quick dialog.
+        // TODO: ...
+        this.addCaloriesDialog.setVisible(true);
+    }//GEN-LAST:event_openCalorieToAddDialogButtonActionPerformed
+
+    private void addCalorieToTableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCalorieToTableButtonActionPerformed
+        final String ingredientName = this.calorieNameToAddTextField.getText().trim();
+        
+        double calories = -1d;
+        
+        try {
+            calories = Double.parseDouble(this.calorieValueToAddTextField.getText().trim());
+        } catch (final NumberFormatException ex) {
+            this.showError("Invalid caloric numeric value", "Error");
+            
+            return;
+        }
+        
+        try {
+            final var ingredient = new NutritionalIngredient();
+            ingredient.setName(ingredientName);
+            ingredient.setCalories(calories);
+            this.dao.findCategoryByName(Constants.OTHER_CATEGORY_NAME).ifPresent(category -> ingredient.setCategory(category));
+            
+            final var ingredientToAdd = this.dao.createNutritionIngredient(ingredient);
+            if (ingredientToAdd.isPresent()) {
+                final var ingredientAdded = ingredientToAdd.get();
+                
+                this.addIngredientToSelectedMeals(ingredientAdded);
+                this.ingredients = this.dao.ingredients();
+                this.actionStatusLabel.setText(String.format("'%s' has been added", ingredientAdded.getName()));
+            }
+            this.addCaloriesDialog.setVisible(false);
+        } catch (final SQLException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_addCalorieToTableButtonActionPerformed
+
     private void buildTableWithIngredients(final List<NutritionalIngredient> ingredientsToAdd, final JTable table) {
         final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         tableModel.setRowCount(0);
@@ -2504,6 +2612,8 @@ public class MainWindow extends JFrame {
     }
     
     private Object[] sanitizeIngredientRowDataForTable(final NutritionalIngredient ingredient) {
+        final Category category = ingredient.getCategory();
+        
         final Object[] ingredientRowData = {
               ingredient.getId()
             , ingredient.getName()
@@ -2514,7 +2624,7 @@ public class MainWindow extends JFrame {
             , ingredient.getProtein() == -1d ? "" : formatDecimal1(ingredient.getProtein())
             , ingredient.getCholesterol() == -1d ? "" : formatDecimal1(ingredient.getCholesterol())
             , ingredient.getSodium() == -1d ? "" : formatDecimal1(ingredient.getSodium())
-            , ingredient.getCategory().getName()
+            , category != null ? ingredient.getCategory().getName() : ""
             , ingredient.getNotes()
         };
         
@@ -2563,11 +2673,14 @@ public class MainWindow extends JFrame {
     private javax.swing.JMenu aboutMenu;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JLabel actionStatusLabel;
-    private javax.swing.JButton addCalorieButton;
+    private javax.swing.JButton addCalorieToTableButton;
+    private javax.swing.JDialog addCaloriesDialog;
     private javax.swing.JDialog addEditIngredientDialog;
     private javax.swing.JMenuItem addIngredientMenuItem;
     private javax.swing.JComboBox<String> byCategorySearchComboBox;
     private javax.swing.JCheckBox byCategorySearchIngredientsCheckBox;
+    private javax.swing.JTextField calorieNameToAddTextField;
+    private javax.swing.JTextField calorieValueToAddTextField;
     private javax.swing.JLabel caloriesSliderDynamicLabel;
     private javax.swing.JLabel caloriesSliderStaticLabel;
     private javax.swing.JLabel caloriesSummaryMealLabel;
@@ -2602,8 +2715,10 @@ public class MainWindow extends JFrame {
     private javax.swing.JMenu ingredientsMenuItem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
@@ -2660,6 +2775,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JTable notesTable;
     private javax.swing.JButton okCloseDataMissingDialogButton;
     private javax.swing.JButton okViewIngredientButton;
+    private javax.swing.JButton openCalorieToAddDialogButton;
     private javax.swing.JLabel proteinPercentageMissingRateLabel;
     private javax.swing.JLabel proteinSummaryMealLabel;
     private javax.swing.JButton refreshButton;
