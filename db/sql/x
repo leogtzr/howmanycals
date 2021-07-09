@@ -1,8 +1,0 @@
-#!/bin/bash
-set -x
-x='*.sql'
-
-echo $x
-echo "$x"
-
-exit 0

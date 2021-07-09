@@ -164,6 +164,7 @@ public class MainWindow extends JFrame {
         clearViewIngredientTableButton = new javax.swing.JButton();
         actionStatusLabel = new javax.swing.JLabel();
         refreshButton = new javax.swing.JButton();
+        addCalorieButton = new javax.swing.JButton();
         saveMealDialog = new javax.swing.JDialog();
         saveMealNameLabel = new javax.swing.JLabel();
         saveMealTextField = new javax.swing.JTextField();
@@ -735,6 +736,8 @@ public class MainWindow extends JFrame {
             }
         });
 
+        addCalorieButton.setText("Add");
+
         javax.swing.GroupLayout viewIngredientDialogLayout = new javax.swing.GroupLayout(viewIngredientDialog.getContentPane());
         viewIngredientDialog.getContentPane().setLayout(viewIngredientDialogLayout);
         viewIngredientDialogLayout.setHorizontalGroup(
@@ -752,12 +755,14 @@ public class MainWindow extends JFrame {
                                 .addComponent(editSelectedIngredientButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                                 .addComponent(okViewIngredientButton, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(viewIngredientDialogLayout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewIngredientDialogLayout.createSequentialGroup()
                                 .addComponent(clearViewIngredientTableButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(refreshButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(saveMealButton))))
+                                .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(addCalorieButton)
+                                    .addComponent(saveMealButton)))))
                     .addGroup(viewIngredientDialogLayout.createSequentialGroup()
                         .addComponent(searchViewIngredientLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -790,9 +795,14 @@ public class MainWindow extends JFrame {
                 .addComponent(actionStatusLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewIngredientDialogLayout.createSequentialGroup()
+                .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(viewIngredientDialogLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(viewIngredientDialogLayout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(addCalorieButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(saveMealButton)
                             .addComponent(clearViewIngredientTableButton)
@@ -800,8 +810,7 @@ public class MainWindow extends JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(viewIngredientDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(okViewIngredientButton)
-                            .addComponent(editSelectedIngredientButton)))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(editSelectedIngredientButton))))
                 .addContainerGap())
         );
 
@@ -2554,6 +2563,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JMenu aboutMenu;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JLabel actionStatusLabel;
+    private javax.swing.JButton addCalorieButton;
     private javax.swing.JDialog addEditIngredientDialog;
     private javax.swing.JMenuItem addIngredientMenuItem;
     private javax.swing.JComboBox<String> byCategorySearchComboBox;
