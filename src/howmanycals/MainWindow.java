@@ -2523,6 +2523,7 @@ public class MainWindow extends JFrame {
     private void createIngredientFromCurrentValuesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createIngredientFromCurrentValuesBtnActionPerformed
         if (this.ingredientForAnalysisWithSlider == null) {
             LOGGER.debug("Base ingredient is null");
+            
             return;
         }
         
@@ -2554,8 +2555,6 @@ public class MainWindow extends JFrame {
     }//GEN-LAST:event_createIngredientFromCurrentValuesBtnActionPerformed
 
     private void openCalorieToAddDialogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openCalorieToAddDialogButtonActionPerformed
-        // Open quick dialog.
-        // TODO: ...
         this.addCaloriesDialog.setVisible(true);
     }//GEN-LAST:event_openCalorieToAddDialogButtonActionPerformed
 
@@ -2586,9 +2585,11 @@ public class MainWindow extends JFrame {
                 this.ingredients = this.dao.ingredients();
                 this.actionStatusLabel.setText(String.format("'%s' has been added", ingredientAdded.getName()));
             }
+            
             this.addCaloriesDialog.setVisible(false);
         } catch (final SQLException ex) {
-            ex.printStackTrace();
+            this.showError("Error adding temporary ingredient", "Error");
+            LOGGER.error("error", ex);
         }
     }//GEN-LAST:event_addCalorieToTableButtonActionPerformed
 
@@ -2632,11 +2633,7 @@ public class MainWindow extends JFrame {
     }
     
     private Object[] sanitizeNoteForTable(final Note note) {
-        final Object[] rowData = {
-            note.getId()
-           , note.getNote()
-           , note.getCreationDate().format(CREATION_TIME_FORMATTER)
-        };
+        final Object[] rowData = { note.getId(), note.getNote(), note.getCreationDate().format(CREATION_TIME_FORMATTER) };
         
         return rowData;
     }
