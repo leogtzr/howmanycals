@@ -2191,6 +2191,7 @@ public class MainWindow extends JFrame {
         
         final JComboBox categoriesBox = (JComboBox) evt.getSource();
         final String categoryName = categoriesBox.getSelectedItem().toString();
+        
         try {
             final Optional<Category> selectedCategory = this.dao.findCategoryByName(categoryName);
             if (selectedCategory.isPresent()) {
@@ -2209,7 +2210,7 @@ public class MainWindow extends JFrame {
         this.byCategorySearchComboBox.setEnabled(checkBox.isSelected());
         
         try {
-            if (checkBox.isEnabled() == false) {
+            if (!checkBox.isEnabled()) {
                 this.ingredients = this.dao.ingredients();
                 this.buildTableWithIngredients(this.ingredients, this.viewIngredientTable);
             } else {
@@ -2223,8 +2224,7 @@ public class MainWindow extends JFrame {
     }//GEN-LAST:event_byCategorySearchIngredientsCheckBoxActionPerformed
 
     private void resetNotesDialog() {
-        final JTable notesTable = this.notesTable;
-        ((DefaultTableModel) notesTable.getModel()).setRowCount(0);
+        ((DefaultTableModel) this.notesTable.getModel()).setRowCount(0);
     }
     
     private void notesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notesMenuItemActionPerformed
@@ -2255,7 +2255,6 @@ public class MainWindow extends JFrame {
     private void createNoteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNoteMenuItemActionPerformed
         this.newNoteTextPane.setText("");
         this.createNoteDialog.setVisible(true);
-        System.out.println("");
     }//GEN-LAST:event_createNoteMenuItemActionPerformed
 
     private void saveNewNoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveNewNoteButtonActionPerformed
