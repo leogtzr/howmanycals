@@ -329,8 +329,6 @@ public class HowManyCalsDAO {
     public Optional<Category> findCategoryByName(final String categoryName) throws SQLException {
         final String query = "SELECT * FROM category WHERE name = ?";
         
-        final List<NutritionalIngredient> ingredients = new ArrayList<>();
-
         try (final PreparedStatement stmt = this.connection.prepareStatement(query)) {
             stmt.setString(1, categoryName);
             
