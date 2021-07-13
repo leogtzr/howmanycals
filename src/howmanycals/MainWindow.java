@@ -2554,6 +2554,8 @@ public class MainWindow extends JFrame {
     }//GEN-LAST:event_createIngredientFromCurrentValuesBtnActionPerformed
 
     private void openCalorieToAddDialogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openCalorieToAddDialogButtonActionPerformed
+        this.calorieNameToAddTextField.setText("");
+        this.calorieValueToAddTextField.setText("");
         this.addCaloriesDialog.setVisible(true);
     }//GEN-LAST:event_openCalorieToAddDialogButtonActionPerformed
 
