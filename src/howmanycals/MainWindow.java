@@ -1965,11 +1965,7 @@ public class MainWindow extends JFrame {
     }
     
     private void calculateSummaryFromSelectedRows() {
-        final Optional<MealNutritionInformation> summary = 
-                this.calculateSummaryFromTable(this.selectedMealTable, this.ingredients);
-        
-        if (summary.isPresent()) {
-            final MealNutritionInformation mealNutritionFacts = summary.get();
+        this.calculateSummaryFromTable(this.selectedMealTable, this.ingredients).ifPresent(mealNutritionFacts -> {
             this.summaryCaloriesLabel.setText(formatDecimal1(mealNutritionFacts.getCalories()));
             this.summaryProteinLabel.setText(formatDecimal1(mealNutritionFacts.getProtein()));
             this.summarySugarLabel.setText(formatDecimal1(mealNutritionFacts.getSugar()));
@@ -1977,7 +1973,7 @@ public class MainWindow extends JFrame {
             this.summaryFatLabel.setText(formatDecimal1(mealNutritionFacts.getFat()));
             this.summaryCholesterolLabel.setText(formatDecimal1(mealNutritionFacts.getCholesterol()));
             this.summaryGramsLabel.setText(formatDecimal1(mealNutritionFacts.getGrams()));
-        }
+        });
     }
     
     private void viewIngredientTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_viewIngredientTableKeyReleased
