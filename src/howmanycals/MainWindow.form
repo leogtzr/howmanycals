@@ -648,7 +648,11 @@
                               <Component id="summaryFatLabel" alignment="0" max="32767" attributes="0"/>
                               <Component id="summaryCholesterolLabel" alignment="0" pref="253" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="345" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                          <Component id="summaryStaticGramsLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="summaryGramsLabel" min="-2" pref="154" max="-2" attributes="0"/>
+                          <EmptySpace pref="97" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -659,6 +663,8 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="summaryStaticCaloriesLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="summaryCaloriesLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="summaryStaticGramsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="summaryGramsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -761,6 +767,16 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Noto Sans" size="13" style="1"/>
                     </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="summaryStaticGramsLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Grams:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="summaryGramsLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="."/>
                   </Properties>
                 </Component>
               </SubComponents>

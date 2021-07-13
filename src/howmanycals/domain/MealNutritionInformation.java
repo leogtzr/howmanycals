@@ -2,7 +2,7 @@ package howmanycals.domain;
 
 public class MealNutritionInformation {
     
-    private int grams;
+    private double grams;
     private double calories = -1d;
     private double fat = -1d;
     private double sugar = -1d;
@@ -11,11 +11,11 @@ public class MealNutritionInformation {
     private double cholesterol = -1d;
     private double sodium = -1d;
 
-    public int getGrams() {
+    public double getGrams() {
         return grams;
     }
 
-    public void setGrams(final int grams) {
+    public void setGrams(final double grams) {
         this.grams = grams;
     }
 
@@ -78,14 +78,14 @@ public class MealNutritionInformation {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + this.grams;
-        hash = 79 * hash + (int) (Double.doubleToLongBits(this.calories) ^ (Double.doubleToLongBits(this.calories) >>> 32));
-        hash = 79 * hash + (int) (Double.doubleToLongBits(this.fat) ^ (Double.doubleToLongBits(this.fat) >>> 32));
-        hash = 79 * hash + (int) (Double.doubleToLongBits(this.sugar) ^ (Double.doubleToLongBits(this.sugar) >>> 32));
-        hash = 79 * hash + (int) (Double.doubleToLongBits(this.carbohydrates) ^ (Double.doubleToLongBits(this.carbohydrates) >>> 32));
-        hash = 79 * hash + (int) (Double.doubleToLongBits(this.protein) ^ (Double.doubleToLongBits(this.protein) >>> 32));
-        hash = 79 * hash + (int) (Double.doubleToLongBits(this.cholesterol) ^ (Double.doubleToLongBits(this.cholesterol) >>> 32));
-        hash = 79 * hash + (int) (Double.doubleToLongBits(this.sodium) ^ (Double.doubleToLongBits(this.sodium) >>> 32));
+        hash = 23 * hash + (int) (Double.doubleToLongBits(this.grams) ^ (Double.doubleToLongBits(this.grams) >>> 32));
+        hash = 23 * hash + (int) (Double.doubleToLongBits(this.calories) ^ (Double.doubleToLongBits(this.calories) >>> 32));
+        hash = 23 * hash + (int) (Double.doubleToLongBits(this.fat) ^ (Double.doubleToLongBits(this.fat) >>> 32));
+        hash = 23 * hash + (int) (Double.doubleToLongBits(this.sugar) ^ (Double.doubleToLongBits(this.sugar) >>> 32));
+        hash = 23 * hash + (int) (Double.doubleToLongBits(this.carbohydrates) ^ (Double.doubleToLongBits(this.carbohydrates) >>> 32));
+        hash = 23 * hash + (int) (Double.doubleToLongBits(this.protein) ^ (Double.doubleToLongBits(this.protein) >>> 32));
+        hash = 23 * hash + (int) (Double.doubleToLongBits(this.cholesterol) ^ (Double.doubleToLongBits(this.cholesterol) >>> 32));
+        hash = 23 * hash + (int) (Double.doubleToLongBits(this.sodium) ^ (Double.doubleToLongBits(this.sodium) >>> 32));
         return hash;
     }
 

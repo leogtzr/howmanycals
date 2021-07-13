@@ -156,6 +156,8 @@ public class MainWindow extends JFrame {
         summarySugarLabel = new javax.swing.JLabel();
         summaryFatLabel = new javax.swing.JLabel();
         summaryCholesterolLabel = new javax.swing.JLabel();
+        summaryStaticGramsLabel = new javax.swing.JLabel();
+        summaryGramsLabel = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         selectedMealTable = new javax.swing.JTable();
         saveMealButton = new javax.swing.JButton();
@@ -588,6 +590,10 @@ public class MainWindow extends JFrame {
 
         summaryCholesterolLabel.setFont(new java.awt.Font("Noto Sans", 1, 13)); // NOI18N
 
+        summaryStaticGramsLabel.setText("Grams:");
+
+        summaryGramsLabel.setText(".");
+
         javax.swing.GroupLayout valuesSummaryPanelLayout = new javax.swing.GroupLayout(valuesSummaryPanel);
         valuesSummaryPanel.setLayout(valuesSummaryPanelLayout);
         valuesSummaryPanelLayout.setHorizontalGroup(
@@ -609,7 +615,11 @@ public class MainWindow extends JFrame {
                     .addComponent(summarySugarLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(summaryFatLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(summaryCholesterolLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
-                .addContainerGap(345, Short.MAX_VALUE))
+                .addGap(37, 37, 37)
+                .addComponent(summaryStaticGramsLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(summaryGramsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(97, Short.MAX_VALUE))
         );
         valuesSummaryPanelLayout.setVerticalGroup(
             valuesSummaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -617,7 +627,9 @@ public class MainWindow extends JFrame {
                 .addContainerGap()
                 .addGroup(valuesSummaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(summaryStaticCaloriesLabel)
-                    .addComponent(summaryCaloriesLabel))
+                    .addComponent(summaryCaloriesLabel)
+                    .addComponent(summaryStaticGramsLabel)
+                    .addComponent(summaryGramsLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(valuesSummaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(summaryStaticProteinLabel)
@@ -1906,6 +1918,7 @@ public class MainWindow extends JFrame {
         double carbs = 0d;
         double fat = 0d;
         double cholesterol = 0d;
+        double grams = 0d;
         
         final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         
@@ -1927,6 +1940,8 @@ public class MainWindow extends JFrame {
                 carbs += (ingredient.getCarbohydrates() == -1d) ? 0d : ingredient.getCarbohydrates();
                 fat += (ingredient.getFat() == -1d) ? 0d : ingredient.getFat();
                 cholesterol += (ingredient.getCholesterol() == -1d) ? 0d : ingredient.getCholesterol();
+                grams += ingredient.getGrams();
+                
                 if (this.debugEnabled) {
                     System.out.printf("%50s - %.3f\n", ingredient.getName(), ingredient.getCalories());
                 }
@@ -1944,6 +1959,7 @@ public class MainWindow extends JFrame {
         mealNutritionInformation.setCarbohydrates(carbs);
         mealNutritionInformation.setFat(fat);
         mealNutritionInformation.setCholesterol(cholesterol);
+        mealNutritionInformation.setGrams(grams);
         
         return Optional.of(mealNutritionInformation);
     }
@@ -1960,6 +1976,7 @@ public class MainWindow extends JFrame {
             this.summaryCarbsLabel.setText(formatDecimal1(mealNutritionFacts.getCarbohydrates()));
             this.summaryFatLabel.setText(formatDecimal1(mealNutritionFacts.getFat()));
             this.summaryCholesterolLabel.setText(formatDecimal1(mealNutritionFacts.getCholesterol()));
+            this.summaryGramsLabel.setText(formatDecimal1(mealNutritionFacts.getGrams()));
         }
     }
     
@@ -2805,11 +2822,13 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel summaryCarbsLabel;
     private javax.swing.JLabel summaryCholesterolLabel;
     private javax.swing.JLabel summaryFatLabel;
+    private javax.swing.JLabel summaryGramsLabel;
     private javax.swing.JLabel summaryProteinLabel;
     private javax.swing.JLabel summaryStaticCaloriesLabel;
     private javax.swing.JLabel summaryStaticCarbsLabel;
     private javax.swing.JLabel summaryStaticCholesterolLabel;
     private javax.swing.JLabel summaryStaticFatLabel;
+    private javax.swing.JLabel summaryStaticGramsLabel;
     private javax.swing.JLabel summaryStaticProteinLabel;
     private javax.swing.JLabel summaryStaticSugarLabel;
     private javax.swing.JLabel summarySugarLabel;
