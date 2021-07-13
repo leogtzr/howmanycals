@@ -2584,6 +2584,7 @@ public class MainWindow extends JFrame {
                 
                 this.addIngredientToSelectedMeals(ingredientAdded);
                 this.ingredients = this.dao.ingredients();
+                this.calculateSummaryFromSelectedRows();
                 this.actionStatusLabel.setText(String.format("'%s' has been added", ingredientAdded.getName()));
             }
             
