@@ -2635,6 +2635,7 @@ public class MainWindow extends JFrame {
             , ingredient.getName()
             , ingredient.getGrams()
             , ingredient.getCalories() == -1d ? "" : formatDecimal1(ingredient.getCalories())
+            , ingredient.getFat() == -1 ? "" : formatDecimal1(ingredient.getFat())
             , ingredient.getSugar() == -1d ? "" : formatDecimal1(ingredient.getSugar())
             , ingredient.getCarbohydrates() == -1d ? "" : formatDecimal1(ingredient.getCarbohydrates())
             , ingredient.getProtein() == -1d ? "" : formatDecimal1(ingredient.getProtein())

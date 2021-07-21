@@ -441,6 +441,17 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('Ensalada de Nopal San Miguel', 420, 110.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
 
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('100g pechuga pavo dor horno', 100, 101.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) VALUES('100g mezcla vegetal oriental kirkland', 100, 24.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) VALUES('100g arroz de coliflor orgánica congelada', 100, 20.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 3, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) VALUES('100g arroz al vapor bibigo', 100, 149.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 9, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) VALUES('Brownie', 25, 70.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 8, '');
+
 INSERT INTO meal (name, notes) VALUES('600 cals - ham-egg-frijol', 'Parece que tiene algo de proteina.');
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 43);
 INSERT INTO ingredients (id_meal, id_nutrition_ingredient) VALUES(1, 34);
