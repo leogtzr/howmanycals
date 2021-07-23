@@ -1944,7 +1944,7 @@ public class MainWindow extends JFrame {
                 grams += ingredient.getGrams();
                 
                 if (this.debugEnabled) {
-                    System.out.printf("%50s - %.3f\n", ingredient.getName(), ingredient.getCalories());
+                    System.out.printf("%.3f\t|%s\n", ingredient.getCalories(), ingredient.getName());
                 }
             }
         }
