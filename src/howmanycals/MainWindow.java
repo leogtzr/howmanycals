@@ -1838,6 +1838,7 @@ public class MainWindow extends JFrame {
             this.resetSummaryLabels();
             this.populateByCategorySelector();
             this.viewIngredientDialog.setVisible(true);
+            this.searchViewIngredientTextField.setText("");
         } catch (final SQLException ex) {
             LOGGER.error("Error with the database", ex);
             this.showError("Error with the database", ex);
