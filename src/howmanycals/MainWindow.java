@@ -1923,10 +1923,6 @@ public class MainWindow extends JFrame {
         
         final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         
-        if (this.debugEnabled) {
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>");
-        }
-        
         final int rowCount = tableModel.getRowCount();
         for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
             final int dbIdx = (Integer) tableModel.getValueAt(rowIndex, 0);
@@ -2009,6 +2005,7 @@ public class MainWindow extends JFrame {
                     }
                 } catch (final SQLException ex) {
                     LOGGER.error("error getting ingredient from database", ex);
+                    this.showError("error getting ingredient from database", "ERROR");
                 }
             }
         }
@@ -2019,7 +2016,7 @@ public class MainWindow extends JFrame {
         
         if (evt.getClickCount() == 2 && table.getSelectedRow() != -1) {
             final Point point = evt.getPoint();
-            int row = table.rowAtPoint(point);
+            final int row = table.rowAtPoint(point);
             final int nutritionIngredientIdx = (Integer) table.getModel().getValueAt(row, 0);
             
             final Optional<NutritionalIngredient> ingredient = this.findIngredientByIndex(nutritionIngredientIdx, this.ingredients);
@@ -2112,6 +2109,7 @@ public class MainWindow extends JFrame {
         this.carbsSummaryMealLabel.setText("");
         this.staticFatSummaryMealLabel.setText("");
         this.cholesterolSummaryMealLabel.setText("");
+        
         final DefaultTableModel mealsTableModel = (DefaultTableModel) this.viewMealsTable.getModel();
         mealsTableModel.setRowCount(0);
         
@@ -2138,9 +2136,7 @@ public class MainWindow extends JFrame {
         if (searchText.isEmpty()) {
             return;
         }
-        
-        System.out.printf("Searching for -> [%s]\n", searchText);
-        
+                
         ((DefaultTableModel) this.viewSelectedMealTable.getModel()).setRowCount(0);
         
         this.cleanViewMealsTable(this.viewMealsTable);
@@ -2278,10 +2274,7 @@ public class MainWindow extends JFrame {
         
         final String noteText = this.newNoteTextPane.getText();
         try {
-            final Optional<Note> noteSaved = this.dao.createNote(noteText);
-            if (noteSaved.isPresent()) {
-                this.createNoteDialog.setVisible(false);
-            }
+            this.dao.createNote(noteText).ifPresent(note -> this.createNoteDialog.setVisible(false));
         } catch (final SQLException ex) {
             this.showError("Error creating note", "Error");
             LOGGER.error("error creating note", ex);
