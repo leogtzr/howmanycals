@@ -1903,6 +1903,7 @@ public class MainWindow extends JFrame {
         this.summaryCarbsLabel.setText("");
         this.summaryFatLabel.setText("");
         this.summaryCholesterolLabel.setText("");
+        this.summaryGramsLabel.setText("");
     }
     
     private Optional<MealNutritionInformation> calculateSummaryFromTable(
@@ -2848,7 +2849,6 @@ public class MainWindow extends JFrame {
     }
 
     private static class EnterKeyTableActionImpl extends AbstractAction {
-        
         private final MainWindow window;
 
         public EnterKeyTableActionImpl(final MainWindow window) {
