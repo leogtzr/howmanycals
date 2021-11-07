@@ -1,5 +1,3 @@
-// TODO: edit meals
-// TODO: update ingredients with references.
 package howmanycals;
 
 import howmanycals.db.dao.HowManyCalsDAO;
