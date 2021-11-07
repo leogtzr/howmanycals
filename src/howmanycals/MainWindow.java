@@ -44,8 +44,12 @@ import java.io.IOException;
 
 import static howmanycals.utils.FormatUtils.formatDecimal1;
 import java.awt.Desktop;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Properties;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 
@@ -68,11 +72,16 @@ public class MainWindow extends JFrame {
         this.dao.init();
     }
 
-    public MainWindow() {
+    public MainWindow(final String propFileArg) {
         this.initDatabase();
         this.initComponents();
         this.postComponentsSetup();
         this.initConfig();
+        try {
+            this.initMuscleGainInformationFromPropertiesFile(propFileArg);
+        } catch (final IOException ex) {
+            throw new RuntimeException("error reading muscle gain configuration file", ex);
+        }
     }
     
     private void initConfig() {
@@ -261,6 +270,7 @@ public class MainWindow extends JFrame {
         dataMissingAnalysisButton = new javax.swing.JMenuItem();
         aboutMenu = new javax.swing.JMenu();
         aboutMenuItem = new javax.swing.JMenuItem();
+        muscleGainMenu = new javax.swing.JMenu();
 
         addEditIngredientDialog.setTitle("Add Ingredient");
         addEditIngredientDialog.setMinimumSize(new java.awt.Dimension(430, 540));
@@ -1658,6 +1668,9 @@ public class MainWindow extends JFrame {
 
         menuBar.add(aboutMenu);
 
+        muscleGainMenu.setText("Muscle Gain");
+        menuBar.add(muscleGainMenu);
+
         setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -2655,7 +2668,8 @@ public class MainWindow extends JFrame {
     }
     
     public static void main(final String args[]) {
-        /* Set the Nimbus look and feel */
+        final String propFileArg = args.length > 0 ? args[0] : "";
+        // LOGGER.debug(String.format("Arg: %d - %s", args.length, propFileArg));
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -2674,7 +2688,7 @@ public class MainWindow extends JFrame {
         
         //</editor-fold>
 
-        java.awt.EventQueue.invokeLater(() -> new MainWindow().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new MainWindow(propFileArg).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2752,6 +2766,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JPanel mealSummaryPanel;
     private javax.swing.JTabbedPane mealSummaryTabbedPanel;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenu muscleGainMenu;
     private javax.swing.JTextField newIngredientCaloriesField;
     private javax.swing.JLabel newIngredientCaloriesLabel;
     private javax.swing.JTextField newIngredientCarbohydratesField;
@@ -2846,6 +2861,16 @@ public class MainWindow extends JFrame {
             , meal.getNotes()
         };
         tableModel.addRow(mealRowData);
+    }
+
+    private void initMuscleGainInformationFromPropertiesFile(final String propFileArg) throws IOException {
+        LOGGER.debug(String.format("Trying to read: %s properties file", propFileArg));
+        
+        final Properties properties = new Properties();
+        try (final InputStream is = Files.newInputStream(Paths.get(propFileArg))) {
+            properties.load(is);
+            LOGGER.debug(properties.toString());
+        }
     }
 
     private static class EnterKeyTableActionImpl extends AbstractAction {

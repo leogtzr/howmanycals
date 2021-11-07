@@ -30,13 +30,13 @@ public class HowManyCalsDAO {
         for (final String envVar : envVars) {
             final String env = System.getenv(envVar);
             if (env == null || env.isBlank()) {
-                throw new RuntimeException(String.format("'%s' env var is empty or null", envVar));
+                throw new RuntimeException(String.format("'%s' environment variable is not set.", envVar));
             }
         }
     }
     
     public void init() {
-        validateEnvironmentVariables("HOWMANYCALS_DB_USER", "HOWMANYCALS_DB_PASSWORD", "HOWMANYCALS_DB", "HOWMANYCALS_JDBC_URL");
+        this.validateEnvironmentVariables("HOWMANYCALS_DB_USER", "HOWMANYCALS_DB_PASSWORD", "HOWMANYCALS_DB", "HOWMANYCALS_JDBC_URL");
         
         final String dbUserName = System.getenv("HOWMANYCALS_DB_USER");
         final String dbPassword = System.getenv("HOWMANYCALS_DB_PASSWORD");
@@ -97,10 +97,10 @@ public class HowManyCalsDAO {
     
     public List<NutritionalIngredient> ingredients() throws SQLException {
         final String query = """
-                             SELECT nut.*, cat.id AS cat_id, cat.name AS cat_name
-                             FROM nutrition_ingredient nut
-                             INNER JOIN category cat
-                             ON cat.id = nut.id_category""";
+            SELECT nut.*, cat.id AS cat_id, cat.name AS cat_name
+            FROM nutrition_ingredient nut
+                INNER JOIN category cat
+                                    ON cat.id = nut.id_category""";
         
         final List<NutritionalIngredient> ingredients = new ArrayList<>();
 
@@ -132,7 +132,6 @@ public class HowManyCalsDAO {
             stmt.setString(11, ingredient.getNotes());
             
             LOGGER.debug(stmt.toString());
-            System.out.println(stmt.toString());
             
             final int affectedRows = stmt.executeUpdate();
 

@@ -120,6 +120,9 @@ INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes, ref
     VALUES('100g pechuga pollo hervida', 100, 107, 4, 'From "cuantas calorias tiene una pechuga hervida"', 
         'https://www.fatsecret.com.mx/calor%C3%ADas-nutrici%C3%B3n/gen%C3%A9rico/pechuga-de-pollo-hervida'
     );
+
+INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes, ref_link) VALUES('100g pechuga pollo COSTCO', 100, 110, 4, '', '');
+
 INSERT INTO nutrition_ingredient (name, grams, calories, id_category, notes, ref_link) 
     VALUES('200g pechuga pollo hervida', 200, 214, 4, 'From "cuantas calorias tiene una pechuga hervida"',
         'https://www.fatsecret.com.mx/calor%C3%ADas-nutrici%C3%B3n/gen%C3%A9rico/pechuga-de-pollo-hervida'
@@ -434,6 +437,9 @@ INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrate
 
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('Pan Europeo', 30, 78.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 8, '');
+
+INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
+    VALUES('Rebanada Bimbo Cero Cero', 25, 65.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 8, '');
 
 INSERT INTO nutrition_ingredient(name, grams, calories, fat, sugar, carbohydrates, protein, cholesterol, sodium, id_category, notes) 
     VALUES('Mazatún/Mazatun', 90, 80.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 4, '');

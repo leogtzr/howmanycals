@@ -2269,6 +2269,11 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="muscleGainMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Muscle Gain"/>
+          </Properties>
+        </Menu>
       </SubComponents>
     </Menu>
   </NonVisualComponents>
