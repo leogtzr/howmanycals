@@ -7,6 +7,9 @@ import howmanycals.domain.MealNutritionInformation;
 import howmanycals.domain.Note;
 import howmanycals.domain.NutritionalIngredient;
 import howmanycals.domain.email.MealEmail;
+import howmanycals.domain.mga.BMR;
+import howmanycals.domain.mga.HarrisBenedict;
+import howmanycals.domain.mga.IndividualInformation;
 import howmanycals.utils.Constants;
 import howmanycals.utils.EmailSenderUtil;
 import howmanycals.utils.InformationMissingAnalysisUtil;
@@ -41,6 +44,7 @@ import howmanycals.utils.SummaryUtil;
 import java.io.IOException;
 
 import static howmanycals.utils.FormatUtils.formatDecimal1;
+import howmanycals.utils.IndividualInformationUtils;
 import java.awt.Desktop;
 import java.io.InputStream;
 import java.net.URI;
@@ -269,6 +273,7 @@ public class MainWindow extends JFrame {
         aboutMenu = new javax.swing.JMenu();
         aboutMenuItem = new javax.swing.JMenuItem();
         muscleGainMenu = new javax.swing.JMenu();
+        surplusMenuItem = new javax.swing.JMenuItem();
 
         addEditIngredientDialog.setTitle("Add Ingredient");
         addEditIngredientDialog.setMinimumSize(new java.awt.Dimension(430, 540));
@@ -1667,6 +1672,10 @@ public class MainWindow extends JFrame {
         menuBar.add(aboutMenu);
 
         muscleGainMenu.setText("Muscle Gain");
+
+        surplusMenuItem.setText("Surplus");
+        muscleGainMenu.add(surplusMenuItem);
+
         menuBar.add(muscleGainMenu);
 
         setJMenuBar(menuBar);
@@ -2837,6 +2846,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel summaryStaticProteinLabel;
     private javax.swing.JLabel summaryStaticSugarLabel;
     private javax.swing.JLabel summarySugarLabel;
+    private javax.swing.JMenuItem surplusMenuItem;
     private javax.swing.JPanel valuesSummaryPanel;
     private javax.swing.JDialog viewIngredientDialog;
     private javax.swing.JMenuItem viewIngredientMenuItem;
@@ -2867,6 +2877,11 @@ public class MainWindow extends JFrame {
         final Properties properties = new Properties();
         try (final InputStream is = Files.newInputStream(Paths.get(propFileArg))) {
             properties.load(is);
+            
+            final IndividualInformation individualInformation = IndividualInformationUtils.fromProperties(properties);
+            LOGGER.info("BMR -> {}", new BMR(individualInformation).calculate());
+            LOGGER.info("HarrisBenedict -> {}", new HarrisBenedict(individualInformation).calculate());
+            
             LOGGER.debug(properties.toString());
         }
     }

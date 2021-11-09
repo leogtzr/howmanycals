@@ -2273,6 +2273,13 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Muscle Gain"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="surplusMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Surplus"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>
