@@ -76,6 +76,7 @@ public class IndividualInformation {
         if (getClass() != obj.getClass()) {
             return false;
         }
+  
         final IndividualInformation other = (IndividualInformation) obj;
         if (Double.doubleToLongBits(this.weight) != Double.doubleToLongBits(other.weight)) {
             return false;
@@ -97,8 +98,14 @@ public class IndividualInformation {
 
     @Override
     public String toString() {
-        return "IndividualInformation{" + "weight=" + weight + ", height=" + height + ", age=" + age + ", gender=" + gender + 
-                ", physicalActivityLevel=" + physicalActivityLevel + '}';
+        final String info = String.format("%d kg, age: %d (%s) (%s)", 
+                (int) this.weight
+                , this.age
+                , this.gender
+                , this.physicalActivityLevel.description()
+        );
+        
+        return info;
     }
     
     

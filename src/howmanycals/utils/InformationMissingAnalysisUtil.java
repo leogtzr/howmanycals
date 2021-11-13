@@ -29,8 +29,6 @@ public final class InformationMissingAnalysisUtil {
         private void analyze() {
             final int size = this.ingredients.size();
             
-            System.out.println(size);
-            
             int fatCount = 0;
             int sugarCount = 0;
             int carbsCount = 0;

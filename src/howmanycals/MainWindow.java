@@ -51,6 +51,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.Properties;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
@@ -68,6 +69,7 @@ public class MainWindow extends JFrame {
     private int editIngredientID = -1;
     private NutritionalIngredient ingredientForAnalysisWithSlider = null;
     private boolean debugEnabled;
+    private IndividualInformation individualInformation;
 
     private void initDatabase() {
         this.dao = new HowManyCalsDAO();
@@ -79,10 +81,11 @@ public class MainWindow extends JFrame {
         this.initComponents();
         this.postComponentsSetup();
         this.initConfig();
-        try {
-            this.initMuscleGainInformationFromPropertiesFile(propFileArg);
-        } catch (final IOException ex) {
-            throw new RuntimeException("error reading muscle gain configuration file", ex);
+        final Optional<IndividualInformation> possibleIndividualInformation = 
+                this.initMuscleGainInformationFromPropertiesFile(propFileArg);
+        
+        if (possibleIndividualInformation.isPresent()) {
+            this.individualInformation = possibleIndividualInformation.get();
         }
     }
     
@@ -258,6 +261,27 @@ public class MainWindow extends JFrame {
         jLabel14 = new javax.swing.JLabel();
         calorieValueToAddTextField = new javax.swing.JTextField();
         addCalorieToTableButton = new javax.swing.JButton();
+        surplusInfoDialog = new javax.swing.JDialog();
+        okBtnSurplusInformation = new javax.swing.JButton();
+        surplusInfoLabelIndividualInformation = new javax.swing.JLabel();
+        bmrLabelSurplusStaticLabel = new javax.swing.JLabel();
+        bmrLabelSurplusLabel = new javax.swing.JLabel();
+        harrisBenedictSurplusStaticLabel = new javax.swing.JLabel();
+        harrisBenedictSurplusLabel = new javax.swing.JLabel();
+        surplus5PercentStaticLabel = new javax.swing.JLabel();
+        surplus5PercentLabel = new javax.swing.JLabel();
+        surplus10PercentStaticLabel = new javax.swing.JLabel();
+        surplus10PercentLabel = new javax.swing.JLabel();
+        surplus15PercentStaticLabel = new javax.swing.JLabel();
+        surplus15PercentLabel = new javax.swing.JLabel();
+        surplus20PercentStaticLabel = new javax.swing.JLabel();
+        surplus20PercentLabel = new javax.swing.JLabel();
+        deficit10StaticLabel = new javax.swing.JLabel();
+        deficit10Label = new javax.swing.JLabel();
+        deficit15StaticLabel = new javax.swing.JLabel();
+        deficit15Label = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        deficit20Label = new javax.swing.JLabel();
         viewMealsButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
@@ -1571,6 +1595,164 @@ public class MainWindow extends JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        surplusInfoDialog.setTitle("Surplus Information");
+        surplusInfoDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        surplusInfoDialog.setPreferredSize(new java.awt.Dimension(550, 344));
+        surplusInfoDialog.setResizable(false);
+        surplusInfoDialog.setSize(new java.awt.Dimension(550, 300));
+
+        okBtnSurplusInformation.setMnemonic('O');
+        okBtnSurplusInformation.setText("OK");
+        okBtnSurplusInformation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okBtnSurplusInformationActionPerformed(evt);
+            }
+        });
+
+        surplusInfoLabelIndividualInformation.setText(":");
+
+        bmrLabelSurplusStaticLabel.setBackground(new java.awt.Color(191, 216, 242));
+        bmrLabelSurplusStaticLabel.setFont(new java.awt.Font("Noto Sans", 1, 13)); // NOI18N
+        bmrLabelSurplusStaticLabel.setForeground(new java.awt.Color(62, 94, 227));
+        bmrLabelSurplusStaticLabel.setText("BMR");
+
+        bmrLabelSurplusLabel.setText("...");
+
+        harrisBenedictSurplusStaticLabel.setFont(new java.awt.Font("Noto Sans", 1, 13)); // NOI18N
+        harrisBenedictSurplusStaticLabel.setForeground(new java.awt.Color(60, 142, 236));
+        harrisBenedictSurplusStaticLabel.setText("Harris-Benedict");
+
+        harrisBenedictSurplusLabel.setText("...");
+
+        surplus5PercentStaticLabel.setFont(new java.awt.Font("Noto Sans", 1, 13)); // NOI18N
+        surplus5PercentStaticLabel.setForeground(new java.awt.Color(46, 152, 228));
+        surplus5PercentStaticLabel.setText("Surplus 5%");
+
+        surplus5PercentLabel.setText("...");
+
+        surplus10PercentStaticLabel.setFont(new java.awt.Font("Noto Sans", 1, 13)); // NOI18N
+        surplus10PercentStaticLabel.setForeground(new java.awt.Color(115, 132, 230));
+        surplus10PercentStaticLabel.setText("Surplus 10%");
+
+        surplus10PercentLabel.setText("...");
+
+        surplus15PercentStaticLabel.setFont(new java.awt.Font("Noto Sans", 1, 13)); // NOI18N
+        surplus15PercentStaticLabel.setForeground(new java.awt.Color(73, 129, 243));
+        surplus15PercentStaticLabel.setText("Surplus 15%");
+
+        surplus15PercentLabel.setText("...");
+
+        surplus20PercentStaticLabel.setFont(new java.awt.Font("Noto Sans", 1, 13)); // NOI18N
+        surplus20PercentStaticLabel.setForeground(new java.awt.Color(97, 155, 233));
+        surplus20PercentStaticLabel.setText("Surplus 20%");
+
+        surplus20PercentLabel.setText("...");
+
+        deficit10StaticLabel.setFont(new java.awt.Font("Noto Sans", 1, 13)); // NOI18N
+        deficit10StaticLabel.setForeground(java.awt.Color.magenta);
+        deficit10StaticLabel.setText("Deficit 10%");
+
+        deficit10Label.setText("...");
+
+        deficit15StaticLabel.setFont(new java.awt.Font("Noto Sans", 1, 13)); // NOI18N
+        deficit15StaticLabel.setForeground(java.awt.Color.magenta);
+        deficit15StaticLabel.setText("Deficit 15%");
+
+        deficit15Label.setText("...");
+
+        jLabel16.setFont(new java.awt.Font("Noto Sans", 1, 13)); // NOI18N
+        jLabel16.setForeground(java.awt.Color.magenta);
+        jLabel16.setText("Deficit 20%");
+
+        deficit20Label.setText("...");
+
+        javax.swing.GroupLayout surplusInfoDialogLayout = new javax.swing.GroupLayout(surplusInfoDialog.getContentPane());
+        surplusInfoDialog.getContentPane().setLayout(surplusInfoDialogLayout);
+        surplusInfoDialogLayout.setHorizontalGroup(
+            surplusInfoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(surplusInfoDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(surplusInfoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(surplusInfoLabelIndividualInformation)
+                    .addGroup(surplusInfoDialogLayout.createSequentialGroup()
+                        .addComponent(bmrLabelSurplusStaticLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bmrLabelSurplusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(surplusInfoDialogLayout.createSequentialGroup()
+                        .addGroup(surplusInfoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(harrisBenedictSurplusStaticLabel)
+                            .addComponent(surplus5PercentStaticLabel)
+                            .addComponent(surplus10PercentStaticLabel)
+                            .addComponent(surplus15PercentStaticLabel)
+                            .addComponent(surplus20PercentStaticLabel)
+                            .addComponent(deficit10StaticLabel)
+                            .addComponent(deficit15StaticLabel)
+                            .addComponent(jLabel16))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(surplusInfoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(deficit15Label)
+                            .addComponent(deficit10Label)
+                            .addComponent(surplus20PercentLabel)
+                            .addComponent(harrisBenedictSurplusLabel)
+                            .addComponent(surplus5PercentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(surplus10PercentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(surplus15PercentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(surplusInfoDialogLayout.createSequentialGroup()
+                                .addComponent(deficit20Label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 355, Short.MAX_VALUE)
+                                .addComponent(okBtnSurplusInformation)))))
+                .addGap(28, 28, 28))
+        );
+        surplusInfoDialogLayout.setVerticalGroup(
+            surplusInfoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, surplusInfoDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(surplusInfoLabelIndividualInformation)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(surplusInfoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bmrLabelSurplusStaticLabel)
+                    .addComponent(bmrLabelSurplusLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(surplusInfoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(harrisBenedictSurplusStaticLabel)
+                    .addComponent(harrisBenedictSurplusLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(surplusInfoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(surplus5PercentStaticLabel)
+                    .addComponent(surplus5PercentLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(surplusInfoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(surplus10PercentStaticLabel)
+                    .addComponent(surplus10PercentLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(surplusInfoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(surplus15PercentStaticLabel)
+                    .addComponent(surplus15PercentLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(surplusInfoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(surplus20PercentStaticLabel)
+                    .addComponent(surplus20PercentLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(surplusInfoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deficit10StaticLabel)
+                    .addComponent(deficit10Label))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(surplusInfoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deficit15StaticLabel)
+                    .addComponent(deficit15Label))
+                .addGroup(surplusInfoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(surplusInfoDialogLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(surplusInfoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel16)
+                            .addComponent(deficit20Label))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, surplusInfoDialogLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addComponent(okBtnSurplusInformation)
+                        .addGap(68, 68, 68))))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HowManyCals v0.1");
 
@@ -1671,9 +1853,15 @@ public class MainWindow extends JFrame {
 
         menuBar.add(aboutMenu);
 
+        muscleGainMenu.setMnemonic('M');
         muscleGainMenu.setText("Muscle Gain");
 
         surplusMenuItem.setText("Surplus");
+        surplusMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                surplusMenuItemActionPerformed(evt);
+            }
+        });
         muscleGainMenu.add(surplusMenuItem);
 
         menuBar.add(muscleGainMenu);
@@ -2623,6 +2811,34 @@ public class MainWindow extends JFrame {
         }
     }//GEN-LAST:event_addCalorieToTableButtonActionPerformed
 
+    private void surplusMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_surplusMenuItemActionPerformed
+        Objects.nonNull(this.individualInformation);
+        
+        this.surplusInfoLabelIndividualInformation.setText(this.individualInformation.toString());
+        
+        final BMR bmr = new BMR(this.individualInformation);
+        this.bmrLabelSurplusLabel.setText(String.format("%.1f kcal", bmr.calculate()));
+        
+        final HarrisBenedict harrisBenedict = new HarrisBenedict(this.individualInformation);
+        final double harrisBenedictValue = harrisBenedict.calculate();
+        this.harrisBenedictSurplusLabel.setText(String.format("%.1f kcal", harrisBenedictValue));
+        
+        this.surplus5PercentLabel.setText(String.format("%.1f kcal", (harrisBenedictValue * 0.05) + harrisBenedictValue));
+        this.surplus10PercentLabel.setText(String.format("%.1f kcal", (harrisBenedictValue * 0.1) + harrisBenedictValue));
+        this.surplus15PercentLabel.setText(String.format("%.1f kcal", (harrisBenedictValue * 0.15) + harrisBenedictValue));
+        this.surplus20PercentLabel.setText(String.format("%.1f kcal", (harrisBenedictValue * 0.2) + harrisBenedictValue));
+        
+        this.deficit10Label.setText(String.format("%.1f kcal", harrisBenedictValue - (harrisBenedictValue * 0.1)));
+        this.deficit15Label.setText(String.format("%.1f kcal", harrisBenedictValue - (harrisBenedictValue * 0.15)));
+        this.deficit20Label.setText(String.format("%.1f kcal", harrisBenedictValue - (harrisBenedictValue * 0.2)));
+        
+        this.surplusInfoDialog.setVisible(true);
+    }//GEN-LAST:event_surplusMenuItemActionPerformed
+
+    private void okBtnSurplusInformationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okBtnSurplusInformationActionPerformed
+        this.surplusInfoDialog.setVisible(false);
+    }//GEN-LAST:event_okBtnSurplusInformationActionPerformed
+
     private void buildTableWithIngredients(final List<NutritionalIngredient> ingredientsToAdd, final JTable table) {
         final DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         tableModel.setRowCount(0);
@@ -2706,6 +2922,8 @@ public class MainWindow extends JFrame {
     private javax.swing.JDialog addCaloriesDialog;
     private javax.swing.JDialog addEditIngredientDialog;
     private javax.swing.JMenuItem addIngredientMenuItem;
+    private javax.swing.JLabel bmrLabelSurplusLabel;
+    private javax.swing.JLabel bmrLabelSurplusStaticLabel;
     private javax.swing.JComboBox<String> byCategorySearchComboBox;
     private javax.swing.JCheckBox byCategorySearchIngredientsCheckBox;
     private javax.swing.JTextField calorieNameToAddTextField;
@@ -2730,6 +2948,11 @@ public class MainWindow extends JFrame {
     private javax.swing.JMenuItem dataMissingAnalysisButton;
     private javax.swing.JDialog dataMissingDialog;
     private javax.swing.JLabel dateViewNoteDialogLabel;
+    private javax.swing.JLabel deficit10Label;
+    private javax.swing.JLabel deficit10StaticLabel;
+    private javax.swing.JLabel deficit15Label;
+    private javax.swing.JLabel deficit15StaticLabel;
+    private javax.swing.JLabel deficit20Label;
     private javax.swing.JButton editSelectedIngredientButton;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JLabel fatPercentageMissingRateLabel;
@@ -2738,6 +2961,8 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel gramsAnalysisStaticLabel;
     private javax.swing.JLabel gramsSliderDynamicLabel;
     private javax.swing.JLabel gramsSliderStaticLabel;
+    private javax.swing.JLabel harrisBenedictSurplusLabel;
+    private javax.swing.JLabel harrisBenedictSurplusStaticLabel;
     private javax.swing.JLabel ingredientReferenceLinkURL;
     private javax.swing.JDialog ingredientSlideAnalysis;
     private javax.swing.JSlider ingredientSlider;
@@ -2749,6 +2974,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -2803,6 +3029,7 @@ public class MainWindow extends JFrame {
     private javax.swing.JMenuItem notesMenuItem;
     private javax.swing.JMenuItem notesNewMenuItem;
     private javax.swing.JTable notesTable;
+    private javax.swing.JButton okBtnSurplusInformation;
     private javax.swing.JButton okCloseDataMissingDialogButton;
     private javax.swing.JButton okViewIngredientButton;
     private javax.swing.JButton openCalorieToAddDialogButton;
@@ -2846,6 +3073,16 @@ public class MainWindow extends JFrame {
     private javax.swing.JLabel summaryStaticProteinLabel;
     private javax.swing.JLabel summaryStaticSugarLabel;
     private javax.swing.JLabel summarySugarLabel;
+    private javax.swing.JLabel surplus10PercentLabel;
+    private javax.swing.JLabel surplus10PercentStaticLabel;
+    private javax.swing.JLabel surplus15PercentLabel;
+    private javax.swing.JLabel surplus15PercentStaticLabel;
+    private javax.swing.JLabel surplus20PercentLabel;
+    private javax.swing.JLabel surplus20PercentStaticLabel;
+    private javax.swing.JLabel surplus5PercentLabel;
+    private javax.swing.JLabel surplus5PercentStaticLabel;
+    private javax.swing.JDialog surplusInfoDialog;
+    private javax.swing.JLabel surplusInfoLabelIndividualInformation;
     private javax.swing.JMenuItem surplusMenuItem;
     private javax.swing.JPanel valuesSummaryPanel;
     private javax.swing.JDialog viewIngredientDialog;
@@ -2871,7 +3108,7 @@ public class MainWindow extends JFrame {
         tableModel.addRow(mealRowData);
     }
 
-    private void initMuscleGainInformationFromPropertiesFile(final String propFileArg) throws IOException {
+    private Optional<IndividualInformation> initMuscleGainInformationFromPropertiesFile(final String propFileArg) {
         LOGGER.debug(String.format("Trying to read: %s properties file", propFileArg));
         
         final Properties properties = new Properties();
@@ -2883,6 +3120,12 @@ public class MainWindow extends JFrame {
             LOGGER.info("HarrisBenedict -> {}", new HarrisBenedict(individualInformation).calculate());
             
             LOGGER.debug(properties.toString());
+            
+            return Optional.of(individualInformation);
+        } catch (final IOException ex) {
+            LOGGER.error("error reading properties file with muscle gain info", ex);
+            
+            return Optional.empty();
         }
     }
 
