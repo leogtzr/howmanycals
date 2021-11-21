@@ -2425,17 +2425,18 @@ public class MainWindow extends JFrame {
     }//GEN-LAST:event_byCategorySearchComboBoxActionPerformed
 
     private void byCategorySearchIngredientsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_byCategorySearchIngredientsCheckBoxActionPerformed
-        final JCheckBox checkBox = (JCheckBox) evt.getSource();
-        this.byCategorySearchComboBox.setEnabled(checkBox.isSelected());
+        final JCheckBox byCategoryCheckBox = (JCheckBox) evt.getSource();
+        this.byCategorySearchComboBox.setEnabled(byCategoryCheckBox.isSelected());
         
         try {
-            if (!checkBox.isEnabled()) {
+            if (!byCategoryCheckBox.isEnabled()) {
                 this.ingredients = this.dao.ingredients();
                 this.buildTableWithIngredients(this.ingredients, this.viewIngredientTable);
             } else {
                 this.resetViewIngredientTable();
-                this.buildTableWithIngredients(this.ingredients, this.viewIngredientTable);
             }
+            
+            this.buildTableWithIngredients(this.ingredients, this.viewIngredientTable);
         } catch (final SQLException ex) {
             this.showError("Error connecting to the database", "ERROR");
             LOGGER.error("Error connecting to the database", ex);
